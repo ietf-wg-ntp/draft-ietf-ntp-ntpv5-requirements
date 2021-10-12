@@ -1,0 +1,7 @@
+<note title="Discussion Venues" removeInRFC="true">
+<t>Discussion of this document takes place on the
+    Network Time Protocol Working Group mailing list (ntp@ietf.org),
+    which is archived at <eref target="https://mailarchive.ietf.org/arch/browse/ntp/"/>.</t>
+<t>Source for this draft and an issue tracker can be found at
+    <eref target="https://github.com/fiestajetsam/draft-gruessing-ntp-ntpv5-requirements"/>.</t>
+</note>
