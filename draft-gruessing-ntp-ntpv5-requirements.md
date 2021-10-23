@@ -191,13 +191,7 @@ MUST ignore unknown extensions. Unknown extensions received by a server from a
 lower stratum server SHALL not be added to response messages sent by the server
 receiving these extensions.
 
-# IANA Considerations
-
-Considerations should be made about the future of the existing IANA registry
-for NTPv4 parameters. If NTPv5 becomes incompatible with these parameters a new
-registry SHOULD be created.
-
-# Security Considerations
+## Security Related Requirements
 
 Encryption and authentication MUST be provided by the protocol specification as
 a default and MUST be resistant to downgrade attacks. The encryption used must
@@ -214,13 +208,19 @@ Detection and reporting of server malfeasance SHOULD remain out of scope of this
 specification as {{!I-D.ietf-ntp-roughtime}} already provides this capability as
 a core functionality of the protocol.
 
-## Threat model
+## Updates to IANA registries
+
+Considerations should be made about the future of the existing IANA registry
+for NTPv4 parameters. If NTPv5 becomes incompatible with these parameters a new
+registry SHOULD be created.
+
+# Threat model
 
 TODO: Describe the assumptions which support this model, separating those which
 can be generic to any deployment, and those that are more industry or deployment
 specific.
 
-### Delay-based attacks
+## Delay-based attacks
 
 The risk that an on-path attacker can delay packets between a client and server
 exists in all time protocols operating on insecure networks and its mitigations
@@ -228,7 +228,7 @@ are limited within the protocol with a clock which is not yet synchronised.
 Increased path diversity and protocol support for synchronisation across
 multiple heterogeneous sources are likely the most effective mitigations.
 
-### Payload manipulation
+## Payload manipulation
 
 Conversely on-path attackers who can manipulate timestamps could also speed up a
 client's clock, also resulting into drift-related malfunctions and errors such
@@ -238,7 +238,7 @@ de-synchronisation. In both cases having message authentication with a regular
 key rotation interval should mitigate; however consideration should be made for
 hardware based timestamping.
 
-### Denial of Service and Amplification
+## Denial of Service and Amplification
 
 NTPv4 has previously suffered from DDoS amplification attacks using a
 combination of IP address spoofing with a private mode commands used in many NTP
@@ -249,6 +249,15 @@ operators to implement BCP 38 {{RFC2827}}. Additional mitigations in future
 protocol specification should reduce the amplification factor in
 request/response payload sizes {{drdos-amplification}} through the use of
 padding and consideration of payload data.
+
+# IANA Considerations
+
+This document makes no requests of IANA.
+
+# Security Considerations
+
+As this document is intended to create discussion and consensus and introduces
+no security considerations of its own.
 
 --- back
 
