@@ -8,6 +8,11 @@ author:
     -
       ins: J. Gruessing
       name: James Gruessing
+      organization: Nederlandse Publieke Omroep
+      street: Postbus 26444
+      code: 1202 JJ
+      city: Hilversum
+      country: Netherlands
       email: james.ietf@gmail.com
 
 ipr: trust200902
