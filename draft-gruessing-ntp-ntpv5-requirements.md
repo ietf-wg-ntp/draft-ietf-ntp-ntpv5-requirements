@@ -95,7 +95,8 @@ protocol are possible.
 
 At a high level, NTPv5 should be a protocol that is capable of operating in both
 local networks and also over public internet connections where packet loss,
-delay, and even filtering may occur.
+delay, and even filtering may occur. It should be able to provide enough
+information for both basic time information as well as synchronisation.
 
 ## Resource management
 
