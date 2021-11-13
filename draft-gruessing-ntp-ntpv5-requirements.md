@@ -108,34 +108,33 @@ NOT be a FQDN, an IP address or identifier tied to a public certificate. Servers
 SHOULD be able to migrate and change their identifiers as stratum topologies or
 network configuration changes occur.
 
-The specification MUST have support for servers to notify clients that the
+The protocol MUST have the capability for servers to notify clients that the
 service is unavailable, and clients MUST have clearly defined behaviours
-honouring this signalling. In addition to this servers SHOULD be able to
-communicate to clients that they should reduce their query interval rate when
-the server is under high bandwidth or has reduced capacity.
+honouring this signalling. In addition servers SHOULD be able to communicate to
+clients that they should reduce their query interval rate when the server is
+under high bandwidth or has reduced capacity.
 
 Clients SHOULD re-establish connections with servers at an interval to prevent
 attempting to maintain connectivity to a dead host and give network operators
 the ability to move traffic away from hosts in a timely manner.
 
-The specification SHOULD have provisions for deployments where Network Address
+The protocol SHOULD have provisions for deployments where Network Address
 Translation occurs, and define behaviours when NAT rebinding occurs. This should
 also not compromise any DDoS mitigation(s) that the protocol may define.
 
 ## Algorithms
 
-Algorithms describing functions such as clock filtering, selection and
-clustering SHOULD be omitted from the protocol specification; the specification
-should instead only provide what is necessary to describe protocol semantics and
-normative behaviours.
+The use of algorithms describing functions such as clock filtering, selection
+and clustering SHOULD have agility, allowing for implementations to develop and
+deploy new algorithms independantly. Signalling of algorithm use or preference
+SHOULD NOT be transmitted by servers.
 
 The working group should consider creating a separate informational document to
 describe an algorithm to assist with implementation, and to consider adopting
 future documents which describe new algorithms as they are developed. Specifying
 client algorithms separately from the protocol allows will allow NTPv5 to meet
 the needs of applications with a variety of network properties and performance
-requirements. It also allows for innovation in implementations without
-sacrificing basic interoperability.
+requirements.
 
 ## Timescales
 
@@ -155,16 +154,14 @@ timescale in use.
 
 ## Leap seconds
 
-Support for UTC leap second information MUST be included in the protocol
-specification in order for clients to generate a UTC representation but must be
-transmitted as separate information to the timescale. The specification SHOULD
-also be capable of transmitting upcoming leap seconds greater than 1 calendar
-day in advance.
+Tranmission of UTC leap second information MUST be included in the protocol in
+order for clients to generate a UTC representation but must be transmitted as
+separate information to the timescale. The specification SHOULD also be capable
+of transmitting upcoming leap seconds greater than 1 calendar day in advance.
 
-Leap second smearing SHOULD NOT be part of the wire specification, however this
-should not prevent implementers from applying leap second smearing between the
-client and any clock it is training but MUST NOT be applied to downstream
-clients.
+Leap second smearing SHOULD NOT be applied to timestamps transmitted by the
+server, however this should not prevent implementers from applying leap second
+smearing between the client and any clock it is training.
 
 ## Backwards compatibility to NTS and NTPv4
 
@@ -196,34 +193,41 @@ MUST ignore unknown extensions. Unknown extensions received by a server from a
 lower stratum server SHALL not be added to response messages sent by the server
 receiving these extensions.
 
-## Security Related Requirements
+## Security
 
-Encryption and authentication MUST be provided by the protocol specification as
-a default and MUST be resistant to downgrade attacks. The encryption used must
-have agility, allowing for the protocol to update as more secure cryptography
-becomes known and vulnerabilities are discovered.
+Data authentication and optional data confidentiality MUST be integrated into
+the protocol, and downgrade attacks by an in-path attacker must be mitigated.
 
-The specification MAY consider leaving room for middleboxes which may
-deliberately modify packets in flight for legitimate purposes. Thought must be
-given around how this will be incorporated into any applicable trust model.
-Downgrading attacks that could lead to an adversary disabling or removing
-encryption or authentication MUST NOT be possible in the design of the protocol.
+Cryptographic agility must be available, allowing for the protocol to update to
+the use of more secure cryptographic primitives as they are developed and as
+attacks and vulnerabilities with incumbent primitives are discovered.
+Intermediate devices such as hardware capable of performing timestamping of
+packets SHOULD be able to include information to packets in flight without
+requiring modification or removal of authentication or confidentiality on the
+packet.
 
-Detection and reporting of server malfeasance SHOULD remain out of scope of this
-specification as {{!I-D.ietf-ntp-roughtime}} already provides this capability as
-a core functionality of the protocol.
+Consideration must be given around how this will be incorporated into any
+applicable trust model. Downgrading attacks that could lead to an adversary
+disabling or removing encryption or authentication MUST NOT be possible in the
+design of the protocol.
 
-## Updates to IANA registries
+# Non-requirements
 
-Considerations should be made about the future of the existing IANA registry
-for NTPv4 parameters. If NTPv5 becomes incompatible with these parameters a new
-registry SHOULD be created.
+This section covers topics that are explicitly out of scope.
+
+## Server malfeasence detection
+
+Detection and reporting of server malfeasance should remain out of scope as
+{{!I-D.ietf-ntp-roughtime}} already provides this capability as a core
+functionality of the protocol.
 
 # Threat model
 
-TODO: Describe the assumptions which support this model, separating those which
-can be generic to any deployment, and those that are more industry or deployment
-specific.
+The assumptions that apply to all of the threats and risks within this section
+are based on observations of the use cases defined earlier in this document, and
+focus on external threats outside of the trust boundaries which may be in place
+within a network. Internal threats and risks such as a trusted operator are out
+of scope.
 
 ## Delay-based attacks
 
