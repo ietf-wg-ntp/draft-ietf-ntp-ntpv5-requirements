@@ -264,7 +264,7 @@ This document makes no requests of IANA.
 
 # Security Considerations
 
-As this document is intended to create discussion and consensus and introduces
+As this document is intended to create discussion and consensus, it introduces
 no security considerations of its own.
 
 --- back
