@@ -65,7 +65,7 @@ Source code and issues for this draft can be found at
 
 NTP version 4 {{!RFC5905}} has seen active use for over a decade, and within
 this time period the protocol has not only been extended to support new
-requirements but also fallen victim to vulnerabilities that have been used
+requirements but has also fallen victim to vulnerabilities that have been used
 for distributed denial of service (DDoS) amplification attacks.
 
 ## Notational Conventions
@@ -79,7 +79,7 @@ when, and only when, they appear in all capitals, as shown here.
 
 There are several common scenarios for existing NTPv4 deployments: publicly
 accessible NTP services such as the NTP Pool {{ntppool}} are used to offer clock
-synchronisation for end users and embedded devices, ISP-provided servers to
+synchronisation for end users and embedded devices, ISP-provided servers are used to
 synchronise devices such as customer-premises equipment where reduced accuracy
 may be tolerable. Depending on the network and path these deployments may be
 affected by variable latency as well as throttling or blocking by providers.
@@ -101,7 +101,7 @@ information for both basic time information and synchronisation.
 ## Resource management
 
 Historically there have been many documented instances of NTP servers receiving
-large quantities of unauthorised traffic {{ntp-misuse}} and the design of NTPv5
+large amounts of unauthorised traffic {{ntp-misuse}} and the design of NTPv5
 MUST ensure the risk of these can be minimised.
 
 Servers SHOULD have a new identifier that peers use as reference, this SHOULD
@@ -141,9 +141,9 @@ requirements.
 
 The protocol SHOULD adopt a linear, monotonic timescale as the basis for
 communicating time. The format SHOULD provide sufficient scale, precision, and
-resolution to meet or exceed NTPv4, and have a rollover date
+resolution to meet or exceed NTPv4's capabilties, and have a rollover date
 sufficiently far into the future that the protocol's complete
-obsolescence is highly likely to occur first.
+obsolescence is likely to occur first.
 
 The timescale, in addition to any other time-sensitive information, MUST be
 sufficient to calculate representations of both UTC and TAI. Through extensions
