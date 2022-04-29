@@ -102,7 +102,7 @@ information for both basic time information and synchronisation.
 
 Historically there have been many documented instances of NTP servers receiving
 large amounts of unauthorised traffic {{ntp-misuse}} and the design of NTPv5
-MUST ensure the risk of these can be minimised.
+must ensure the risk of these can be minimised.
 
 Servers SHOULD have a new identifier that peers use as reference, this SHOULD
 NOT be a FQDN, an IP address, or an identifier tied to a public certificate. Servers
@@ -140,7 +140,7 @@ requirements.
 ## Timescales
 
 The protocol SHOULD adopt a linear, monotonic timescale as the basis for
-communicating time. The format SHOULD provide sufficient scale, precision, and
+communicating time. The format should provide sufficient scale, precision, and
 resolution to meet or exceed NTPv4's capabilties, and have a rollover date
 sufficiently far into the future that the protocol's complete
 obsolescence is likely to occur first.
@@ -164,18 +164,18 @@ smearing between the client and any clock it is training.
 
 ## Backwards compatibility with NTS and NTPv4
 
-The desire for compatibility with older protocols SHOULD NOT prevent addressing
+The desire for compatibility with older protocols should not prevent addressing
 deployment issues or cause ossification of the protocol.
 
 The model for backward compatibility is: servers that support multiple versions
-of NTP MUST send a response in the same version as the request. This does not
+of NTP must send a response in the same version as the request. This does not
 preclude servers from acting as a client in one version of NTP and
 a server in another.
 
 Protocol ossification MUST be addressed to prevent existing NTPv4
 deployments which respond incorrectly to clients posing as NTPv5 from causing
 issues. Forward prevention of ossification (for a potential NTPv6 protocol in
-the future) SHOULD also be taken into consideration.
+the future) should also be taken into consideration.
 
 ### Dependent Specifications
 
@@ -188,15 +188,15 @@ complexity that may be incurred.
 
 The protocol MUST have the capability to be extended; implementations
 MUST ignore unknown extensions. Unknown extensions received by a server from a
-lower stratum server SHALL NOT be added to response messages sent by the server
+lower stratum server SHALL not be added to response messages sent by the server
 receiving these extensions.
 
 ## Security
 
 Data authentication and optional data confidentiality MUST be integrated into
-the protocol, and downgrade attacks by an in-path attacker MUST be mitigated.
+the protocol, and downgrade attacks by an in-path attacker must be mitigated.
 
-Cryptographic agility MUST be supported, allowing for more secure cryptographic
+Cryptographic agility must be supported, allowing for more secure cryptographic
 primitives to be incorporated as they are developed and as
 attacks and vulnerabilities with incumbent primitives are discovered.
 
@@ -205,7 +205,7 @@ packets SHOULD be able to add information to packets in flight without
 requiring modification or removal of authentication or confidentiality on the
 packet.
 
-Consideration MUST be given to how this will be incorporated into any
+Consideration must be given to how this will be incorporated into any
 applicable trust model. Downgrading attacks that could lead to an adversary
 disabling or removing encryption or authentication MUST NOT be possible in the
 design of the protocol.
@@ -243,7 +243,7 @@ client's clock, resulting in drift-related malfunctions and errors such
 as premature expiration of certificates on affected hosts. An
 attacker may also manipulate other data in flight to disrupt service and cause
 de-synchronisation. Message authentication with regular key rotation should mitigate
-both of these cases; however consideration SHOULD also be made for
+both of these cases; however consideration should also be made for
 hardware-based timestamping.
 
 ## Denial of Service and Amplification
@@ -254,7 +254,7 @@ implementations, leading to an attacker being able to direct very large volumes 
 traffic to a victim IP address. Current mitigations are
 disabling private mode commands and encouraging network
 operators to implement BCP 38 {{RFC2827}}. The NTPv5
-protocol specification SHOULD reduce the amplification factor in
+protocol specification should reduce the amplification factor in
 request/response payload sizes {{drdos-amplification}} through the use of
 padding and consideration of payload data.
 
