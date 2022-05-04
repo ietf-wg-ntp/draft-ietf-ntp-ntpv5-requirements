@@ -271,8 +271,8 @@ no security considerations of its own.
 
 # Acknowledgements
 
-The author would like to thank Doug Arnold and Hal Murray for contributions to
-this document, and would like to acknowledge Daniel Franke, Watson Ladd,
-Miroslav Lichvar for their existing documents and ideas. The author would also
-like to thank Angelo Moriondo, Franz Karl Achard, and Malcom McLean for
-providing the author with motivation.
+The author would like to thank Doug Arnold, Hal Murray, and Paul Gear for
+contributions to this document, and would like to acknowledge Daniel Franke,
+Watson Ladd, Miroslav Lichvar for their existing documents and ideas. The author
+would also like to thank Angelo Moriondo, Franz Karl Achard, and Malcom McLean
+for providing the author with motivation.
