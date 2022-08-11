@@ -46,8 +46,7 @@ informative:
 This document describes the use cases, requirements, and considerations that
 should be factored in the design of a successor protocol to supersede version 4
 of the NTP protocol {{!RFC5905}} presently referred to as NTP version 5
-("NTPv5"). This document is non-exhaustive and does not in its current version
-represent working group consensus.
+("NTPv5").
 
 --- note_Note_to_Readers
 
@@ -63,7 +62,10 @@ Source code and issues for this draft can be found at
 NTP version 4 {{!RFC5905}} has seen active use for over a decade, and within
 this time period the protocol has not only been extended to support new
 requirements but has also fallen victim to vulnerabilities that have been used
-for distributed denial of service (DDoS) amplification attacks.
+for distributed denial of service (DDoS) amplification attacks. In order to
+advance the protocol and address these known issues alongside add capabilities
+for future usage this document defines the current known and applicable use
+cases in existing NTPv4 deployments and defines requirements for the future.
 
 ## Notational Conventions
 
