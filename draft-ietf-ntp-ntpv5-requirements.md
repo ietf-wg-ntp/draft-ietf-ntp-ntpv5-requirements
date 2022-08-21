@@ -209,6 +209,12 @@ applicable trust model. Downgrading attacks that could lead to an adversary
 disabling or removing encryption or authentication MUST NOT be possible in the
 design of the protocol.
 
+## Document language
+
+The specification document MUST clearly distinguish between normative and
+non-normative parts of the specification. Furthermore, any included code
+samples MUST be non-normative.
+
 # Non-requirements
 
 This section covers topics that are explicitly out of scope.
