@@ -40,6 +40,9 @@ informative:
     IEEE-1588-2008:
         title: "IEEE Standard for a Precision Clock Synchronization Protocol for Networked Measurement and Control Systems"
         doi: "10.1109/IEEESTD.2008.4579760"
+    TF.460-6:
+        title: "Standard-frequency and time-signal emissions"
+        target: "https://www.itu.int/rec/R-REC-TF.460-6-200202-I/en"
 
 --- abstract
 
@@ -151,10 +154,10 @@ sufficiently far into the future that the protocol's complete
 obsolescence is likely to occur first.
 
 The timescale, in addition to any other time-sensitive information, MUST be
-sufficient to calculate representations of both UTC and TAI. Through extensions
-the protocol SHOULD support additional timescale representations outside of the
-main specification, and all transmissions of time data SHALL indicate the
-timescale in use.
+sufficient to calculate representations of both UTC and TAI {{TF.460-6}}.
+Through extensions the protocol SHOULD support additional timescale
+representations outside of the main specification, and all transmissions of time
+data SHALL indicate the timescale in use.
 
 ## Leap seconds
 
