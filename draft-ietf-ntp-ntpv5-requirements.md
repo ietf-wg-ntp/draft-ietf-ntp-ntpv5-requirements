@@ -103,10 +103,16 @@ Historically there have been many documented instances of NTP servers receiving
 large amounts of unauthorised traffic {{ntp-misuse}} and the design of NTPv5
 must ensure the risk of these can be minimised.
 
-Servers SHOULD have a new identifier that peers use as reference, this SHOULD
-NOT be a FQDN, an IP address, or an identifier tied to a public certificate. Servers
-SHOULD be able to migrate and change their identifiers as stratum topologies or
+The protocol's loop avoidance mechanisms SHOULD NOT use identifiers tied to network
+topology. In particular, any such mechanism should not rely on any FQDN, IP address
+or identifier tied to a public certificate used or owned by the server. Servers
+SHOULD be able to migrate and change any identifier used as stratum topologies or
 network configuration changes occur.
+
+An additional identifier mechanism MAY be considered for the purposes of client
+allow/deny lists, logging and monitoring. Such a mechanism, when included, SHOULD
+be independent of any loop avoidance mechanism, and authenticity requirements
+SHOULD be considered.
 
 The protocol MUST have the capability for servers to notify clients that the
 service is unavailable, and clients MUST have clearly defined behaviours for
