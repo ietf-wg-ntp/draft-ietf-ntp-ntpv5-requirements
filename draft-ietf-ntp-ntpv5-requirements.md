@@ -163,8 +163,11 @@ data SHALL indicate the timescale in use.
 
 Tranmission of UTC leap second information MUST be included in the protocol in
 order for clients to generate a UTC representation, but must be transmitted as
-separate information to the timescale. The specification SHOULD be capable
-of transmitting upcoming leap seconds greater than 1 calendar day in advance.
+separate information to the timescale. The specification MUST require that
+servers transmit upcoming leap seconds greater than 1 calendar day in advance
+if that information is known by the server. If the server learns of a leap
+second less than 1 calendar day before a leap second event, it will start
+transmitting the information immediately.
 
 Leap second smearing SHOULD NOT be applied to timestamps transmitted by the
 server, however this should not prevent implementers from applying leap second
