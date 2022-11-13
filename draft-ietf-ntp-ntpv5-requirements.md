@@ -146,7 +146,7 @@ requirements.
 
 The protocol SHOULD adopt a linear, monotonic timescale as the basis for
 communicating time. The format should provide sufficient scale, precision, and
-resolution to meet or exceed NTPv4's capabilties, and have a rollover date
+resolution to meet or exceed NTPv4's capabilities, and have a rollover date
 sufficiently far into the future that the protocol's complete
 obsolescence is likely to occur first.
 
@@ -158,7 +158,7 @@ data SHALL indicate the timescale in use.
 
 ## Leap seconds
 
-Tranmission of UTC leap second information MUST be included in the protocol in
+Transmission of UTC leap second information MUST be included in the protocol in
 order for clients to generate a UTC representation, but must be transmitted as
 separate information to the timescale. The specification MUST require that
 servers transmit upcoming leap seconds greater than 1 calendar day in advance
@@ -222,7 +222,7 @@ design of the protocol.
 
 This section covers topics that are explicitly out of scope.
 
-## Server malfeasence detection
+## Server malfeasance detection
 
 Detection and reporting of server malfeasance should remain out of scope as
 {{!I-D.ietf-ntp-roughtime}} already provides this capability as a core
