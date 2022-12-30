@@ -128,6 +128,14 @@ The protocol SHOULD have provisions for deployments where Network Address
 Translation occurs, and define behaviours when NAT rebinding occurs. This should
 also not compromise any DDoS mitigation(s) that the protocol may define.
 
+## Data Minimisation
+
+Payload formats SHOULD use the least amount of fields and information where
+possible, favouring the use of extensions to transmit optional data. This is
+done in part to minimise ongoing use of deprecated fields, in addition to
+reducing risks of exposing identifying information of implementations and
+deployments.
+
 ## Algorithms
 
 The use of algorithms describing functions such as clock filtering, selection,
