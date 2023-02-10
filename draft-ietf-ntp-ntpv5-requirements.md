@@ -211,6 +211,7 @@ receiving these extensions.
 
 Data authentication and optional data confidentiality MUST be integrated into
 the protocol, and downgrade attacks by an in-path attacker must be mitigated.
+The protocol SHOULD support different mechanisms to support different use cases.
 
 Cryptographic agility must be supported, allowing for more secure cryptographic
 primitives to be incorporated as they are developed and as
