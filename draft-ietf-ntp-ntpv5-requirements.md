@@ -37,9 +37,9 @@ informative:
     ntppool:
         title: "pool.ntp.org: the internet cluster of ntp servers"
         target: "https://www.ntppool.org"
-    IEEE-1588-2008:
+    IEEE-1588-2019:
         title: "IEEE Standard for a Precision Clock Synchronization Protocol for Networked Measurement and Control Systems"
-        doi: "10.1109/IEEESTD.2008.4579760"
+        doi: "10.1109/IEEESTD.2020.9120376"
     TF.460-6:
         title: "Standard-frequency and time-signal emissions"
         target: "https://www.itu.int/rec/R-REC-TF.460-6-200202-I/en"
@@ -85,7 +85,7 @@ affected by variable latency as well as throttling or blocking by providers.
 
 Data centres and cloud computing providers also have deployed and offer NTP
 services both for internal use and for customers, particularly where the network
-is unable to offer or does not require PTP {{IEEE-1588-2008}}. As these
+is unable to offer or does not require PTP {{IEEE-1588-2019}}. As these
 deployments are less likely to be constrained by network latency or power the
 potential for higher levels of accuracy and precision within the bounds of the
 protocol are possible.
