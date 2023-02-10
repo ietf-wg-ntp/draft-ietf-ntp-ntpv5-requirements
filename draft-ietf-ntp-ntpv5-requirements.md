@@ -28,6 +28,7 @@ normative:
     I-D.ietf-ntp-roughtime:
 
 informative:
+    RFC7808:
     drdos-amplification:
         title: "Amplification and DRDoS Attack Defense -- A Survey and New Perspectives"
         target: https://arxiv.org/abs/1505.07892
@@ -278,6 +279,14 @@ This section covers topics that are explicitly out of scope.
 Detection and reporting of server malfeasance should remain out of scope as
 {{!I-D.ietf-ntp-roughtime}} already provides this capability as a core
 functionality of the protocol.
+
+## Additional time information and metadata
+
+Previous versions of NTP do not transmit additional time information such as
+time zone data or historical leap seconds, and NTPv5 should not explicitly add
+support for it by default as existing protocols (e.g. TZDIST {{RFC7808}})
+already provide mechanisms to do so. This does not prevent however, further
+extentions enabling this.
 
 # IANA Considerations
 
