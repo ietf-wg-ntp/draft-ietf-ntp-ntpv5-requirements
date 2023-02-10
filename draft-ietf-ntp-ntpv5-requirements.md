@@ -24,6 +24,7 @@ normative:
     RFC2119:
     RFC2827:
     RFC5905:
+    RFC7384:
     RFC8174:
     I-D.ietf-ntp-roughtime:
 
@@ -74,6 +75,9 @@ cases in existing NTPv4 deployments and defines requirements for the future.
 ## Notational Conventions
 
 {::boilerplate bcp14-tagged}
+
+Use of time specific terminology used in this document may further be specified
+in {{RFC7384}} or NTP specific terminology and concepts within {{RFC5905}}.
 
 # Use cases and existing deployments of NTP
 
