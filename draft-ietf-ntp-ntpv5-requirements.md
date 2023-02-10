@@ -93,6 +93,43 @@ accuracy and precision within the bounds of the protocol are possible,
 particular through the use of modifications such as the use of bespoke
 algorithms.
 
+# Threat model
+
+The assumptions that apply to all of the threats and risks within this section
+are based on observations of the use cases defined earlier in this document, and
+focus on external threats outside of the trust boundaries which may be in place
+within a network. Internal threats and risks such as a trusted operator are out
+of scope.
+
+## Delay-based attacks
+
+The risk that an on-path attacker can delay packets between a client and server
+exists in all time protocols operating on insecure networks and its mitigations
+within the protocol are limited for a clock which is not yet synchronised.
+Increased path diversity and protocol support for synchronisation across
+multiple heterogeneous sources are likely the most effective mitigations.
+
+## Payload manipulation
+
+Conversely, on-path attackers who can manipulate timestamps could also speed up
+a client's clock, resulting in drift-related malfunctions and errors such as
+premature expiration of certificates on affected hosts. An attacker may also
+manipulate other data in flight to disrupt service and cause de-synchronisation.
+Message authentication with regular key rotation should mitigate both of these
+cases; however consideration should also be made for hardware-based
+timestamping.
+
+## Denial of Service and Amplification
+
+NTPv4 has previously suffered from DDoS amplification attacks using a
+combination of IP address spoofing and private mode commands used in many NTP
+implementations, leading to an attacker being able to direct very large volumes
+of traffic to a victim IP address. Current mitigations are disabling private
+mode commands and encouraging network operators to implement BCP 38 {{RFC2827}}.
+The NTPv5 protocol specification should reduce the amplification factor in
+request/response payload sizes {{drdos-amplification}} through the use of
+padding and consideration of payload data.
+
 # Requirements
 
 At a high level, NTPv5 should be a protocol that is capable of operating in
@@ -241,43 +278,6 @@ This section covers topics that are explicitly out of scope.
 Detection and reporting of server malfeasance should remain out of scope as
 {{!I-D.ietf-ntp-roughtime}} already provides this capability as a core
 functionality of the protocol.
-
-# Threat model
-
-The assumptions that apply to all of the threats and risks within this section
-are based on observations of the use cases defined earlier in this document, and
-focus on external threats outside of the trust boundaries which may be in place
-within a network. Internal threats and risks such as a trusted operator are out
-of scope.
-
-## Delay-based attacks
-
-The risk that an on-path attacker can delay packets between a client and server
-exists in all time protocols operating on insecure networks and its mitigations
-within the protocol are limited for a clock which is not yet synchronised.
-Increased path diversity and protocol support for synchronisation across
-multiple heterogeneous sources are likely the most effective mitigations.
-
-## Payload manipulation
-
-Conversely, on-path attackers who can manipulate timestamps could also speed up
-a client's clock, resulting in drift-related malfunctions and errors such as
-premature expiration of certificates on affected hosts. An attacker may also
-manipulate other data in flight to disrupt service and cause de-synchronisation.
-Message authentication with regular key rotation should mitigate both of these
-cases; however consideration should also be made for hardware-based
-timestamping.
-
-## Denial of Service and Amplification
-
-NTPv4 has previously suffered from DDoS amplification attacks using a
-combination of IP address spoofing and private mode commands used in many NTP
-implementations, leading to an attacker being able to direct very large volumes
-of traffic to a victim IP address. Current mitigations are disabling private
-mode commands and encouraging network operators to implement BCP 38 {{RFC2827}}.
-The NTPv5 protocol specification should reduce the amplification factor in
-request/response payload sizes {{drdos-amplification}} through the use of
-padding and consideration of payload data.
 
 # IANA Considerations
 
