@@ -78,10 +78,11 @@ cases in existing NTPv4 deployments and defines requirements for the future.
 
 There are several common scenarios for existing NTPv4 deployments: publicly
 accessible NTP services such as the NTP Pool {{ntppool}} are used to offer clock
-synchronisation for end users and embedded devices, ISP-provided servers are used to
-synchronise devices such as customer-premises equipment where reduced accuracy
-may be tolerable. Depending on the network and path these deployments may be
-affected by variable latency as well as throttling or blocking by providers.
+synchronisation for end users and embedded devices, ISP-provided servers are
+used to synchronise devices such as customer-premises equipment where reduced
+accuracy may be tolerable. Depending on the network and path these deployments
+may be affected by variable latency as well as throttling or blocking by
+providers.
 
 Data centres and cloud computing providers also have deployed and offer NTP
 services both for internal use and for customers, particularly where the network
@@ -103,11 +104,11 @@ Historically there have been many documented instances of NTP servers receiving
 large amounts of unauthorised traffic {{ntp-misuse}} and the design of NTPv5
 must ensure the risk of these can be minimised.
 
-The protocol's loop avoidance mechanisms SHOULD NOT use identifiers tied to network
-topology. In particular, any such mechanism should not rely on any FQDN, IP address
-or identifier tied to a public certificate used or owned by the server. Servers
-SHOULD be able to migrate and change any identifier used as stratum topologies or
-network configuration changes occur.
+The protocol's loop avoidance mechanisms SHOULD NOT use identifiers tied to
+network topology. In particular, any such mechanism should not rely on any FQDN,
+IP address or identifier tied to a public certificate used or owned by the
+server. Servers SHOULD be able to migrate and change any identifier used as
+stratum topologies or network configuration changes occur.
 
 An additional identifier mechanism MAY be considered for the purposes of client
 allow/deny lists, logging and monitoring. Such a mechanism, when included, SHOULD
@@ -255,23 +256,22 @@ multiple heterogeneous sources are likely the most effective mitigations.
 
 ## Payload manipulation
 
-Conversely, on-path attackers who can manipulate timestamps could also speed up a
-client's clock, resulting in drift-related malfunctions and errors such
-as premature expiration of certificates on affected hosts. An
-attacker may also manipulate other data in flight to disrupt service and cause
-de-synchronisation. Message authentication with regular key rotation should mitigate
-both of these cases; however consideration should also be made for
-hardware-based timestamping.
+Conversely, on-path attackers who can manipulate timestamps could also speed up
+a client's clock, resulting in drift-related malfunctions and errors such as
+premature expiration of certificates on affected hosts. An attacker may also
+manipulate other data in flight to disrupt service and cause de-synchronisation.
+Message authentication with regular key rotation should mitigate both of these
+cases; however consideration should also be made for hardware-based
+timestamping.
 
 ## Denial of Service and Amplification
 
 NTPv4 has previously suffered from DDoS amplification attacks using a
 combination of IP address spoofing and private mode commands used in many NTP
-implementations, leading to an attacker being able to direct very large volumes of
-traffic to a victim IP address. Current mitigations are
-disabling private mode commands and encouraging network
-operators to implement BCP 38 {{RFC2827}}. The NTPv5
-protocol specification should reduce the amplification factor in
+implementations, leading to an attacker being able to direct very large volumes
+of traffic to a victim IP address. Current mitigations are disabling private
+mode commands and encouraging network operators to implement BCP 38 {{RFC2827}}.
+The NTPv5 protocol specification should reduce the amplification factor in
 request/response payload sizes {{drdos-amplification}} through the use of
 padding and consideration of payload data.
 
