@@ -106,12 +106,12 @@ protocol in-line with current best practices for protocol design.
 
 Section 3 of {{RFC7384}} describes numerous potential threats to a deployment or
 network handling traffic of time synchronisation protocols which can be
-summarised into three basic groups: Denial of Service, degradation of accuracy,
-and false time all of which in various forms apply to NTP. Not all threats apply
-specifically to NTP directly, notably the threat of compromising "Grandmaster
-time sources" (GNSS attacks, §3.2.10) in NTP would be stratum 1, in addition
-L2/L3 DoS Attacks (§3.2.7) are not readily mitigated from protocol design
-applied to other layers.
+summarised into three basic groups: Denial of Service (DoS), degradation of
+accuracy, and false time all of which in various forms apply to NTP. Not all
+threats apply specifically to NTP directly, notably the threat of compromising
+"Grandmaster time sources" (GNSS attacks, §3.2.10) in NTP would be stratum 1, in
+addition L2/L3 DoS Attacks (§3.2.7) are not readily mitigated from protocol
+design applied to other layers.
 
 ## Denial of Service and Amplification
 
