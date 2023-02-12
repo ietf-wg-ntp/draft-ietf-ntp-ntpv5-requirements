@@ -98,31 +98,20 @@ accuracy and precision within the bounds of the protocol are possible,
 particular through the use of modifications such as the use of bespoke
 algorithms.
 
-# Threat model
+# Threat Analysis and Modeling
 
-The assumptions that apply to all of the threats and risks within this section
-are based on observations of the use cases defined earlier in this document, and
-focus on external threats outside of the trust boundaries which may be in place
-within a network. Internal threats and risks such as a trusted operator are out
-of scope.
+A considerable motivation towards a new version of the protocol is the inclusion
+of security primitives such as authentication and encryption to bring the
+protocol in-line with current best practices for protocol design.
 
-## Delay-based attacks
-
-The risk that an on-path attacker can delay packets between a client and server
-exists in all time protocols operating on insecure networks and its mitigations
-within the protocol are limited for a clock which is not yet synchronised.
-Increased path diversity and protocol support for synchronisation across
-multiple heterogeneous sources are likely the most effective mitigations.
-
-## Payload manipulation
-
-Conversely, on-path attackers who can manipulate timestamps could also speed up
-a client's clock, resulting in drift-related malfunctions and errors such as
-premature expiration of certificates on affected hosts. An attacker may also
-manipulate other data in flight to disrupt service and cause de-synchronisation.
-Message authentication with regular key rotation should mitigate both of these
-cases; however consideration should also be made for hardware-based
-timestamping.
+Section 3 of {{RFC7384}} describes numerous potential threats to a deployment or
+network handling traffic of time synchronisation protocols which can be
+summarised into three basic groups: Denial of Service, degradation of accuracy,
+and false time all of which in various forms apply to NTP. Not all threats apply
+specifically to NTP directly, notably the threat of compromising "Grandmaster
+time sources" (GNSS attacks, §3.2.10) in NTP would be stratum 1, in addition
+L2/L3 DoS Attacks (§3.2.7) are not readily mitigated from protocol design
+applied to other layers.
 
 ## Denial of Service and Amplification
 
@@ -133,7 +122,26 @@ of traffic to a victim IP address. Current mitigations are disabling private
 mode commands and encouraging network operators to implement BCP 38 {{RFC2827}}.
 The NTPv5 protocol specification should reduce the amplification factor in
 request/response payload sizes {{drdos-amplification}} through the use of
-padding and consideration of payload data.
+padding and consideration of payload data, in addition to restricting command
+and diagnostic modes which could be exploited.
+
+## Accuracy Degradation
+
+The risk that an on-path attacker can delay packets between a client and server
+exists in all time protocols operating on insecure networks and its mitigations
+within the protocol are limited for a clock which is not yet synchronised.
+Increased path diversity and protocol support for synchronisation across
+multiple heterogeneous sources are likely the most effective mitigations.
+
+## False Time
+
+Conversely, on-path attackers who can manipulate timestamps could also speed up
+a client's clock, resulting in drift-related malfunctions and errors such as
+premature expiration of certificates on affected hosts. An attacker may also
+manipulate other data in flight to disrupt service and cause de-synchronisation.
+Message authentication with regular key rotation should mitigate both of these
+cases; however consideration should also be made for hardware-based
+timestamping.
 
 # Requirements
 
