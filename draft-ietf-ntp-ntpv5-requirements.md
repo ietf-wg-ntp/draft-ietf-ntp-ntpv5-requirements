@@ -104,14 +104,14 @@ A considerable motivation towards a new version of the protocol is the inclusion
 of security primitives such as authentication and encryption to bring the
 protocol in-line with current best practices for protocol design.
 
-Section 3 of {{RFC7384}} describes numerous potential threats to a deployment or
-network handling traffic of time synchronisation protocols which can be
-summarised into three basic groups: Denial of Service (DoS), degradation of
-accuracy, and false time all of which in various forms apply to NTP. Not all
-threats apply specifically to NTP directly, notably the threat of compromising
-"Grandmaster time sources" (GNSS attacks, §3.2.10) in NTP would be stratum 1, in
-addition L2/L3 DoS Attacks (§3.2.7) are not readily mitigated from protocol
-design applied to other layers.
+There are numerous potential threats to a deployment or network handling traffic
+time synchronisation protocols that {{RFC7384}} Section 3 describes, which can
+be summarised into three basic groups: Denial of Service (DoS), degradation of
+accuracy, and false time, all of which in various forms apply to NTP. However,
+not all threats apply specifically to NTP directly, most notable attacks on time
+sources (§3.2.10) and L2/L3 DoS Attacks (§3.2.7) as both are outside the scope
+of the protocol, and the protocol itself cannot provide much in the way of
+mitigations.
 
 ## Denial of Service and Amplification
 
