@@ -229,9 +229,13 @@ if that information is known by the server. If the server learns of a leap
 second less than 1 calendar day before a leap second event, it will start
 transmitting the information immediately.
 
-Leap second smearing SHOULD NOT be applied to timestamps transmitted by the
-server, however this should not prevent implementers from applying leap second
-smearing between the client and any clock it is training.
+Smearing of leap seconds SHOULD be supported in the protocol, and the protocol
+MUST support servers transmitting both if they are configured to smear leap
+seconds and if they are actively doing so. Behaviours for both client and server
+in handling leap seconds MUST be part of the specification; in particular how
+clients handle multiple servers where some may use leap seconds and others
+smearing, that servers should not apply both leap seconds and smearing, as well
+as details around smearing timescales.
 
 ## Backwards compatibility with NTS and NTPv4
 
