@@ -205,7 +205,7 @@ requirements.
 
 ## Timescales
 
-The protocol SHOULD adopt a linear, monotonic timescale as the basis for
+The protocol should adopt a linear, monotonic timescale as the basis for
 communicating time. The format should provide sufficient scale, precision, and
 resolution to meet or exceed NTPv4's capabilities, and have a rollover date
 sufficiently far into the future that the protocol's complete obsolescence is
