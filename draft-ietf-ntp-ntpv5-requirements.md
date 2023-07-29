@@ -181,6 +181,11 @@ The protocol SHOULD have provisions for deployments where Network Address
 Translation occurs, and define behaviours when NAT rebinding occurs. This should
 also not compromise any DDoS mitigation(s) that the protocol may define.
 
+Client and server protocol modes MUST be supported, and other modes such as
+symmetric and broadcast MAY be supported and SHOULD NOT be required by
+implementors to implement. Considerations should be made in these modes to
+avoid implementations and deployments from vulnerabilities and attacks.
+
 ## Data Minimisation
 
 Payload formats SHOULD use the least amount of fields and information where
