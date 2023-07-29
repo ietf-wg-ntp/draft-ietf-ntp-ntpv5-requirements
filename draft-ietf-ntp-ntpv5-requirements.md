@@ -105,7 +105,7 @@ of security primitives such as authentication and encryption to bring the
 protocol in-line with current best practices for protocol design.
 
 There are numerous potential threats to a deployment or network handling traffic
-time synchronisation protocols that {{RFC7384}} Section 3 describes, which can
+time synchronisation protocols that {{RFC7384}} section 3 describes, which can
 be summarised into three basic groups: Denial of Service (DoS), degradation of
 accuracy, and false time, all of which in various forms apply to NTP. However,
 not all threats apply specifically to NTP directly, most notable attacks on time
@@ -157,10 +157,10 @@ large amounts of unauthorised traffic {{ntp-misuse}} and the design of NTPv5
 must ensure the risk of these can be minimised.
 
 The protocol's loop avoidance mechanisms SHOULD NOT use identifiers tied to
-network topology. In particular, any such mechanism should not rely on any FQDN,
-IP address or identifier tied to a public certificate used or owned by the
-server. Servers SHOULD be able to migrate and change any identifier used as
-stratum topologies or network configuration changes occur.
+network topology. In particular such mechanism should not rely on any FQDN, IP
+address or identifier tied to a public certificate used or owned by the server.
+Servers SHOULD be able to migrate and change any identifier used as stratum
+topologies or network configuration changes occur.
 
 An additional identifier mechanism MAY be considered for the purposes of client
 allow/deny lists, logging and monitoring. Such a mechanism, when included, SHOULD
@@ -188,11 +188,10 @@ avoid implementations and deployments from vulnerabilities and attacks.
 
 ## Data Minimisation
 
-Payload formats SHOULD use the least amount of fields and information where
-possible, favouring the use of extensions to transmit optional data. This is
-done in part to minimise ongoing use of deprecated fields, in addition to
-reducing risks of exposing identifying information of implementations and
-deployments.
+To minimise ongoing use of deprecated fields and exposing identifying
+information of implementations and deployments payload formats SHOULD use the
+least amount of fields and information where possible, favouring the use of
+extensions to transmit optional data.
 
 ## Algorithms
 
