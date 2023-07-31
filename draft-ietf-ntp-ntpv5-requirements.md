@@ -219,10 +219,11 @@ epoch and data model that NTPv4 defines to allow for implementations to more
 easily support both versions of the protocol.
 
 The timescale, in addition to any other time-sensitive information, MUST be
-sufficient to calculate representations of both UTC and TAI {{TF.460-6}}.
-Through extensions the protocol SHOULD support additional timescale
-representations outside of the main specification, and all transmissions of time
-data MUST indicate the timescale in use.
+sufficient to calculate representations of both UTC and TAI {{TF.460-6}}, with
+UTC being the current timescale up to NTPv4. Through extensions the protocol
+SHOULD support additional timescale representations outside of the main
+specification, and all transmissions of time data MUST indicate the timescale in
+use.
 
 ## Leap seconds
 
