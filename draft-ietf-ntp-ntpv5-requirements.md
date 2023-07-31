@@ -241,7 +241,8 @@ leap seconds and if they are actively doing so. Behaviours for both client and
 server in handling leap seconds MUST be part of the specification; in particular
 how clients handle multiple servers where some may use leap seconds and others
 smearing, that servers should not apply both leap seconds and smearing, as well
-as details around smearing timescales.
+as details around smearing timescales. Supported smearing algorithms MUST be
+defined or referenced.
 
 ## Backwards compatibility with NTS and NTPv4
 
