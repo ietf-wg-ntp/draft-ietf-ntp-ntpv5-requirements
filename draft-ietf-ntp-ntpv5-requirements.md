@@ -221,7 +221,7 @@ The timescale, in addition to any other time-sensitive information, MUST be
 sufficient to calculate representations of both UTC and TAI {{TF.460-6}}.
 Through extensions the protocol SHOULD support additional timescale
 representations outside of the main specification, and all transmissions of time
-data SHALL indicate the timescale in use.
+data MUST indicate the timescale in use.
 
 ## Leap seconds
 
