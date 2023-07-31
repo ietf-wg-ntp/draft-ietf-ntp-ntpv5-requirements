@@ -45,6 +45,9 @@ informative:
     TF.460-6:
         title: "Standard-frequency and time-signal emissions"
         target: "https://www.itu.int/rec/R-REC-TF.460-6-200202-I/en"
+    google-smear:
+        title: "Google Leap Smear"
+        target: "https://developers.google.com/time/smear"
 
 --- abstract
 
@@ -235,14 +238,14 @@ if that information is known by the server. If the server learns of a leap
 second less than 1 calendar day before a leap second event, it will start
 transmitting the information immediately.
 
-Smearing of leap seconds SHOULD be supported in the protocol, and the protocol
-MUST support servers transmitting information if they are configured to smear
-leap seconds and if they are actively doing so. Behaviours for both client and
-server in handling leap seconds MUST be part of the specification; in particular
-how clients handle multiple servers where some may use leap seconds and others
-smearing, that servers should not apply both leap seconds and smearing, as well
-as details around smearing timescales. Supported smearing algorithms MUST be
-defined or referenced.
+Smearing {{!google-smear}} of leap seconds SHOULD be supported in the protocol,
+and the protocol MUST support servers transmitting information if they are
+configured to smear leap seconds and if they are actively doing so. Behaviours
+for both client and server in handling leap seconds MUST be part of the
+specification; in particular how clients handle multiple servers where some may
+use leap seconds and others smearing, that servers should not apply both leap
+seconds and smearing, as well as details around smearing timescales. Supported
+smearing algorithms MUST be defined or referenced.
 
 ## Backwards compatibility with NTS and NTPv4
 
