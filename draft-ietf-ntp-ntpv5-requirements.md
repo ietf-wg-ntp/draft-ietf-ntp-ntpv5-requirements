@@ -246,7 +246,7 @@ as details around smearing timescales.
 The desire for compatibility with older protocols should not prevent addressing
 deployment issues or cause ossification of the protocol.
 
-Servers that support multiple versions of NTP must send a response in the same
+Servers that support multiple versions of NTP MUST send a response in the same
 version as the request as the model of backwards compatibility. This does not
 preclude servers from acting as a client in one version of NTP and a server in
 another.
