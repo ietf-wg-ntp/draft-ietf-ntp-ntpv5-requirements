@@ -174,7 +174,7 @@ clients that they should reduce their query rate when the server is
 under high load or has reduced capacity.
 
 Clients SHOULD periodically re-establish connections with servers to prevent
-attempting to maintain connectivity to a dead host and give network operators
+maintaining prolonged connectivity to unavailable hosts and give operators
 the ability to move traffic away from hosts in a timely manner.
 
 The protocol SHOULD have provisions for deployments where Network Address
