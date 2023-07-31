@@ -189,9 +189,9 @@ modes to avoid implementations and deployments from vulnerabilities and attacks.
 ## Data Minimisation
 
 To minimise ongoing use of deprecated fields and exposing identifying
-information of implementations and deployments payload formats SHOULD use the
-least amount of fields and information where possible, favouring the use of
-extensions to transmit optional data.
+information of implementations and deployments, payload formats SHOULD use the
+least amount of fields and information where possible. The use of extensions
+should be preferred when transmitting optional data.
 
 ## Algorithms
 
