@@ -127,11 +127,11 @@ and diagnostic modes which could be exploited.
 
 ## Accuracy Degradation
 
-The risk that an on-path attacker can delay packets between a client and server
-exists in all time protocols operating on insecure networks and its mitigations
-within the protocol are limited for a clock which is not yet synchronised.
-Increased path diversity and protocol support for synchronisation across
-multiple heterogeneous sources are likely the most effective mitigations.
+The risk that an on-path attacker can systemically delay packets between a
+client and server exists in all time protocols operating on insecure networks
+and its mitigations within the protocol are limited for a clock which is not yet
+synchronised.  Increased path diversity and protocol support for synchronisation
+across multiple heterogeneous sources are likely the most effective mitigations.
 
 ## False Time
 
