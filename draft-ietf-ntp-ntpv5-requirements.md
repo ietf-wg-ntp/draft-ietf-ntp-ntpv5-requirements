@@ -276,9 +276,9 @@ Data authentication and optional data confidentiality MUST be integrated into
 the protocol, and downgrade attacks by an in-path attacker must be mitigated.
 The protocol SHOULD support different mechanisms to support different use cases.
 
-Cryptographic agility must be supported, allowing for more secure cryptographic
-primitives to be incorporated as they are developed and as
-attacks and vulnerabilities with incumbent primitives are discovered.
+Upgrading cryptographic algorithms must be supported, allowing for more secure
+cryptographic primitives to be incorporated as they are developed and as attacks
+and vulnerabilities with incumbent primitives are discovered.
 
 Intermediate devices such as hardware capable of performing timestamping of
 packets SHOULD be able to add information to packets in flight without
