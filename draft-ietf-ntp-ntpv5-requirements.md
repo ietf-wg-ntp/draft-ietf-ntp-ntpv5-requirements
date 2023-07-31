@@ -156,11 +156,12 @@ Historically there have been many documented instances of NTP servers receiving
 large amounts of unauthorised traffic {{ntp-misuse}} and the design of NTPv5
 must ensure the risk of these can be minimised.
 
-The protocol's loop avoidance mechanisms SHOULD NOT use identifiers tied to
-network topology. In particular such mechanism should not rely on any FQDN, IP
-address or identifier tied to a public certificate used or owned by the server.
-Servers SHOULD be able to migrate and change any identifier used as stratum
-topologies or network configuration changes occur.
+The protocol's loop avoidance mechanisms SHOULD be able to use identifiers that
+change over time and MUST NOT use identifiers tied to network topology. In
+particular such mechanism should not rely on any FQDN, IP address or identifier
+tied to a public certificate used or owned by the server. Servers SHOULD be
+able to migrate and change any identifier used as stratum topologies or network
+configuration changes occur.
 
 An additional identifier mechanism MAY be considered for the purposes of client
 allow/deny lists, logging and monitoring. Such a mechanism, when included, SHOULD
