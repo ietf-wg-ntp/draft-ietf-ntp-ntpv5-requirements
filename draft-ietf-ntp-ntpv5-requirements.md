@@ -202,7 +202,8 @@ should be preferred when transmitting optional data.
 The use of algorithms describing functions such as clock filtering, selection,
 and clustering SHOULD have agility, allowing for implementations to develop and
 deploy new algorithms independently. Signalling of algorithm use or preference
-SHOULD NOT be transmitted by servers.
+SHOULD NOT be transmitted by servers, however essential properties of the
+algorithm (e.g. precision) SHOULD be obvious.
 
 The working group should consider creating a separate informational document to
 describe an algorithm to assist with implementation, and consider adopting
