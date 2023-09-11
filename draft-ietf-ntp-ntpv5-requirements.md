@@ -30,6 +30,7 @@ normative:
 
 informative:
     RFC7808:
+    RFC9065:
     drdos-amplification:
         title: "Amplification and DRDoS Attack Defense -- A Survey and New Perspectives"
         target: https://arxiv.org/abs/1505.07892
@@ -251,7 +252,8 @@ smearing algorithms MUST be defined or referenced.
 ## Backwards compatibility with NTS and NTPv4
 
 The desire for compatibility with older protocols should not prevent addressing
-deployment issues or cause ossification of the protocol.
+deployment issues or cause ossification of the protocol caused by middleboxes
+{{RFC9065}}.
 
 Servers that support multiple versions of NTP MUST send a response in the same
 version as the request as the model of backwards compatibility. This does not
