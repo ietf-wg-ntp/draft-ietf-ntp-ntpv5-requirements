@@ -272,10 +272,9 @@ complexity that may be incurred.
 
 ## Extensibility
 
-The protocol MUST have the capability to be extended; implementations
-MUST ignore unknown extensions. Unknown extensions received by a server from a
-lower stratum server SHALL not be added to response messages sent by the server
-receiving these extensions.
+The protocol MUST have the capability to be extended; implementations MUST
+ignore unknown extensions. Unknown extensions received from a lower stratum
+server SHALL NOT be re-transmitted towards higher stratum servers.
 
 ## Security
 
