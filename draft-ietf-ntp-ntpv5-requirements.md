@@ -220,8 +220,8 @@ communicating time. The format should provide sufficient scale, precision, and
 resolution to meet or exceed NTPv4's capabilities, and have a rollover date
 sufficiently far into the future that the protocol's complete obsolescence is
 likely to occur first. Ideally it should be similar or identical to the existing
-epoch and data model that NTPv4 defines to allow for implementations to more
-easily support both versions of the protocol.
+epoch and data model that NTPv4 defines to allow for implementations to better
+support both versions of the protocol, allowing for simpler implementations.
 
 The timescale, in addition to any other time-sensitive information, MUST be
 sufficient to calculate representations of both UTC and TAI {{TF.460-6}}, with
