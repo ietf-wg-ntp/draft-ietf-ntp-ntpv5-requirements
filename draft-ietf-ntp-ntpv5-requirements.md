@@ -188,7 +188,7 @@ also not compromise any DDoS mitigation(s) that the protocol may define.
 
 Client and server protocol modes MUST be supported, and other modes such as
 symmetric and broadcast MAY be supported by the protocol but SHOULD NOT be
-required by implementors to implement. Considerations should be made in these
+required by implementers to implement. Considerations should be made in these
 modes to avoid implementations and deployments from vulnerabilities and attacks.
 
 ## Data Minimisation
@@ -315,7 +315,7 @@ Previous versions of NTP do not transmit additional time information such as
 time zone data or historical leap seconds, and NTPv5 should not explicitly add
 support for it by default as existing protocols (e.g. TZDIST {{RFC7808}})
 already provide mechanisms to do so. This does not prevent however, further
-extentions enabling this.
+extensions enabling this.
 
 # IANA Considerations
 
