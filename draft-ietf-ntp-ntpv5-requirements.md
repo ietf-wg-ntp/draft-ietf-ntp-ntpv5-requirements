@@ -93,14 +93,14 @@ accuracy may be tolerable. Depending on the network and path these deployments
 may be affected by variable latency as well as throttling or blocking by
 providers.
 
-Data centres and cloud computing providers also have deployed and offer NTP
+Data centres and cloud computing providers have also deployed and offer NTP
 services both for internal use and for customers, particularly where the network
-is unable to offer or does not require PTP {{IEEE-1588-2019}}, and where they
-may already be familiar with NTP. As these deployments are less likely to be
-constrained by network latency or power the potential for higher levels of
-accuracy and precision within the bounds of the protocol are possible,
-particular through the use of modifications such as the use of bespoke
-algorithms.
+is unable to offer or does not require other protocols e.g. PTP
+{{IEEE-1588-2019}}, and where there may already be familiarity with NTP. As
+these deployments are less likely to be constrained by network latency or power
+the potential for higher levels of accuracy and precision within the bounds of
+the protocol are possible, particular through the use of modifications such as
+the use of bespoke algorithms.
 
 # Threat Analysis and Modeling
 
