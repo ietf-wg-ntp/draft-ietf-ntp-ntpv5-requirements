@@ -317,6 +317,15 @@ support for it by default as existing protocols (e.g. TZDIST {{RFC7808}})
 already provide mechanisms to do so. This does not prevent however, further
 extensions enabling this.
 
+## Remote Monitoring Support
+
+Due to previous DDoS amplification attacks, mode 6 messages which have
+historically provided the ability for monitoring of servers SHOULD NOT be
+supported in the core of the protocol, however it may be provided as a separate
+extension specification. It is likely that even with a new version of the
+protocol middleboxes may continue to block this mode in default configurations
+into the future.
+
 # IANA Considerations
 
 This document makes no requests of IANA.
