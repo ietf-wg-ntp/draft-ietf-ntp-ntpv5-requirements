@@ -1,6 +1,6 @@
 ---
-title: "NTPv5 use cases and requirements"
-abbrev: "NTPv5 use cases and requirements"
+title: "NTPv5 Use Cases and Requirements"
+abbrev: "NTPv5 Use Cases and Requirements"
 docname: draft-ietf-ntp-ntpv5-requirements-latest
 date:
 
@@ -54,7 +54,7 @@ informative:
 
 This document describes the use cases, requirements, and considerations that
 should be factored in the design of a successor protocol to supersede version 4
-of the NTP protocol {{!RFC5905}} presently referred to as NTP version 5
+of the NTP protocol {{RFC5905}} presently referred to as NTP version 5
 ("NTPv5").
 
 --- note_Note_to_Readers
@@ -68,7 +68,7 @@ Source code and issues for this draft can be found at
 
 # Introduction
 
-NTP version 4 {{!RFC5905}} has seen active use for over a decade, and within
+NTP version 4 {{RFC5905}} has seen active use for over a decade, and within
 this time period the protocol has not only been extended to support new
 requirements but has also fallen victim to vulnerabilities that have been used
 for distributed denial of service (DDoS) amplification attacks. In order to
@@ -83,7 +83,7 @@ cases in existing NTPv4 deployments and defines requirements for the future.
 Use of time specific terminology used in this document may further be specified
 in {{RFC7384}} or NTP specific terminology and concepts within {{RFC5905}}.
 
-# Use cases and existing deployments of NTP
+# Use Cases and Existing Deployments of NTP
 
 There are several common scenarios for existing NTPv4 deployments: publicly
 accessible NTP services such as the NTP Pool {{ntppool}} are used to offer clock
@@ -134,7 +134,7 @@ and diagnostic modes which could be exploited.
 The risk that an on-path attacker can systemically delay packets between a
 client and server exists in all time protocols operating on insecure networks
 and its mitigations within the protocol are limited for a clock which is not yet
-synchronised.  Increased path diversity and protocol support for synchronisation
+synchronised. Increased path diversity and protocol support for synchronisation
 across multiple heterogeneous sources are likely the most effective mitigations.
 
 ## False Time
@@ -154,7 +154,7 @@ local networks and over public internet connections where packet loss,
 delay, and filtering may occur. It should be able to provide enough
 information for both basic time information and synchronisation.
 
-## Resource management
+## Resource Management
 
 Historically there have been many documented instances of NTP servers receiving
 large amounts of unauthorised traffic {{ntp-misuse}} and the design of NTPv5
@@ -240,7 +240,7 @@ if that information is known by the server. If the server learns of a leap
 second less than 1 calendar day before a leap second event, it will start
 transmitting the information immediately.
 
-Smearing {{!google-smear}} of leap seconds SHOULD be supported in the protocol,
+Smearing {{google-smear}} of leap seconds SHOULD be supported in the protocol,
 and the protocol MUST support servers transmitting information if they are
 configured to smear leap seconds and if they are actively doing so. Behaviours
 for both client and server in handling leap seconds MUST be part of the
@@ -249,7 +249,7 @@ use leap seconds and others smearing, that servers should not apply both leap
 seconds and smearing, as well as details around smearing timescales. Supported
 smearing algorithms MUST be defined or referenced.
 
-## Backwards compatibility with NTS and NTPv4
+## Backwards Compatibility with NTS and NTPv4
 
 The desire for compatibility with older protocols should not prevent addressing
 deployment issues or cause ossification of the protocol caused by middleboxes
@@ -303,13 +303,13 @@ design of the protocol.
 
 This section covers topics that are explicitly out of scope.
 
-## Server malfeasance detection
+## Server Malfeasance Detection
 
 Detection and reporting of server malfeasance should remain out of scope as
-{{!I-D.ietf-ntp-roughtime}} already provides this capability as a core
+{{I-D.ietf-ntp-roughtime}} already provides this capability as a core
 functionality of the protocol.
 
-## Additional time information and metadata
+## Additional Time Information and Metadata
 
 Previous versions of NTP do not transmit additional time information such as
 time zone data or historical leap seconds, and NTPv5 should not explicitly add
