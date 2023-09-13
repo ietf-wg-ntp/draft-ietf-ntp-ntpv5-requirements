@@ -29,7 +29,9 @@ normative:
     I-D.ietf-ntp-roughtime:
 
 informative:
+    RFC4566:
     RFC7808:
+    RFC8762:
     RFC9065:
     drdos-amplification:
         title: "Amplification and DRDoS Attack Defense -- A Survey and New Perspectives"
@@ -268,9 +270,9 @@ the future) should also be taken into consideration.
 ### Dependent Specifications
 
 Many other documents make use of NTP's data formats ({{RFC5905}} Section 6) for
-representing time, notably for media and packet timestamp measurements. Any
-changes to the data formats should consider the potential implementation
-complexity that may be incurred.
+representing time, notably for media and packet timestamp measurements, such as
+SDP {{RFC4566}} and STAMP {{RFC8762}}. Any changes to the data formats should
+consider the potential implementation complexity that may be incurred.
 
 ## Extensibility
 
