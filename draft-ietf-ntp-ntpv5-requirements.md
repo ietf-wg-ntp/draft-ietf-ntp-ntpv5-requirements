@@ -321,7 +321,7 @@ extensions enabling this.
 
 ## Remote Monitoring Support
 
-Due to previous DDoS amplification attacks, mode 6 messages which have
+Largely due to previous DDoS amplification attacks, mode 6 messages which have
 historically provided the ability for monitoring of servers SHOULD NOT be
 supported in the core of the protocol, however it may be provided as a separate
 extension specification. It is likely that even with a new version of the
