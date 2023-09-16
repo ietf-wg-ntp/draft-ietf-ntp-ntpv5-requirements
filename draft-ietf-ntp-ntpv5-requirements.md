@@ -25,6 +25,7 @@ normative:
     RFC2827:
     RFC5905:
     RFC7384:
+    RFC8085:
     RFC8174:
     I-D.ietf-ntp-roughtime:
 
@@ -122,13 +123,16 @@ mitigations.
 ## Denial of Service and Amplification
 
 NTPv4 has previously suffered from DDoS amplification attacks using a
-combination of IP address spoofing and private mode commands used in many NTP
+combination of IP address spoofing and private mode commands used in some NTP
 implementations, leading to an attacker being able to direct very large volumes
 of traffic to a victim IP address. Current mitigations are disabling private
-mode commands and encouraging network operators to implement BCP 38 {{RFC2827}}.
-The NTPv5 protocol specification should reduce the amplification factor in
-request/response payload sizes {{drdos-amplification}} through the use of
-padding and consideration of payload data, in addition to restricting command
+mode commands susceptible to attackes and encouraging network operators to
+implement BCP 38 {{RFC2827}} as well as source address validation where possible.
+
+The NTPv5 protocol specification should be designed with current best practices
+for UDP based protocols in mind {{RFC8085}}. It should reduce the potential
+amplification factors in request/response payload sizes {{drdos-amplification}}
+through the use of padding of payload data, in addition to restricting command
 and diagnostic modes which could be exploited.
 
 ## Accuracy Degradation
