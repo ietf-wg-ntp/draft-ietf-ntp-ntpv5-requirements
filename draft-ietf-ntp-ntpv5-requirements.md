@@ -163,8 +163,10 @@ information for both basic time information and synchronisation.
 ## Resource Management
 
 Historically there have been many documented instances of NTP servers receiving
-large amounts of unauthorised traffic {{ntp-misuse}} and the design of NTPv5
-must ensure the risk of these can be minimised.
+ongoing large volumes of unauthorised traffic {{ntp-misuse}} and the design of
+NTPv5 must ensure the risk of these can be minimised through the use of
+signalling unwanted traffic (e.g Kiss of Death) or easily identifiable packet
+formats which make rate-limiting, filtering, or blocking by firewalls possible.
 
 The protocol's loop avoidance mechanisms SHOULD be able to use identifiers that
 change over time and MUST NOT use identifiers tied to network topology. In
