@@ -295,10 +295,10 @@ Upgrading cryptographic algorithms must be supported, allowing for more secure
 cryptographic primitives to be incorporated as they are developed and as attacks
 and vulnerabilities with incumbent primitives are discovered.
 
-Intermediate devices such as hardware capable of performing timestamping of
-packets SHOULD be able to add information to packets in flight without
-requiring modification or removal of authentication or confidentiality on the
-packet.
+Intermediate devices such as networking equipment capable of modifying NTP
+packets, for example to adjust timestamps MUST be able to do so
+without compromising authentication or confidentiality. Extension fields with
+separate authentication may be used to facilitate this.
 
 Consideration must be given to how this will be incorporated into any
 applicable trust model. Downgrading attacks that could lead to an adversary
