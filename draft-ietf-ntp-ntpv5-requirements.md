@@ -127,7 +127,8 @@ combination of IP address spoofing and private mode commands used in some NTP
 implementations, leading to an attacker being able to direct very large volumes
 of traffic to a victim IP address. Current mitigations are disabling private
 mode commands susceptible to attackes and encouraging network operators to
-implement BCP 38 {{RFC2827}} as well as source address validation where possible.
+implement BCP 38 {{RFC2827}} as well as source address validation where
+possible.
 
 The NTPv5 protocol specification should be designed with current best practices
 for UDP based protocols in mind {{RFC8085}}. It should reduce the potential
@@ -180,12 +181,12 @@ able to migrate and change any identifier used as stratum topologies or network
 configuration changes occur.
 
 An additional identifier mechanism MAY be considered for the purposes of client
-allow/deny lists, logging and monitoring. Such a mechanism, when included, SHOULD
+allow/deny lists, logging and monitoring. Such a mechanism when included, SHOULD
 be independent of any loop avoidance mechanism, and authenticity requirements
 SHOULD be considered.
 
 The protocol MUST have the capability for servers to notify clients that the
-service is unavailable, and clients MUST have clearly defined behaviours for
+service is unavailable and clients MUST have clearly defined behaviours for
 honouring this signalling. In addition servers SHOULD be able to communicate to
 clients that they should reduce their query rate when the server is
 under high load or has reduced capacity.
@@ -195,7 +196,7 @@ maintaining prolonged connectivity to unavailable hosts and give operators
 the ability to move traffic away from hosts in a timely manner.
 
 The protocol SHOULD have provisions for deployments where Network Address
-Translation occurs, and define behaviours when NAT rebinding occurs. This should
+Translation occurs and define behaviours when NAT rebinding occurs. This should
 also not compromise any DDoS mitigation(s) that the protocol may define.
 
 Client and server protocol modes MUST be supported, and other modes such as
