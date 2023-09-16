@@ -142,12 +142,16 @@ across multiple heterogeneous sources are likely the most effective mitigations.
 ## False Time
 
 Conversely, on-path attackers who can manipulate timestamps could also speed up
-a client's clock, resulting in drift-related malfunctions and errors such as
+a client's clock resulting in drift-related malfunctions and errors such as
 premature expiration of certificates on affected hosts. An attacker may also
 manipulate other data in flight to disrupt service and cause de-synchronisation.
-Message authentication with regular key rotation should mitigate both of these
-cases; however consideration should also be made for hardware-based
-timestamping.
+Additionally attacks via replaying transmitted packets can also delay or confuse
+receiving clocks impacting ongoing synchronisation.
+
+Message authentication with regular key rotation should mitigate all of these
+cases; however deployments should consider finding an appropriate compromise
+between the frequency of rotation to balance the window of attack vs rate of
+re-keying.
 
 # Requirements
 
