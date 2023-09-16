@@ -296,7 +296,9 @@ server SHALL NOT be re-transmitted towards higher stratum servers.
 Data authentication and integrity MUST be supported by the protocol, with
 optional support for data confidentiality. Downgrade attacks by an in-path
 attacker must be mitigated. The protocol SHOULD support different mechanisms to
-support different use cases.
+support different deployment use cases. Extensions and additional modes SHOULD
+also incorporate authentication and integrity on data which could be manipulated
+by an attacker, in-path or off-path.
 
 Upgrading cryptographic algorithms must be supported, allowing for more secure
 cryptographic primitives to be incorporated as they are developed and as attacks
