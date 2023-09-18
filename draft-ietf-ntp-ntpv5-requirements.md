@@ -57,8 +57,7 @@ informative:
 
 This document describes the use cases, requirements, and considerations that
 should be factored in the design of a successor protocol to supersede version 4
-of the NTP protocol {{RFC5905}} presently referred to as NTP version 5
-("NTPv5").
+of the NTP protocol presently referred to as NTP version 5 ("NTPv5").
 
 --- note_Note_to_Readers
 
@@ -116,9 +115,9 @@ time synchronisation protocols that {{RFC7384}} section 3 describes, which can
 be summarised into three basic groups: Denial of Service (DoS), degradation of
 accuracy, and false time, all of which in various forms apply to NTP. However,
 not all threats apply specifically to NTP directly, most notable attacks on time
-sources (§3.2.10) and L2/L3 DoS Attacks (§3.2.7) as both are outside the scope
-of the protocol, and the protocol itself cannot provide much in the way of
-mitigations.
+sources (section 3.2.10) and L2/L3 DoS Attacks (section 3.2.7) as both are
+outside the scope of the protocol, and the protocol itself cannot provide much
+in the way of mitigations.
 
 ## Denial of Service and Amplification
 
