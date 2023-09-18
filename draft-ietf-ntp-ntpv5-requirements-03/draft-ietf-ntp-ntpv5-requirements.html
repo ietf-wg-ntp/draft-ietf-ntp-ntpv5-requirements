@@ -1,0 +1,1730 @@
+<!DOCTYPE html>
+<html lang="en" class="Internet-Draft">
+<head>
+<meta charset="utf-8">
+<meta content="Common,Latin" name="scripts">
+<meta content="initial-scale=1.0" name="viewport">
+<title>NTPv5 Use Cases and Requirements</title>
+<meta content="James Gruessing" name="author">
+<meta content='
+       This document describes the use cases, requirements, and considerations that
+should be factored in the design of a successor protocol to supersede version 4
+of the NTP protocol   presently referred to as NTP version 5
+("NTPv5"). 
+    ' name="description">
+<meta content="xml2rfc 3.18.0" name="generator">
+<meta content="Internet-Draft" name="keyword">
+<meta content="draft-ietf-ntp-ntpv5-requirements-latest" name="ietf.draft">
+<!-- Generator version information:
+  xml2rfc 3.18.0
+    Python 3.11.5
+    ConfigArgParse 1.5.3
+    google-i18n-address 3.1.0
+    intervaltree 3.1.0
+    Jinja2 3.1.2
+    lxml 4.9.3
+    platformdirs 3.10.0
+    pycountry 22.3.5
+    PyYAML 6.0
+    requests 2.31.0
+    setuptools 67.7.2
+    six 1.16.0
+    wcwidth 0.2.6
+-->
+<link href="draft-ietf-ntp-ntpv5-requirements.xml" rel="alternate" type="application/rfc+xml">
+<link href="#copyright" rel="license">
+<style type="text/css">@font-face {
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-vietnamese.woff2') format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-cyrillic.woff2') format('woff2');
+  unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-vietnamese.woff2') format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Lora Bold'), local('Lora-Bold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-bold-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Lora Bold'), local('Lora-Bold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-bold-cyrillic.woff2') format('woff2');
+  unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Lora Bold'), local('Lora-Bold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-bold-vietnamese.woff2') format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Lora Bold'), local('Lora-Bold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-bold-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Lora Bold'), local('Lora-Bold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-bold-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: local('Lora SemiBold'), local('Lora-SemiBold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-semibold-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Cabin Condensed';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: local('Cabin Condensed SemiBold'), local('CabinCondensed-SemiBold'), url('https://martinthomson.github.io/rfc-css/fonts/cabincondensed-semibold-vietnamese.woff2') format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+}
+@font-face {
+  font-family: 'Cabin Condensed';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: local('Cabin Condensed SemiBold'), local('CabinCondensed-SemiBold'), url('https://martinthomson.github.io/rfc-css/fonts/cabincondensed-semibold-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Cabin Condensed';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: local('Cabin Condensed SemiBold'), local('CabinCondensed-SemiBold'), url('https://martinthomson.github.io/rfc-css/fonts/cabincondensed-semibold-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Oxygen Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Oxygen Mono'), local('OxygenMono-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/oxygenmono-regular-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Oxygen Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Oxygen Mono'), local('OxygenMono-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/oxygenmono-regular-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+:root {
+  color-scheme: light dark;
+  --background-color: #fff;
+  --text-color: #222;
+  --title-color: #191919;
+  --link-color: #2a6496;
+  --highlight-color: #f9f9f9;
+  --line-color: #eee;
+  --pilcrow-weak: #ddd;
+  --pilcrow-strong: #bbb;
+  --small-font-size: 14.5px;
+  --font-mono: 'Oxygen Mono', monospace;
+  scrollbar-color: #bbb #eee;
+}
+body {
+  max-width: 600px;
+  margin: 75px auto;
+  padding: 0 5px;
+  color: var(--text-color);
+  background-color: var(--background-color);
+  font: 16px/22px "Lora", serif;
+  scroll-behavior: smooth;
+}
+
+.ears {
+  display: none;
+}
+
+/* headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Cabin Condensed", sans-serif;
+  font-weight: 600;
+  margin: 0.8em 0 0.3em;
+  font-size-adjust: 0.5;
+  color: var(--title-color);
+}
+h1#title {
+  font-size: 32px;
+  line-height: 40px;
+  clear: both;
+}
+h1#title, h1#rfcnum {
+  margin: 1.5em 0 0.2em;
+}
+h1#rfcnum + h1#title {
+  margin: 0.2em 0;
+}
+
+h1, h2, h3 {
+  font-size: 22px;
+  line-height: 27px;
+}
+h4, h5, h6 {
+  font-size: 20px;
+  line-height: 24px;
+}
+
+/* general structure */
+.author {
+  padding-bottom: 0.3em;
+}
+#abstract+p {
+  font-size: 18px;
+  line-height: 24px;
+}
+#abstract+p code, #abstract+p samp, #abstract+p tt {
+  font-size: 16px;
+  line-height: 0;
+}
+
+p {
+  padding: 0;
+  margin: 0.5em 0;
+  text-align: left;
+}
+div {
+  margin: 0;
+}
+.alignRight.art-text {
+  background-color: var(--highlight-color);
+  border: 1px solid var(--line-color);
+  border-radius: 3px;
+  padding: 0.5em 1em 0;
+  margin-bottom: 0.5em;
+}
+.alignRight.art-text pre {
+  padding: 0;
+  width: auto;
+}
+.alignRight {
+  margin: 1em 0;
+}
+.alignRight > *:first-child {
+  border: none;
+  margin: 0;
+  float: right;
+  clear: both;
+}
+.alignRight > *:nth-child(2) {
+  clear: both;
+  display: block;
+  border: none;
+}
+svg {
+  display: block;
+}
+/* font-family isn't space-separated, but =~ will have to do */
+svg[font-family~="monospace" i], svg [font-family~="monospace" i] {
+  font-family: var(--font-mono);
+}
+.alignCenter.art-text {
+  background-color: var(--highlight-color);
+  border: 1px solid var(--line-color);
+  border-radius: 3px;
+  padding: 0.5em 1em 0;
+  margin-bottom: 0.5em;
+}
+.alignCenter.art-text pre {
+  padding: 0;
+  width: auto;
+}
+.alignCenter {
+  margin: 1em 0;
+}
+.alignCenter > *:first-child {
+  border: none;
+  /* this isn't optimal, but it's an existence proof.  PrinceXML doesn't
+     support flexbox yet.
+  */
+  display: table;
+  margin: 0 auto;
+}
+
+/* lists */
+ol, ul {
+  padding: 0;
+  margin: 0 0 0.5em 2em;
+}
+:is(ol, ul) :is(ol, ul) {
+  margin-left: 1em;
+}
+li {
+  margin: 0 0 0.25em 0;
+}
+.ulCompact li {
+  margin: 0;
+}
+ul.empty, .ulEmpty {
+  list-style-type: none;
+}
+ul.empty li, .ulEmpty li {
+  margin-top: 0.5em;
+}
+:is(ul, ol).compact, .ulCompact, .olCompact {
+  line-height: 1;
+  margin: 0 0 0 2em;
+}
+
+/* definition lists */
+dl {
+  clear: left;
+  --indent: 3ch;
+  /* --indent: attr(indent ch); not supported in any browser, but we can dream */
+}
+dl.olPercent {
+  --indent: 5ch;
+}
+dl > dt {
+  float: left;
+  margin-right: 2ch;
+  min-width: 8ch;
+}
+dl.dlNewline > dt {
+  float: none;
+}
+dl > dd {
+  margin-bottom: .8em;
+  margin-left: var(--indent) !important; /* stupid element overrides */
+  min-height: 2ex;
+}
+dl.olPercent > dt {
+  min-width: calc(var(--indent) - 2ch);
+}
+:is(dl.compact, .dlCompact) > dd {
+  margin-bottom: 0;
+}
+:is(dl.compact, .dlCompact) > dd > :is(:first-child, .break:first-child + *) {
+  margin-top: 0;
+}
+:is(dl.compact, .dlCompact) > dd > :is(:last-child) {
+  margin-bottom: 0;
+}
+dl > dd > dl {
+  margin-top: 0.5em;
+  margin-bottom: 0;
+}
+:is(dd, span).break {
+  display: none;
+}
+
+/* links */
+a, a[href].selfRef:hover {
+  text-decoration: none;
+}
+a[href] {
+  color: var(--link-color);
+}
+a[href].selfRef, .iref + a[href].internal {
+  color: var(--text-color);
+}
+a[href]:hover {
+  text-decoration: underline;
+}
+a[href].selfRef:hover {
+  background-color: var(--highlight-color);
+}
+a.xref:is(.cite, .auto), :is(#status-of-memo, #copyright) a {
+  white-space: nowrap;
+}
+
+/* Figures */
+tt, code, pre {
+  background-color: var(--highlight-color);
+  font: 14px/22px var(--font-mono);
+}
+tt, code {
+  /* changing the font for inline elements leads to different ascender
+     and descender heights; as we want to retain baseline alignment,
+     remove leading to avoid altering the final height of lines
+     note: this fails if these blocks take an entire line,
+     a different solution would be great */
+  line-height: 0;
+}
+:is(h1, h2, h3, h4, h5, h6) :is(tt, code) {
+  font-size: 84%;
+}
+pre {
+  border: 1px solid var(--line-color);
+  font-size: 13.5px;
+  line-height: 16px;
+  letter-spacing: -0.2px;
+  margin: 5px;
+  padding: 5px;
+}
+img {
+  max-width: 100%;
+}
+figure {
+  margin: 0.5em 0;
+  padding: 0;
+}
+figure blockquote {
+  margin: 0.8em 0.4em 0.4em;
+}
+figcaption, caption {
+  font-style: italic;
+  margin: 0.5em 1.5em;
+  text-align: left;
+}
+@media screen {
+  /* Auto-collapse boilerplate. */
+  :is(#status-of-memo, #copyright) p {
+    margin: -2px 0;
+    max-height: 0;
+    transition: max-height 2s ease, margin 0.5s ease 0.5s;
+    overflow: hidden;
+  }
+  :is(#status-of-memo, #copyright):hover p,
+  :is(#status-of-memo, #copyright) h2:target ~ p {
+    margin: 0.5em 0;
+    max-height: 500px;
+    overflow: auto;
+  }
+  pre, svg {
+    display: inline-block;
+    overflow-x: auto;
+  }
+  pre {
+    max-width: 100%;
+    width: calc(100% - 22px - 1em);
+  }
+  svg {
+    max-width: calc(100% - 22px - 1em);
+  }
+  figure pre {
+    display: block;
+    width: calc(100% - 25px);
+  }
+  :is(pre, svg) + .pilcrow {
+    display: inline-block;
+    vertical-align: text-bottom;
+    padding-bottom: 8px;
+  }
+}
+
+/* aside, blockquote */
+aside, blockquote {
+  margin-left: 0;
+  padding: 0 2em;
+  font-style: italic;
+}
+blockquote {
+  margin: 1em 0;
+}
+cite {
+  display: block;
+  text-align: right;
+  font-style: italic;
+}
+
+/* tables */
+table {
+  max-width: 100%;
+  margin: 0 0 1em;
+  border-collapse: collapse;
+}
+table.right {
+  margin-left: auto;
+}
+table.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+table.left {
+  margin-right: auto;
+}
+thead, tbody {
+  border: 1px solid var(--line-color);
+}
+th, td {
+  text-align: left;
+  vertical-align: top;
+  padding: 5px 10px;
+}
+th {
+  background-color: var(--line-color);
+}
+:is(tr:nth-child(2n), thead+tbody > tr:nth-child(2n+1)) > td {
+  background-color: var(--background-color);
+}
+:is(tr:nth-child(2n+1), thead+tbody > tr:nth-child(2n)) > td {
+  background-color: var(--highlight-color);
+}
+table caption {
+  margin: 0;
+  padding: 3px 0 3px 1em;
+}
+table p {
+  margin: 0;
+}
+
+/* pilcrow */
+a.pilcrow {
+  margin-left: 3px;
+  opacity: 0.2;
+  user-select: none;
+}
+a.pilcrow[href] { color: var(--pilcrow-weak); }
+a.pilcrow[href]:hover { text-decoration: none; }
+@media not print {
+  :hover > a.pilcrow {
+    opacity: 1;
+  }
+  a.pilcrow[href]:hover {
+    color: var(--pilcrow-strong);
+    background-color: transparent;
+  }
+}
+@media print {
+  a.pilcrow {
+    display: none;
+  }
+}
+
+/* misc */
+hr {
+  border: 0;
+  border-top: 1px solid var(--line-color);
+}
+.bcp14 {
+  font-variant: small-caps;
+  font-weight: 600;
+  font-size: var(--small-font-size);
+}
+.role {
+  font-variant: all-small-caps;
+}
+sub, sup {
+  line-height: 1;
+  font-size: 80%;
+}
+
+/* info block */
+#identifiers {
+  margin: 0;
+  font-size: var(--small-font-size);
+  line-height: 18px;
+  --identifier-width: 15ch;
+}
+#identifiers dt {
+  width: var(--identifier-width);
+  min-width: var(--identifier-width);
+  clear: left;
+  float: left;
+  text-align: right;
+  margin-right: 1ch;
+}
+#identifiers dd {
+  margin: 0;
+  margin-left: calc(1em + var(--identifier-width)) !important;
+  min-width: 5em;
+}
+#identifiers .authors .author {
+  display: inline-block;
+  margin-right: 1.5em;
+}
+#identifiers .authors .org {
+  font-style: italic;
+}
+
+/* The prepared/rendered info at the very bottom of the page */
+.docInfo {
+  color: #999;
+  font-size: 0.9em;
+  font-style: italic;
+  margin-top: 2em;
+}
+.docInfo .prepared {
+  float: left;
+}
+.docInfo .prepared {
+  float: right;
+}
+
+/* table of contents */
+#toc {
+  padding: 0.75em 0 2em 0;
+  margin-bottom: 1em;
+}
+#toc nav ul {
+  margin: 0 0.5em 0 0;
+  padding: 0;
+  list-style: none;
+}
+#toc nav li {
+  line-height: 1.3em;
+  margin: 0.75em 0;
+  padding-left: 1.2em;
+  text-indent: -1.2em;
+}
+#toc a.xref {
+  white-space: normal;
+}
+/* references */
+.references dt {
+  text-align: right;
+  font-weight: bold;
+  min-width: 10ch;
+  margin-right: 1.5ch;
+}
+.references dt:target::before {
+  content: "⇒";
+  width: 15px;
+  margin: 0 10px 0 -25px;
+}
+.references dd {
+  margin-left: 12ch !important;
+  overflow: auto;
+}
+
+.refInstance {
+  margin-bottom: 1.25em;
+}
+
+.references .ascii {
+  margin-bottom: 0.25em;
+}
+
+/* index */
+#rfc\.index\.index + ul {
+  margin-left: 0;
+}
+
+/* authors */
+address.vcard {
+  font-style: normal;
+  margin: 1em 0;
+}
+address.vcard .nameRole {
+  font-weight: 700;
+  margin-left: 0;
+}
+address.vcard .label {
+  margin: 0.5em 0;
+}
+address.vcard .type {
+  display: none;
+}
+.alternative-contact {
+  margin: 1.5em 0 1em;
+}
+hr.addr {
+  border-top: 1px dashed;
+  margin: 0;
+  color: #ddd;
+  max-width: calc(100% - 16px);
+}
+@media (min-width: 500px) {
+  #authors-addresses > section {
+    column-count: 2;
+    column-gap: 20px;
+  }
+  #authors-addresses > section > h2 {
+    column-span: all;
+  }
+  /* hack for break-inside: avoid-column */
+  #authors-addresses address {
+    display: inline-block;
+    break-inside: avoid-column;
+  }
+}
+
+.rfcEditorRemove p:first-of-type {
+  font-style: italic;
+}
+.cref {
+  background-color: rgba(249, 232, 105, 0.3);
+  padding: 2px 4px;
+}
+.crefSource {
+  font-style: italic;
+}
+/* alternative layout for smaller screens */
+@media screen and (max-width: 929px) {
+  #toc {
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    right: 0;
+    padding: 0;
+    margin: 0;
+    border-bottom: 1px solid #ccc;
+    opacity: 0.6;
+  }
+  #toc.active {
+      opacity: 1;
+  }
+  #toc h2 {
+    margin: 0;
+    padding: 2px 0 2px 6px;
+    padding-right: 1em;
+    font-size: 18px;
+    line-height: 24px;
+    min-width: 190px;
+    text-align: right;
+    background-color: #444;
+    color: white;
+    cursor: pointer;
+  }
+  #toc h2::before { /* css hamburger */
+    float: right;
+    position: relative;
+    width: 1em;
+    height: 1px;
+    left: -164px;
+    margin: 8px 0 0 0;
+    background: white none repeat scroll 0 0;
+    box-shadow: 0 4px 0 0 white, 0 8px 0 0 white;
+    content: "";
+  }
+  #toc nav {
+    display: none;
+    background-color: var(--background-color);
+    padding: 0.5em 1em 1em;
+    overflow: auto;
+    overscroll-behavior: contain;
+    height: calc(100vh - 48px);
+    border-left: 1px solid #ddd;
+  }
+  #toc.active nav {
+    display: block;
+  }
+  /* Make the collapsed ToC header render white on gray also when it's a link */
+  #toc h2 a,
+  #toc h2 a:link,
+  #toc h2 a:focus,
+  #toc h2 a:hover,
+  #toc a.toplink,
+  #toc a.toplink:hover {
+    color: white;
+    background-color: #444;
+    text-decoration: none;
+  }
+  #toc a.toplink {
+    margin-top: 2px;
+  }
+}
+
+/* alternative layout for wide screens */
+@media screen and (min-width: 930px) {
+  body {
+    padding-right: 360px;
+    padding-right: calc(min(180px + 20%, 500px));
+  }
+  #toc {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    right: calc(50vw - 480px);
+    width: 312px;
+    margin: 0;
+    padding: 0;
+    z-index: 1;
+  }
+  #toc h2 {
+    margin: 0;
+    padding: 0.25em 1em 1em 0;
+  }
+  #toc nav {
+    display: block;
+    height: calc(90vh - 84px);
+    bottom: 0;
+    padding: 0.5em 0 2em;
+    overflow: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+  }
+  #toc nav > ul  {
+    margin-bottom: 2em;
+  }
+  #toc ul {
+    margin: 0 0 0 4px;
+    font-size: var(--small-font-size);
+  }
+  #toc ul :is(p, li) {
+    margin: 2px 0;
+    line-height: 22px;
+  }
+  img { /* future proofing */
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+/* pagination */
+@media print {
+  body {
+    width: 100%;
+  }
+  p {
+    orphans: 3;
+    widows: 3;
+  }
+  #n-copyright-notice {
+    border-bottom: none;
+  }
+  #toc, #n-introduction {
+    page-break-before: always;
+  }
+  #toc {
+    border-top: none;
+    padding-top: 0;
+  }
+  figure, pre {
+    page-break-inside: avoid;
+  }
+  figure {
+    overflow: scroll;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+  }
+  h2+*, h3+*, h4+*, h5+*, h6+* {
+    page-break-before: avoid;
+  }
+  pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-size: 10pt;
+  }
+  table {
+    border: 1px solid #ddd;
+  }
+  td {
+    border-top: 1px solid #ddd;
+  }
+}
+
+@page :first {
+  padding-top: 0;
+  @top-left {
+    content: normal;
+    border: none;
+  }
+  @top-center {
+    content: normal;
+    border: none;
+  }
+  @top-right {
+    content: normal;
+    border: none;
+  }
+}
+
+@page {
+  size: A4;
+  margin-bottom: 45mm;
+  padding-top: 20px;
+}
+
+/* Changes introduced to fix issues found during implementation */
+
+/* Separate body from document info even without intervening H1 */
+section {
+  clear: both;
+}
+
+/* Top align author divs, to avoid names without organization dropping level with org names */
+.author {
+  vertical-align: top;
+}
+
+/* Style section numbers with more space between number and title */
+.section-number {
+  padding-right: 0.5em;
+}
+
+/* Add styling for a link in the ToC that points to the top of the document */
+a.toplink {
+  float: right;
+  margin: 8px 0.5em 0;
+}
+
+/* Provide styling for table cell text alignment */
+table .text-left {
+  text-align: left;
+}
+table .text-center {
+  text-align: center;
+}
+table .text-right {
+  text-align: right;
+}
+
+/* Make the alternative author contact information look less like just another
+   author, and group it closer with the primary author contact information */
+.alternative-contact {
+  margin: 0.5em 0 0.25em 0;
+}
+address .non-ascii {
+  margin: 0 0 0 2em;
+}
+
+/* With it being possible to set tables with alignment
+  left, center, and right, { width: 100%; } does not make sense */
+table {
+  width: auto;
+}
+
+/* Avoid reference text that sits in a block with very wide left margin,
+   because of a long floating dt label.*/
+.references dd {
+  overflow: visible;
+}
+
+/* Control caption placement */
+caption {
+  caption-side: bottom;
+}
+
+/* Limit the width of the author address vcard, so names in right-to-left
+   script don't end up on the other side of the page. */
+
+address.vcard {
+  max-width: 20em;
+  margin-right: auto;
+}
+
+/* For address alignment dependent on LTR or RTL scripts */
+address div.left {
+  text-align: left;
+}
+address div.right {
+  text-align: right;
+}
+
+/* Give the table caption label the same styling as the figcaption */
+
+@media print {
+  .toplink {
+    display: none;
+  }
+
+  /* avoid overwriting the top border line with the ToC header */
+  #toc {
+    padding-top: 1px;
+  }
+
+  /* Avoid page breaks inside dl and author address entries */
+  dd {
+    page-break-before: avoid;
+  }
+  .vcard {
+    page-break-inside: avoid;
+  }
+
+}
+
+/* Dark mode. */
+@media (prefers-color-scheme: dark) {
+:root {
+  --background-color: #121212;
+  --text-color: #f0f0f0;
+  --title-color: #fff;
+  --link-color: #4da4f0;
+  --highlight-color: #282828;
+  --line-color: #444;
+  --pilcrow-weak: #444;
+  --pilcrow-strong: #666;
+  scrollbar-color: #777 #333;
+}
+}
+
+/* SVG Trick: a prefix match works because only black and white are allowed */
+svg :is([stroke="black"], [stroke^="#000"]) {
+  stroke: var(--text-color);
+}
+svg :is([stroke="white"], [stroke^="#fff"]) {
+  stroke: var(--background-color);
+}
+svg :is([fill="black"], [fill^="#000"], :not([fill])) {
+  fill: var(--text-color);
+}
+svg :is([fill="white"], [fill^="#fff"]) {
+  fill: var(--background-color);
+}
+</style>
+
+</head>
+<body class="xml2rfc">
+<table class="ears">
+<thead><tr>
+<td class="left">Internet-Draft</td>
+<td class="center">NTPv5 Use Cases and Requirements</td>
+<td class="right">September 2023</td>
+</tr></thead>
+<tfoot><tr>
+<td class="left">Gruessing</td>
+<td class="center">Expires 19 March 2024</td>
+<td class="right">[Page]</td>
+</tr></tfoot>
+</table>
+<div id="external-metadata" class="document-information"></div>
+<div id="internal-metadata" class="document-information">
+<dl id="identifiers">
+<dt class="label-workgroup">Workgroup:</dt>
+<dd class="workgroup">Network Time Protocol</dd>
+<dt class="label-internet-draft">Internet-Draft:</dt>
+<dd class="internet-draft">draft-ietf-ntp-ntpv5-requirements-latest</dd>
+<dt class="label-published">Published:</dt>
+<dd class="published">
+<time datetime="2023-09-16" class="published">16 September 2023</time>
+    </dd>
+<dt class="label-intended-status">Intended Status:</dt>
+<dd class="intended-status">Informational</dd>
+<dt class="label-expires">Expires:</dt>
+<dd class="expires"><time datetime="2024-03-19">19 March 2024</time></dd>
+<dt class="label-authors">Author:</dt>
+<dd class="authors">
+<div class="author">
+      <div class="author-name">J. Gruessing</div>
+<div class="org">Nederlandse Publieke Omroep</div>
+</div>
+</dd>
+</dl>
+</div>
+<h1 id="title">NTPv5 Use Cases and Requirements</h1>
+<section id="section-abstract">
+      <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
+<p id="section-abstract-1">This document describes the use cases, requirements, and considerations that
+should be factored in the design of a successor protocol to supersede version 4
+of the NTP protocol <span>[<a href="#RFC5905" class="cite xref">RFC5905</a>]</span> presently referred to as NTP version 5
+("NTPv5").<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+</section>
+<section class="note" id="section-note.1">
+      <h2 id="name-note-to-readers">
+<a href="#name-note-to-readers" class="section-name selfRef">Note to Readers</a>
+      </h2>
+<p id="section-note.1-1"><em>RFC Editor: please remove this section before publication</em><a href="#section-note.1-1" class="pilcrow">¶</a></p>
+<p id="section-note.1-2">Source code and issues for this draft can be found at
+<a href="https://github.com/fiestajetsam/draft-gruessing-ntp-ntpv5-requirements">https://github.com/fiestajetsam/draft-gruessing-ntp-ntpv5-requirements</a>.<a href="#section-note.1-2" class="pilcrow">¶</a></p>
+</section>
+<div id="status-of-memo">
+<section id="section-boilerplate.1">
+        <h2 id="name-status-of-this-memo">
+<a href="#name-status-of-this-memo" class="section-name selfRef">Status of This Memo</a>
+        </h2>
+<p id="section-boilerplate.1-1">
+        This Internet-Draft is submitted in full conformance with the
+        provisions of BCP 78 and BCP 79.<a href="#section-boilerplate.1-1" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.1-2">
+        Internet-Drafts are working documents of the Internet Engineering Task
+        Force (IETF). Note that other groups may also distribute working
+        documents as Internet-Drafts. The list of current Internet-Drafts is
+        at <span><a href="https://datatracker.ietf.org/drafts/current/">https://datatracker.ietf.org/drafts/current/</a></span>.<a href="#section-boilerplate.1-2" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.1-3">
+        Internet-Drafts are draft documents valid for a maximum of six months
+        and may be updated, replaced, or obsoleted by other documents at any
+        time. It is inappropriate to use Internet-Drafts as reference
+        material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.1-4">
+        This Internet-Draft will expire on 19 March 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="copyright">
+<section id="section-boilerplate.2">
+        <h2 id="name-copyright-notice">
+<a href="#name-copyright-notice" class="section-name selfRef">Copyright Notice</a>
+        </h2>
+<p id="section-boilerplate.2-1">
+            Copyright (c) 2023 IETF Trust and the persons identified as the
+            document authors. All rights reserved.<a href="#section-boilerplate.2-1" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.2-2">
+            This document is subject to BCP 78 and the IETF Trust's Legal
+            Provisions Relating to IETF Documents
+            (<span><a href="https://trustee.ietf.org/license-info">https://trustee.ietf.org/license-info</a></span>) in effect on the date of
+            publication of this document. Please review these documents
+            carefully, as they describe your rights and restrictions with
+            respect to this document. Code Components extracted from this
+            document must include Revised BSD License text as described in
+            Section 4.e of the Trust Legal Provisions and are provided without
+            warranty as described in the Revised BSD License.<a href="#section-boilerplate.2-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="toc">
+<section id="section-toc.1">
+        <a href="#" onclick="scroll(0,0)" class="toplink">▲</a><h2 id="name-table-of-contents">
+<a href="#name-table-of-contents" class="section-name selfRef">Table of Contents</a>
+        </h2>
+<nav class="toc"><ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1">
+            <p id="section-toc.1-1.1.1" class="keepWithNext"><a href="#section-1" class="auto internal xref">1</a>.  <a href="#name-introduction" class="internal xref">Introduction</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1.2.1">
+                <p id="section-toc.1-1.1.2.1.1" class="keepWithNext"><a href="#section-1.1" class="auto internal xref">1.1</a>.  <a href="#name-notational-conventions" class="internal xref">Notational Conventions</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2">
+            <p id="section-toc.1-1.2.1" class="keepWithNext"><a href="#section-2" class="auto internal xref">2</a>.  <a href="#name-use-cases-and-existing-depl" class="internal xref">Use Cases and Existing Deployments of NTP</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3">
+            <p id="section-toc.1-1.3.1"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-threat-analysis-and-modelin" class="internal xref">Threat Analysis and Modeling</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.1">
+                <p id="section-toc.1-1.3.2.1.1"><a href="#section-3.1" class="auto internal xref">3.1</a>.  <a href="#name-denial-of-service-and-ampli" class="internal xref">Denial of Service and Amplification</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.2">
+                <p id="section-toc.1-1.3.2.2.1"><a href="#section-3.2" class="auto internal xref">3.2</a>.  <a href="#name-accuracy-degradation" class="internal xref">Accuracy Degradation</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.3">
+                <p id="section-toc.1-1.3.2.3.1"><a href="#section-3.3" class="auto internal xref">3.3</a>.  <a href="#name-false-time" class="internal xref">False Time</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4">
+            <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-requirements" class="internal xref">Requirements</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.1">
+                <p id="section-toc.1-1.4.2.1.1"><a href="#section-4.1" class="auto internal xref">4.1</a>.  <a href="#name-resource-management" class="internal xref">Resource Management</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.2">
+                <p id="section-toc.1-1.4.2.2.1"><a href="#section-4.2" class="auto internal xref">4.2</a>.  <a href="#name-data-minimisation" class="internal xref">Data Minimisation</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.3">
+                <p id="section-toc.1-1.4.2.3.1"><a href="#section-4.3" class="auto internal xref">4.3</a>.  <a href="#name-algorithms" class="internal xref">Algorithms</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.4">
+                <p id="section-toc.1-1.4.2.4.1"><a href="#section-4.4" class="auto internal xref">4.4</a>.  <a href="#name-timescales" class="internal xref">Timescales</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.5">
+                <p id="section-toc.1-1.4.2.5.1"><a href="#section-4.5" class="auto internal xref">4.5</a>.  <a href="#name-leap-seconds" class="internal xref">Leap seconds</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.6">
+                <p id="section-toc.1-1.4.2.6.1"><a href="#section-4.6" class="auto internal xref">4.6</a>.  <a href="#name-backwards-compatibility-wit" class="internal xref">Backwards Compatibility with NTS and NTPv4</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.6.2.1">
+                    <p id="section-toc.1-1.4.2.6.2.1.1"><a href="#section-4.6.1" class="auto internal xref">4.6.1</a>.  <a href="#name-dependent-specifications" class="internal xref">Dependent Specifications</a></p>
+</li>
+                </ul>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.7">
+                <p id="section-toc.1-1.4.2.7.1"><a href="#section-4.7" class="auto internal xref">4.7</a>.  <a href="#name-extensibility" class="internal xref">Extensibility</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.8">
+                <p id="section-toc.1-1.4.2.8.1"><a href="#section-4.8" class="auto internal xref">4.8</a>.  <a href="#name-security" class="internal xref">Security</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5">
+            <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-non-requirements" class="internal xref">Non-requirements</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1">
+                <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="auto internal xref">5.1</a>.  <a href="#name-server-malfeasance-detectio" class="internal xref">Server Malfeasance Detection</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2">
+                <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="auto internal xref">5.2</a>.  <a href="#name-additional-time-information" class="internal xref">Additional Time Information and Metadata</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.3">
+                <p id="section-toc.1-1.5.2.3.1"><a href="#section-5.3" class="auto internal xref">5.3</a>.  <a href="#name-remote-monitoring-support" class="internal xref">Remote Monitoring Support</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
+            <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
+            <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-security-considerations" class="internal xref">Security Considerations</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
+            <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref">8</a>.  <a href="#name-references" class="internal xref">References</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.1">
+                <p id="section-toc.1-1.8.2.1.1"><a href="#section-8.1" class="auto internal xref">8.1</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.2">
+                <p id="section-toc.1-1.8.2.2.1"><a href="#section-8.2" class="auto internal xref">8.2</a>.  <a href="#name-informative-references" class="internal xref">Informative References</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
+            <p id="section-toc.1-1.9.1"><a href="#appendix-A" class="auto internal xref">Appendix A</a>.  <a href="#name-acknowledgements" class="internal xref">Acknowledgements</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
+            <p id="section-toc.1-1.10.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-authors-address" class="internal xref">Author's Address</a></p>
+</li>
+        </ul>
+</nav>
+</section>
+</div>
+<div id="introduction">
+<section id="section-1">
+      <h2 id="name-introduction">
+<a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
+      </h2>
+<p id="section-1-1">NTP version 4 <span>[<a href="#RFC5905" class="cite xref">RFC5905</a>]</span> has seen active use for over a decade, and within
+this time period the protocol has not only been extended to support new
+requirements but has also fallen victim to vulnerabilities that have been used
+for distributed denial of service (DDoS) amplification attacks. In order to
+advance the protocol and address these known issues alongside add capabilities
+for future usage this document defines the current known and applicable use
+cases in existing NTPv4 deployments and defines requirements for the future.<a href="#section-1-1" class="pilcrow">¶</a></p>
+<div id="notational-conventions">
+<section id="section-1.1">
+        <h3 id="name-notational-conventions">
+<a href="#section-1.1" class="section-number selfRef">1.1. </a><a href="#name-notational-conventions" class="section-name selfRef">Notational Conventions</a>
+        </h3>
+<p id="section-1.1-1">The key words "<span class="bcp14">MUST</span>", "<span class="bcp14">MUST NOT</span>", "<span class="bcp14">REQUIRED</span>", "<span class="bcp14">SHALL</span>", "<span class="bcp14">SHALL NOT</span>", "<span class="bcp14">SHOULD</span>", "<span class="bcp14">SHOULD NOT</span>", "<span class="bcp14">RECOMMENDED</span>", "<span class="bcp14">NOT RECOMMENDED</span>",
+"<span class="bcp14">MAY</span>", and "<span class="bcp14">OPTIONAL</span>" in this document are to be interpreted as
+described in BCP 14 <span>[<a href="#RFC2119" class="cite xref">RFC2119</a>]</span> <span>[<a href="#RFC8174" class="cite xref">RFC8174</a>]</span> when, and only when, they
+appear in all capitals, as shown here.<a href="#section-1.1-1" class="pilcrow">¶</a></p>
+<p id="section-1.1-2">Use of time specific terminology used in this document may further be specified
+in <span>[<a href="#RFC7384" class="cite xref">RFC7384</a>]</span> or NTP specific terminology and concepts within <span>[<a href="#RFC5905" class="cite xref">RFC5905</a>]</span>.<a href="#section-1.1-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="use-cases-and-existing-deployments-of-ntp">
+<section id="section-2">
+      <h2 id="name-use-cases-and-existing-depl">
+<a href="#section-2" class="section-number selfRef">2. </a><a href="#name-use-cases-and-existing-depl" class="section-name selfRef">Use Cases and Existing Deployments of NTP</a>
+      </h2>
+<p id="section-2-1">There are several common scenarios for existing NTPv4 deployments: publicly
+accessible NTP services such as the NTP Pool <span>[<a href="#ntppool" class="cite xref">ntppool</a>]</span> are used to offer clock
+synchronisation for end users and embedded devices, ISP-provided servers are
+used to synchronise devices such as customer-premises equipment where reduced
+accuracy may be tolerable. Depending on the network and path these deployments
+may be affected by variable latency as well as throttling or blocking by
+providers.<a href="#section-2-1" class="pilcrow">¶</a></p>
+<p id="section-2-2">Data centres and cloud computing providers have also deployed and offer NTP
+services both for internal use and for customers, particularly where the network
+is unable to offer or does not require other protocols e.g. PTP
+<span>[<a href="#IEEE-1588-2019" class="cite xref">IEEE-1588-2019</a>]</span>, and where there may already be familiarity with NTP. As
+these deployments are less likely to be constrained by network latency or power
+the potential for higher levels of accuracy and precision within the bounds of
+the protocol are possible, particular through the use of modifications such as
+the use of bespoke algorithms.<a href="#section-2-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="threat-analysis-and-modeling">
+<section id="section-3">
+      <h2 id="name-threat-analysis-and-modelin">
+<a href="#section-3" class="section-number selfRef">3. </a><a href="#name-threat-analysis-and-modelin" class="section-name selfRef">Threat Analysis and Modeling</a>
+      </h2>
+<p id="section-3-1">A considerable motivation towards a new version of the protocol is the inclusion
+of security primitives such as authentication and encryption to bring the
+protocol in-line with current best practices for protocol design.<a href="#section-3-1" class="pilcrow">¶</a></p>
+<p id="section-3-2">There are numerous potential threats to a deployment or network handling traffic
+time synchronisation protocols that <span>[<a href="#RFC7384" class="cite xref">RFC7384</a>]</span> section 3 describes, which can
+be summarised into three basic groups: Denial of Service (DoS), degradation of
+accuracy, and false time, all of which in various forms apply to NTP. However,
+not all threats apply specifically to NTP directly, most notable attacks on time
+sources (§3.2.10) and L2/L3 DoS Attacks (§3.2.7) as both are outside the scope
+of the protocol, and the protocol itself cannot provide much in the way of
+mitigations.<a href="#section-3-2" class="pilcrow">¶</a></p>
+<div id="denial-of-service-and-amplification">
+<section id="section-3.1">
+        <h3 id="name-denial-of-service-and-ampli">
+<a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-denial-of-service-and-ampli" class="section-name selfRef">Denial of Service and Amplification</a>
+        </h3>
+<p id="section-3.1-1">NTPv4 has previously suffered from DDoS amplification attacks using a
+combination of IP address spoofing and private mode commands used in some NTP
+implementations, leading to an attacker being able to direct very large volumes
+of traffic to a victim IP address. Current mitigations are disabling private
+mode commands susceptible to attackes and encouraging network operators to
+implement BCP 38 <span>[<a href="#RFC2827" class="cite xref">RFC2827</a>]</span> as well as source address validation where
+possible.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
+<p id="section-3.1-2">The NTPv5 protocol specification should be designed with current best practices
+for UDP based protocols in mind <span>[<a href="#RFC8085" class="cite xref">RFC8085</a>]</span>. It should reduce the potential
+amplification factors in request/response payload sizes <span>[<a href="#drdos-amplification" class="cite xref">drdos-amplification</a>]</span>
+through the use of padding of payload data, in addition to restricting command
+and diagnostic modes which could be exploited.<a href="#section-3.1-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="accuracy-degradation">
+<section id="section-3.2">
+        <h3 id="name-accuracy-degradation">
+<a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-accuracy-degradation" class="section-name selfRef">Accuracy Degradation</a>
+        </h3>
+<p id="section-3.2-1">The risk that an on-path attacker can systemically delay packets between a
+client and server exists in all time protocols operating on insecure networks
+and its mitigations within the protocol are limited for a clock which is not yet
+synchronised. Increased path diversity and protocol support for synchronisation
+across multiple heterogeneous sources are likely the most effective mitigations.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="false-time">
+<section id="section-3.3">
+        <h3 id="name-false-time">
+<a href="#section-3.3" class="section-number selfRef">3.3. </a><a href="#name-false-time" class="section-name selfRef">False Time</a>
+        </h3>
+<p id="section-3.3-1">Conversely, on-path attackers who can manipulate timestamps could also speed up
+a client's clock resulting in drift-related malfunctions and errors such as
+premature expiration of certificates on affected hosts. An attacker may also
+manipulate other data in flight to disrupt service and cause de-synchronisation.
+Additionally attacks via replaying transmitted packets can also delay or confuse
+receiving clocks impacting ongoing synchronisation.<a href="#section-3.3-1" class="pilcrow">¶</a></p>
+<p id="section-3.3-2">Message authentication with regular key rotation should mitigate all of these
+cases; however deployments should consider finding an appropriate compromise
+between the frequency of rotation to balance the window of attack vs rate of
+re-keying.<a href="#section-3.3-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="requirements">
+<section id="section-4">
+      <h2 id="name-requirements">
+<a href="#section-4" class="section-number selfRef">4. </a><a href="#name-requirements" class="section-name selfRef">Requirements</a>
+      </h2>
+<p id="section-4-1">At a high level, NTPv5 should be a protocol that is capable of operating in
+local networks and over public internet connections where packet loss,
+delay, and filtering may occur. It should be able to provide enough
+information for both basic time information and synchronisation.<a href="#section-4-1" class="pilcrow">¶</a></p>
+<div id="resource-management">
+<section id="section-4.1">
+        <h3 id="name-resource-management">
+<a href="#section-4.1" class="section-number selfRef">4.1. </a><a href="#name-resource-management" class="section-name selfRef">Resource Management</a>
+        </h3>
+<p id="section-4.1-1">Historically there have been many documented instances of NTP servers receiving
+ongoing large volumes of unauthorised traffic <span>[<a href="#ntp-misuse" class="cite xref">ntp-misuse</a>]</span> and the design of
+NTPv5 must ensure the risk of these can be minimised through the use of
+signalling unwanted traffic (e.g Kiss of Death) or easily identifiable packet
+formats which make rate-limiting, filtering, or blocking by firewalls possible.<a href="#section-4.1-1" class="pilcrow">¶</a></p>
+<p id="section-4.1-2">The protocol's loop avoidance mechanisms <span class="bcp14">SHOULD</span> be able to use identifiers that
+change over time and <span class="bcp14">MUST NOT</span> use identifiers tied to network topology. In
+particular such mechanism should not rely on any FQDN, IP address or identifier
+tied to a public certificate used or owned by the server. Servers <span class="bcp14">SHOULD</span> be
+able to migrate and change any identifier used as stratum topologies or network
+configuration changes occur.<a href="#section-4.1-2" class="pilcrow">¶</a></p>
+<p id="section-4.1-3">An additional identifier mechanism <span class="bcp14">MAY</span> be considered for the purposes of client
+allow/deny lists, logging and monitoring. Such a mechanism when included, <span class="bcp14">SHOULD</span>
+be independent of any loop avoidance mechanism, and authenticity requirements
+<span class="bcp14">SHOULD</span> be considered.<a href="#section-4.1-3" class="pilcrow">¶</a></p>
+<p id="section-4.1-4">The protocol <span class="bcp14">MUST</span> have the capability for servers to notify clients that the
+service is unavailable and clients <span class="bcp14">MUST</span> have clearly defined behaviours for
+honouring this signalling. In addition servers <span class="bcp14">SHOULD</span> be able to communicate to
+clients that they should reduce their query rate when the server is
+under high load or has reduced capacity.<a href="#section-4.1-4" class="pilcrow">¶</a></p>
+<p id="section-4.1-5">Clients <span class="bcp14">SHOULD</span> periodically re-establish connections with servers to prevent
+maintaining prolonged connectivity to unavailable hosts and give operators
+the ability to move traffic away from hosts in a timely manner.<a href="#section-4.1-5" class="pilcrow">¶</a></p>
+<p id="section-4.1-6">The protocol <span class="bcp14">SHOULD</span> have provisions for deployments where Network Address
+Translation occurs and define behaviours when NAT rebinding occurs. This should
+also not compromise any DDoS mitigation(s) that the protocol may define.<a href="#section-4.1-6" class="pilcrow">¶</a></p>
+<p id="section-4.1-7">Client and server protocol modes <span class="bcp14">MUST</span> be supported, and other modes such as
+symmetric and broadcast <span class="bcp14">MAY</span> be supported by the protocol but <span class="bcp14">SHOULD NOT</span> be
+required by implementers to implement. Considerations should be made in these
+modes to avoid implementations and deployments from vulnerabilities and attacks.<a href="#section-4.1-7" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="data-minimisation">
+<section id="section-4.2">
+        <h3 id="name-data-minimisation">
+<a href="#section-4.2" class="section-number selfRef">4.2. </a><a href="#name-data-minimisation" class="section-name selfRef">Data Minimisation</a>
+        </h3>
+<p id="section-4.2-1">To minimise ongoing use of deprecated fields and exposing identifying
+information of implementations and deployments, payload formats <span class="bcp14">SHOULD</span> use the
+least amount of fields and information where possible. The use of extensions
+should be preferred when transmitting optional data.<a href="#section-4.2-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="algorithms">
+<section id="section-4.3">
+        <h3 id="name-algorithms">
+<a href="#section-4.3" class="section-number selfRef">4.3. </a><a href="#name-algorithms" class="section-name selfRef">Algorithms</a>
+        </h3>
+<p id="section-4.3-1">The use of algorithms describing functions such as clock filtering, selection,
+and clustering <span class="bcp14">SHOULD</span> have agility, allowing for implementations to develop and
+deploy new algorithms independently. Signalling of algorithm use or preference
+<span class="bcp14">SHOULD NOT</span> be transmitted by servers, however essential properties of the
+algorithm (e.g. precision) <span class="bcp14">SHOULD</span> be obvious.<a href="#section-4.3-1" class="pilcrow">¶</a></p>
+<p id="section-4.3-2">The working group should consider creating a separate informational document to
+describe an algorithm to assist with implementation, and consider adopting
+future documents which describe new algorithms as they are developed. Specifying
+client algorithms separately from the protocol will allow NTPv5 to meet
+the needs of applications with a variety of network properties and performance
+requirements.<a href="#section-4.3-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="timescales">
+<section id="section-4.4">
+        <h3 id="name-timescales">
+<a href="#section-4.4" class="section-number selfRef">4.4. </a><a href="#name-timescales" class="section-name selfRef">Timescales</a>
+        </h3>
+<p id="section-4.4-1">The protocol should adopt a linear, monotonic timescale as the basis for
+communicating time. The format should provide sufficient scale, precision, and
+resolution to meet or exceed NTPv4's capabilities, and have a rollover date
+sufficiently far into the future that the protocol's complete obsolescence is
+likely to occur first. Ideally it should be similar or identical to the existing
+epoch and data model that NTPv4 defines to allow for implementations to better
+support both versions of the protocol, allowing for simpler implementations.<a href="#section-4.4-1" class="pilcrow">¶</a></p>
+<p id="section-4.4-2">The timescale, in addition to any other time-sensitive information, <span class="bcp14">MUST</span> be
+sufficient to calculate representations of both UTC and TAI <span>[<a href="#TF.460-6" class="cite xref">TF.460-6</a>]</span>, with
+UTC being the current timescale up to NTPv4. Through extensions the protocol
+<span class="bcp14">SHOULD</span> support additional timescale representations outside of the main
+specification, and all transmissions of time data <span class="bcp14">MUST</span> indicate the timescale in
+use.<a href="#section-4.4-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="leap-seconds">
+<section id="section-4.5">
+        <h3 id="name-leap-seconds">
+<a href="#section-4.5" class="section-number selfRef">4.5. </a><a href="#name-leap-seconds" class="section-name selfRef">Leap seconds</a>
+        </h3>
+<p id="section-4.5-1">Transmission of UTC leap second information <span class="bcp14">MUST</span> be included in the protocol in
+order for clients to generate a UTC representation, but must be transmitted as
+separate information to the timescale. The specification <span class="bcp14">MUST</span> require that
+servers transmit upcoming leap seconds greater than 24 hours in linear timescale
+in advance if that information is known by the server. If the server learns of a
+leap second less than 24 hours before an upcoming leap second event, it will
+start transmitting the information immediately.<a href="#section-4.5-1" class="pilcrow">¶</a></p>
+<p id="section-4.5-2">Smearing <span>[<a href="#google-smear" class="cite xref">google-smear</a>]</span> of leap seconds <span class="bcp14">SHOULD</span> be supported in the protocol,
+and the protocol <span class="bcp14">MUST</span> support servers transmitting information if they are
+configured to smear leap seconds and if they are actively doing so. Behaviours
+for both client and server in handling leap seconds <span class="bcp14">MUST</span> be part of the
+specification; in particular how clients handle multiple servers where some may
+use leap seconds and others smearing, that servers should not apply both leap
+seconds and smearing, as well as details around smearing timescales. Supported
+smearing algorithms <span class="bcp14">MUST</span> be defined or referenced.<a href="#section-4.5-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="backwards-compatibility-with-nts-and-ntpv4">
+<section id="section-4.6">
+        <h3 id="name-backwards-compatibility-wit">
+<a href="#section-4.6" class="section-number selfRef">4.6. </a><a href="#name-backwards-compatibility-wit" class="section-name selfRef">Backwards Compatibility with NTS and NTPv4</a>
+        </h3>
+<p id="section-4.6-1">The desire for compatibility with older protocols should not prevent addressing
+deployment issues or cause ossification of the protocol caused by middleboxes
+<span>[<a href="#RFC9065" class="cite xref">RFC9065</a>]</span>.<a href="#section-4.6-1" class="pilcrow">¶</a></p>
+<p id="section-4.6-2">Servers that support multiple versions of NTP <span class="bcp14">MUST</span> send a response in the same
+version as the request as the model of backwards compatibility. This does not
+preclude servers from acting as a client in one version of NTP and a server in
+another.<a href="#section-4.6-2" class="pilcrow">¶</a></p>
+<p id="section-4.6-3">Protocol ossification <span class="bcp14">MUST</span> be addressed to prevent existing NTPv4
+deployments which respond incorrectly to clients posing as NTPv5 from causing
+issues. Forward prevention of ossification (for a potential NTPv6 protocol in
+the future) should also be taken into consideration.<a href="#section-4.6-3" class="pilcrow">¶</a></p>
+<div id="dependent-specifications">
+<section id="section-4.6.1">
+          <h4 id="name-dependent-specifications">
+<a href="#section-4.6.1" class="section-number selfRef">4.6.1. </a><a href="#name-dependent-specifications" class="section-name selfRef">Dependent Specifications</a>
+          </h4>
+<p id="section-4.6.1-1">Many other documents make use of NTP's data formats (<span>[<a href="#RFC5905" class="cite xref">RFC5905</a>]</span> Section 6) for
+representing time, notably for media and packet timestamp measurements, such as
+SDP <span>[<a href="#RFC4566" class="cite xref">RFC4566</a>]</span> and STAMP <span>[<a href="#RFC8762" class="cite xref">RFC8762</a>]</span>. Any changes to the data formats should
+consider the potential implementation complexity that may be incurred.<a href="#section-4.6.1-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="extensibility">
+<section id="section-4.7">
+        <h3 id="name-extensibility">
+<a href="#section-4.7" class="section-number selfRef">4.7. </a><a href="#name-extensibility" class="section-name selfRef">Extensibility</a>
+        </h3>
+<p id="section-4.7-1">The protocol <span class="bcp14">MUST</span> have the capability to be extended; implementations <span class="bcp14">MUST</span>
+ignore unknown extensions. Unknown extensions received from a lower stratum
+server <span class="bcp14">SHALL NOT</span> be re-transmitted towards higher stratum servers.<a href="#section-4.7-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="security">
+<section id="section-4.8">
+        <h3 id="name-security">
+<a href="#section-4.8" class="section-number selfRef">4.8. </a><a href="#name-security" class="section-name selfRef">Security</a>
+        </h3>
+<p id="section-4.8-1">Data authentication and integrity <span class="bcp14">MUST</span> be supported by the protocol, with
+optional support for data confidentiality. Downgrade attacks by an in-path
+attacker must be mitigated. The protocol <span class="bcp14">SHOULD</span> support different mechanisms to
+support different deployment use cases. Extensions and additional modes <span class="bcp14">SHOULD</span>
+also incorporate authentication and integrity on data which could be manipulated
+by an attacker, in-path or off-path.<a href="#section-4.8-1" class="pilcrow">¶</a></p>
+<p id="section-4.8-2">Upgrading cryptographic algorithms must be supported, allowing for more secure
+cryptographic primitives to be incorporated as they are developed and as attacks
+and vulnerabilities with incumbent primitives are discovered.<a href="#section-4.8-2" class="pilcrow">¶</a></p>
+<p id="section-4.8-3">Intermediate devices such as networking equipment capable of modifying NTP
+packets, for example to adjust timestamps <span class="bcp14">MUST</span> be able to do so
+without compromising authentication or confidentiality. Extension fields with
+separate authentication may be used to facilitate this.<a href="#section-4.8-3" class="pilcrow">¶</a></p>
+<p id="section-4.8-4">Consideration must be given to how this will be incorporated into any
+applicable trust model. Downgrading attacks that could lead to an adversary
+disabling or removing encryption or authentication <span class="bcp14">MUST NOT</span> be possible in the
+design of the protocol.<a href="#section-4.8-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="non-requirements">
+<section id="section-5">
+      <h2 id="name-non-requirements">
+<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-non-requirements" class="section-name selfRef">Non-requirements</a>
+      </h2>
+<p id="section-5-1">This section covers topics that are explicitly out of scope.<a href="#section-5-1" class="pilcrow">¶</a></p>
+<div id="server-malfeasance-detection">
+<section id="section-5.1">
+        <h3 id="name-server-malfeasance-detectio">
+<a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-server-malfeasance-detectio" class="section-name selfRef">Server Malfeasance Detection</a>
+        </h3>
+<p id="section-5.1-1">Detection and reporting of server malfeasance should remain out of scope as
+<span>[<a href="#I-D.ietf-ntp-roughtime" class="cite xref">I-D.ietf-ntp-roughtime</a>]</span> already provides this capability as a core
+functionality of the protocol.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="additional-time-information-and-metadata">
+<section id="section-5.2">
+        <h3 id="name-additional-time-information">
+<a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-additional-time-information" class="section-name selfRef">Additional Time Information and Metadata</a>
+        </h3>
+<p id="section-5.2-1">Previous versions of NTP do not transmit additional time information such as
+time zone data or historical leap seconds, and NTPv5 should not explicitly add
+support for it by default as existing protocols (e.g. TZDIST <span>[<a href="#RFC7808" class="cite xref">RFC7808</a>]</span>)
+already provide mechanisms to do so. This does not prevent however, further
+extensions enabling this.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="remote-monitoring-support">
+<section id="section-5.3">
+        <h3 id="name-remote-monitoring-support">
+<a href="#section-5.3" class="section-number selfRef">5.3. </a><a href="#name-remote-monitoring-support" class="section-name selfRef">Remote Monitoring Support</a>
+        </h3>
+<p id="section-5.3-1">Largely due to previous DDoS amplification attacks, mode 6 messages which have
+historically provided the ability for monitoring of servers <span class="bcp14">SHOULD NOT</span> be
+supported in the core of the protocol, however it may be provided as a separate
+extension specification. It is likely that even with a new version of the
+protocol middleboxes may continue to block this mode in default configurations
+into the future.<a href="#section-5.3-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="iana-considerations">
+<section id="section-6">
+      <h2 id="name-iana-considerations">
+<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
+      </h2>
+<p id="section-6-1">This document makes no requests of IANA.<a href="#section-6-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="security-considerations">
+<section id="section-7">
+      <h2 id="name-security-considerations">
+<a href="#section-7" class="section-number selfRef">7. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
+      </h2>
+<p id="section-7-1">As this document is intended to create discussion and consensus, it introduces
+no security considerations of its own.<a href="#section-7-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<section id="section-8">
+      <h2 id="name-references">
+<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-references" class="section-name selfRef">References</a>
+      </h2>
+<section id="section-8.1">
+        <h3 id="name-normative-references">
+<a href="#section-8.1" class="section-number selfRef">8.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
+        </h3>
+<dl class="references">
+<dt id="I-D.ietf-ntp-roughtime">[I-D.ietf-ntp-roughtime]</dt>
+        <dd>
+<span class="refAuthor">Malhotra, A.</span>, <span class="refAuthor">Langley, A.</span>, <span class="refAuthor">Ladd, W.</span>, and <span class="refAuthor">M. Dansarie</span>, <span class="refTitle">"Roughtime"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-ntp-roughtime-07</span>, <time datetime="2022-09-26" class="refDate">26 September 2022</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-ntp-roughtime-07">https://datatracker.ietf.org/doc/html/draft-ietf-ntp-roughtime-07</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC2119">[RFC2119]</dt>
+        <dd>
+<span class="refAuthor">Bradner, S.</span>, <span class="refTitle">"Key words for use in RFCs to Indicate Requirement Levels"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 2119</span>, <span class="seriesInfo">DOI 10.17487/RFC2119</span>, <time datetime="1997-03" class="refDate">March 1997</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC2827">[RFC2827]</dt>
+        <dd>
+<span class="refAuthor">Ferguson, P.</span> and <span class="refAuthor">D. Senie</span>, <span class="refTitle">"Network Ingress Filtering: Defeating Denial of Service Attacks which employ IP Source Address Spoofing"</span>, <span class="seriesInfo">BCP 38</span>, <span class="seriesInfo">RFC 2827</span>, <span class="seriesInfo">DOI 10.17487/RFC2827</span>, <time datetime="2000-05" class="refDate">May 2000</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc2827">https://www.rfc-editor.org/rfc/rfc2827</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC5905">[RFC5905]</dt>
+        <dd>
+<span class="refAuthor">Mills, D.</span>, <span class="refAuthor">Martin, J., Ed.</span>, <span class="refAuthor">Burbank, J.</span>, and <span class="refAuthor">W. Kasch</span>, <span class="refTitle">"Network Time Protocol Version 4: Protocol and Algorithms Specification"</span>, <span class="seriesInfo">RFC 5905</span>, <span class="seriesInfo">DOI 10.17487/RFC5905</span>, <time datetime="2010-06" class="refDate">June 2010</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc5905">https://www.rfc-editor.org/rfc/rfc5905</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC7384">[RFC7384]</dt>
+        <dd>
+<span class="refAuthor">Mizrahi, T.</span>, <span class="refTitle">"Security Requirements of Time Protocols in Packet Switched Networks"</span>, <span class="seriesInfo">RFC 7384</span>, <span class="seriesInfo">DOI 10.17487/RFC7384</span>, <time datetime="2014-10" class="refDate">October 2014</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc7384">https://www.rfc-editor.org/rfc/rfc7384</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8085">[RFC8085]</dt>
+        <dd>
+<span class="refAuthor">Eggert, L.</span>, <span class="refAuthor">Fairhurst, G.</span>, and <span class="refAuthor">G. Shepherd</span>, <span class="refTitle">"UDP Usage Guidelines"</span>, <span class="seriesInfo">BCP 145</span>, <span class="seriesInfo">RFC 8085</span>, <span class="seriesInfo">DOI 10.17487/RFC8085</span>, <time datetime="2017-03" class="refDate">March 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8085">https://www.rfc-editor.org/rfc/rfc8085</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8174">[RFC8174]</dt>
+      <dd>
+<span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+</dl>
+</section>
+<section id="section-8.2">
+        <h3 id="name-informative-references">
+<a href="#section-8.2" class="section-number selfRef">8.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
+        </h3>
+<dl class="references">
+<dt id="drdos-amplification">[drdos-amplification]</dt>
+        <dd>
+<span class="refTitle">"Amplification and DRDoS Attack Defense -- A Survey and New Perspectives"</span>, <span>n.d.</span>, <span>&lt;<a href="https://arxiv.org/abs/1505.07892">https://arxiv.org/abs/1505.07892</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="google-smear">[google-smear]</dt>
+        <dd>
+<span class="refTitle">"Google Leap Smear"</span>, <span>n.d.</span>, <span>&lt;<a href="https://developers.google.com/time/smear">https://developers.google.com/time/smear</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="IEEE-1588-2019">[IEEE-1588-2019]</dt>
+        <dd>
+<span class="refTitle">"IEEE Standard for a Precision Clock Synchronization Protocol for Networked Measurement and Control Systems"</span>, <span>n.d.</span>. </dd>
+<dd class="break"></dd>
+<dt id="ntp-misuse">[ntp-misuse]</dt>
+        <dd>
+<span class="refTitle">"NTP server misuse and abuse"</span>, <span>n.d.</span>, <span>&lt;<a href="https://en.wikipedia.org/wiki/NTP_server_misuse_and_abuse">https://en.wikipedia.org/wiki/NTP_server_misuse_and_abuse</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="ntppool">[ntppool]</dt>
+        <dd>
+<span class="refTitle">"pool.ntp.org: the internet cluster of ntp servers"</span>, <span>n.d.</span>, <span>&lt;<a href="https://www.ntppool.org">https://www.ntppool.org</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC4566">[RFC4566]</dt>
+        <dd>
+<span class="refAuthor">Handley, M.</span>, <span class="refAuthor">Jacobson, V.</span>, and <span class="refAuthor">C. Perkins</span>, <span class="refTitle">"SDP: Session Description Protocol"</span>, <span class="seriesInfo">RFC 4566</span>, <span class="seriesInfo">DOI 10.17487/RFC4566</span>, <time datetime="2006-07" class="refDate">July 2006</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc4566">https://www.rfc-editor.org/rfc/rfc4566</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC7808">[RFC7808]</dt>
+        <dd>
+<span class="refAuthor">Douglass, M.</span> and <span class="refAuthor">C. Daboo</span>, <span class="refTitle">"Time Zone Data Distribution Service"</span>, <span class="seriesInfo">RFC 7808</span>, <span class="seriesInfo">DOI 10.17487/RFC7808</span>, <time datetime="2016-03" class="refDate">March 2016</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc7808">https://www.rfc-editor.org/rfc/rfc7808</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8762">[RFC8762]</dt>
+        <dd>
+<span class="refAuthor">Mirsky, G.</span>, <span class="refAuthor">Jun, G.</span>, <span class="refAuthor">Nydell, H.</span>, and <span class="refAuthor">R. Foote</span>, <span class="refTitle">"Simple Two-Way Active Measurement Protocol"</span>, <span class="seriesInfo">RFC 8762</span>, <span class="seriesInfo">DOI 10.17487/RFC8762</span>, <time datetime="2020-03" class="refDate">March 2020</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8762">https://www.rfc-editor.org/rfc/rfc8762</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9065">[RFC9065]</dt>
+        <dd>
+<span class="refAuthor">Fairhurst, G.</span> and <span class="refAuthor">C. Perkins</span>, <span class="refTitle">"Considerations around Transport Header Confidentiality, Network Operations, and the Evolution of Internet Transport Protocols"</span>, <span class="seriesInfo">RFC 9065</span>, <span class="seriesInfo">DOI 10.17487/RFC9065</span>, <time datetime="2021-07" class="refDate">July 2021</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9065">https://www.rfc-editor.org/rfc/rfc9065</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="TF.460-6">[TF.460-6]</dt>
+      <dd>
+<span class="refTitle">"Standard-frequency and time-signal emissions"</span>, <span>n.d.</span>, <span>&lt;<a href="https://www.itu.int/rec/R-REC-TF.460-6-200202-I/en">https://www.itu.int/rec/R-REC-TF.460-6-200202-I/en</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+</dl>
+</section>
+</section>
+<div id="acknowledgements">
+<section id="appendix-A">
+      <h2 id="name-acknowledgements">
+<a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-acknowledgements" class="section-name selfRef">Acknowledgements</a>
+      </h2>
+<p id="appendix-A-1">The author would like to thank Doug Arnold, Hal Murray, Paul Gear, and David
+Venhoek for contributions to this document, and would like to acknowledge Daniel
+Franke, Watson Ladd, Miroslav Lichvar for their existing documents and ideas.
+The author would also like to thank Angelo Moriondo, Franz Karl Achard, and
+Malcom McLean for providing the author with motivation.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="authors-addresses">
+<section id="appendix-B">
+      <h2 id="name-authors-address">
+<a href="#name-authors-address" class="section-name selfRef">Author's Address</a>
+      </h2>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">James Gruessing</span></div>
+<div dir="auto" class="left"><span class="org">Nederlandse Publieke Omroep</span></div>
+<div dir="auto" class="left"><span class="country-name">Netherlands</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:james.ietf@gmail.com" class="email">james.ietf@gmail.com</a>
+</div>
+</address>
+</section>
+</div>
+<script>const toc = document.getElementById("toc");
+toc.querySelector("h2").addEventListener("click", e => {
+  toc.classList.toggle("active");
+});
+toc.querySelector("nav").addEventListener("click", e => {
+  toc.classList.remove("active");
+});
+</script>
+</body>
+</html>

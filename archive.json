@@ -1,0 +1,183 @@
+{
+  "magic": "E!vIA5L86J2I",
+  "timestamp": "2022-01-13T00:45:05.076274+00:00",
+  "repo": "fiestajetsam/draft-gruessing-ntp-ntpv5-requirements",
+  "labels": [
+    {
+      "name": "bug",
+      "description": "Something isn't working",
+      "color": "d73a4a"
+    },
+    {
+      "name": "documentation",
+      "description": "Improvements or additions to documentation",
+      "color": "0075ca"
+    },
+    {
+      "name": "duplicate",
+      "description": "This issue or pull request already exists",
+      "color": "cfd3d7"
+    },
+    {
+      "name": "enhancement",
+      "description": "New feature or request",
+      "color": "a2eeef"
+    },
+    {
+      "name": "help wanted",
+      "description": "Extra attention is needed",
+      "color": "008672"
+    },
+    {
+      "name": "good first issue",
+      "description": "Good for newcomers",
+      "color": "7057ff"
+    },
+    {
+      "name": "invalid",
+      "description": "This doesn't seem right",
+      "color": "e4e669"
+    },
+    {
+      "name": "question",
+      "description": "Further information is requested",
+      "color": "d876e3"
+    },
+    {
+      "name": "wontfix",
+      "description": "This will not be worked on",
+      "color": "ffffff"
+    }
+  ],
+  "issues": [
+    {
+      "number": 1,
+      "id": "MDU6SXNzdWUxMDIzNTk5MzQx",
+      "title": "Data minimisation",
+      "url": "https://github.com/fiestajetsam/draft-gruessing-ntp-ntpv5-requirements/issues/1",
+      "state": "OPEN",
+      "author": "fiestajetsam",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Hal Murray [writes](https://mailarchive.ietf.org/arch/msg/ntp/GLJzQnXnnztCqHAIuLYa11ICcOo/):\r\n\r\n> Draft 04 from Mar 2019 has expired.\r\n> \r\n> I thought it was well done.  Did it expire because people lost interest?  If \r\n> so, should we add data-minimization to the NTPv5 list?\r\n> \r\n> Section 5.1 in RFC 8633, BCP, July 2019, is on Minimizing Information Leakage\r\n\r\nMinimization of data should be part of the design of the wire format and a requirement or two can be included into the security considerations of the document. It's worth noting that several values of the [data minimization](https://datatracker.ietf.org/doc/html/draft-ietf-ntp-data-minimization) draft may not either apply or won't be present in t he specification.",
+      "createdAt": "2021-02-09T13:38:19Z",
+      "updatedAt": "2021-10-12T09:44:51Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 2,
+      "id": "MDU6SXNzdWUxMDIzNTk5NDUy",
+      "title": "Impacts on dependant standards",
+      "url": "https://github.com/fiestajetsam/draft-gruessing-ntp-ntpv5-requirements/issues/2",
+      "state": "OPEN",
+      "author": "fiestajetsam",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "As one example, SDP ([RFC 8866](https://www.rfc-editor.org/rfc/rfc8866.html)) uses \"NTP\" time or rather, NTP's epoch with second resolution to represent timestamps. \r\n\r\nPresuming we have a timescale with a new epoch, considerations for it as well as other protocols which clearly depend on implementations calculating those values must be taken into account.",
+      "createdAt": "2021-02-08T21:14:50Z",
+      "updatedAt": "2021-10-12T09:44:57Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "fiestajetsam",
+          "authorAssociation": "OWNER",
+          "body": "I've spent a fair bit of time looking at many RFCs I can find which refers to 5905. Many refer to it in informative contexts, such as suggesting how a deployment could have time synchronisations, particularly when \"bootstrapping\", likely because of a dependency with PKI systems (e.g. knowing current UTC to determine if certificates are in their `notBefore` and `notAfter` windows). However several other themes of references have been found:\r\n\r\n## Dependency on timestamp format and epoch\r\n*  [RFC 9034](https://datatracker.ietf.org/doc/html/rfc9034) - Packet Delivery Deadline Time in the Routing Header for IPv6... \r\n*  [RFC 8877](https://datatracker.ietf.org/doc/html/rfc8877) - Guidelines for Defining Packet Timestamps\r\n*  [RFC 8762](https://datatracker.ietf.org/doc/html/rfc8762) - Simple Two-Way Active Measurement Protocol\r\n*  [RFC 8592](https://datatracker.ietf.org/doc/html/rfc8592) - Key Performance Indicator (KPI) Stamping for the Network Service Header (NSH)\r\n* A numerous number of RTP related documents, including SDP, RTCP, RTSP etc.\r\n\r\nI think I can conclude from this that there are significant decisions for the working group to make regarding any changes to how timestamps are represented, and which epoch are used as these may add complexity to other systems interdependent on it. What I've added to the document specifies keeping the status quo, unless it's at contradiction to other requirements.\r\n\r\n## Yang and related metadata\r\n*  [RFC 8532](https://datatracker.ietf.org/doc/html/rfc8532) - Connectionless OAM YANG Data Model, which is part of the YANG eco  system and referenced by [draft-ietf-ntp-yang-data-model](https://datatracker.ietf.org/doc/draft-ietf-ntp-yang-data-model/)\r\n*  [RFC 8520](https://datatracker.ietf.org/doc/html/rfc8520) - Manufacturer Usage Description, which defines a URN scheme that defines NTP and DNS. Whilst there isn't really anything to consider for the NTP WG here, the listed experts on the [IANA registry](https://www.iana.org/assignments/mud/mud.xhtml) might want to consider if they will distinguish between NTPv5 or v4.\r\n\r\n## Discovery\r\nThis includes documents like [RFC 5908](https://datatracker.ietf.org/doc/html/rfc5908) which covers the DHCPv6 option.\r\n\r\nThere is likely considerations the working group would have to make regarding backwards compatibility, and if it's not feasible having to allocate new DHCPv4/v6 and v6 RA announcements.\r\n",
+          "createdAt": "2021-10-09T21:10:55Z",
+          "updatedAt": "2021-10-09T21:10:55Z"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "id": "MDU6SXNzdWUxMDIzNTk5NTY4",
+      "title": "Splitting out of implementation details",
+      "url": "https://github.com/fiestajetsam/draft-gruessing-ntp-ntpv5-requirements/issues/3",
+      "state": "OPEN",
+      "author": "fiestajetsam",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "As was suggested on [the mailing list](https://mailarchive.ietf.org/arch/msg/ntp/1IJuu-VTIJrDp_TMpRW3bIfNsZ4/).\r\n\r\nConsiderations like PLL overshooting and oscillation should be included in addition.",
+      "createdAt": "2020-12-31T13:36:09Z",
+      "updatedAt": "2021-10-12T09:45:04Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "sa0mad",
+          "authorAssociation": "NONE",
+          "body": "Implementation hints that avoids severe issues is better placed as non-normative appendixes rather than main normative specifications. We may choose to update those through informal RFCs without it actually changing the protocol, it will however change the performance.",
+          "createdAt": "2020-12-31T14:09:00Z",
+          "updatedAt": "2020-12-31T14:09:00Z"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "id": "I_kwDOGM-2Jc49Oeux",
+      "title": "Security Considerations",
+      "url": "https://github.com/fiestajetsam/draft-gruessing-ntp-ntpv5-requirements/issues/4",
+      "state": "CLOSED",
+      "author": "fiestajetsam",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Two things need fixing here:\r\n\r\n1. The Security Considerations section is in relation to the document, not to the specification. The prose in there needs to be split out into a different structure.\r\n2. The language around encryption needs re-work, as even some very smart people are asking questions. For example I should probably ditch \"encryption\" and instead talk about \"confidentiality\" and \"authentication\", perhaps even expanding the definitions in the notational conventions section,",
+      "createdAt": "2021-10-15T08:26:50Z",
+      "updatedAt": "2021-11-13T11:01:17Z",
+      "closedAt": "2021-11-13T11:01:17Z",
+      "comments": []
+    },
+    {
+      "number": 5,
+      "id": "I_kwDOGM-2Jc4-tWTt",
+      "title": "Refer to ITU-R FR.460-6",
+      "url": "https://github.com/fiestajetsam/draft-gruessing-ntp-ntpv5-requirements/issues/5",
+      "state": "OPEN",
+      "author": "fiestajetsam",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "[This recommendation](https://www.itu.int/dms_pubrec/itu-r/rec/tf/R-REC-TF.460-6-200202-I!!PDF-E.pdf) states:\r\n\r\n> ...that standard-frequency and time-signal emissions, and other time-signal emissions intended for scientific applications (with the possible exception of those dedicated to special systems) should contain information on UT1 \u2212 UTC and TAI \u2212 UTC...\r\n\r\nI should read this to get its full context, and consider reference in the spec, this may help in getting consensus regarding timescales.",
+      "createdAt": "2021-11-12T15:19:06Z",
+      "updatedAt": "2021-11-13T10:42:53Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 6,
+      "id": "I_kwDOGM-2Jc4-vkH6",
+      "title": "Requirements for specification vs requirements for protocol",
+      "url": "https://github.com/fiestajetsam/draft-gruessing-ntp-ntpv5-requirements/issues/6",
+      "state": "OPEN",
+      "author": "fiestajetsam",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "The biggest editorial issue with this draft is the use of language that conflates requirements of the protocol, versus requirements of the specification(s) which will define it. In reality, this document should be using language that targets the protocol requirements first at foremost, maybe with suggestions on what to include in the specification as non-normative.",
+      "createdAt": "2021-11-13T11:05:38Z",
+      "updatedAt": "2021-11-13T11:05:38Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 7,
+      "id": "I_kwDOGM-2Jc4_vjzE",
+      "title": "Stronger leap second transmission requirements",
+      "url": "https://github.com/fiestajetsam/draft-gruessing-ntp-ntpv5-requirements/issues/7",
+      "state": "OPEN",
+      "author": "fiestajetsam",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "[Doug writes](https://mailarchive.ietf.org/arch/msg/ntp/uAiuAXFQfHsfVixsFw7MjwDpqyQ/):\r\n\r\n> We could consider a stronger requirement, such as:\r\n>\r\n>The specification MUST require that servers transmit upcoming leap seconds greater than 1 calendar day in advance if that information is known by the server. If the server learns of a leap second less than 1 calendar day before a leap second event, it will start transmitting the information immediately.\r\n\r\nI agree with this and should think about including something like it (noting that I want to make protocol not specification requirements.",
+      "createdAt": "2021-12-02T11:21:45Z",
+      "updatedAt": "2021-12-02T11:21:45Z",
+      "closedAt": null,
+      "comments": []
+    }
+  ],
+  "pulls": []
+}
