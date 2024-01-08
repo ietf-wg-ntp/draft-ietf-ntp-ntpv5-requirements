@@ -4,8 +4,8 @@
 
 Network Time Protocol                                       J. Gruessing
 Internet-Draft                               Nederlandse Publieke Omroep
-Intended status: Informational                         18 September 2023
-Expires: 21 March 2024
+Intended status: Informational                            8 January 2024
+Expires: 11 July 2024
 
 
                     NTPv5 Use Cases and Requirements
@@ -16,7 +16,10 @@ Abstract
    This document describes the use cases, requirements, and
    considerations that should be factored in the design of a successor
    protocol to supersede version 4 of the NTP protocol presently
-   referred to as NTP version 5 ("NTPv5").
+   referred to as NTP version 5 ("NTPv5").  It aims to define what
+   capabilities and requirements such a protocol possesses, informing
+   the design of the protocol in addition to capturing any working group
+   consensus made in development.
 
 Note to Readers
 
@@ -42,11 +45,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 21 March 2024.
+   This Internet-Draft will expire on 11 July 2024.
 
 Copyright Notice
 
-   Copyright (c) 2023 IETF Trust and the persons identified as the
+   Copyright (c) 2024 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -115,18 +118,20 @@ Table of Contents
 
 2.  Use Cases and Existing Deployments of NTP
 
-   There are several common scenarios for existing NTPv4 deployments:
-   publicly accessible NTP services such as the NTP Pool [ntppool] are
-   used to offer clock synchronisation for end users and embedded
-   devices, ISP-provided servers are used to synchronise devices such as
-   customer-premises equipment where reduced accuracy may be tolerable.
-   Depending on the network and path these deployments may be affected
-   by variable latency as well as throttling or blocking by providers.
+   As a protocol, NTP is used synchronise large amounts of computers via
+   both private networks and the open internet, and there are several
+   common scenarios for existing NTPv4 deployments: publicly accessible
+   NTP services such as the NTP Pool [ntppool] are used to offer clock
+   synchronisation for end users and embedded devices, ISP-provided
+   servers are used to synchronise devices such as customer-premises
+   equipment.  Depending on the network and path these deployments may
+   be affected by variable latency as well as throttling or blocking by
+   providers.
 
    Data centres and cloud computing providers have also deployed and
    offer NTP services both for internal use and for customers,
    particularly where the network is unable to offer or does not require
-   other protocols e.g.  PTP [IEEE-1588-2019], and where there may
+   the capabilities other protocols can provide, and where there may
    already be familiarity with NTP.  As these deployments are less
    likely to be constrained by network latency or power the potential
    for higher levels of accuracy and precision within the bounds of the
@@ -209,10 +214,10 @@ Table of Contents
    limiting, filtering, or blocking by firewalls possible.
 
    The protocol's loop avoidance mechanisms SHOULD be able to use
-   identifiers that change over time and MUST NOT use identifiers tied
-   to network topology.  In particular such mechanism should not rely on
-   any FQDN, IP address or identifier tied to a public certificate used
-   or owned by the server.  Servers SHOULD be able to migrate and change
+   identifiers that change over time.  Identifiers MUST NOT relate to
+   network topology, in particular such mechanism should not rely on any
+   FQDN, IP address or identifier tied to a public certificate used or
+   owned by the server.  Servers SHOULD be able to migrate and change
    any identifier used as stratum topologies or network configuration
    changes occur.
 
@@ -237,8 +242,8 @@ Table of Contents
    occurs.  This should also not compromise any DDoS mitigation(s) that
    the protocol may define.
 
-   Client and server protocol modes MUST be supported, and other modes
-   such as symmetric and broadcast MAY be supported by the protocol but
+   Client and server protocol modes MUST be supported.  Other modes such
+   as symmetric and broadcast MAY be supported by the protocol but
    SHOULD NOT be required by implementers to implement.  Considerations
    should be made in these modes to avoid implementations and
    deployments from vulnerabilities and attacks.
@@ -247,9 +252,10 @@ Table of Contents
 
    To minimise ongoing use of deprecated fields and exposing identifying
    information of implementations and deployments, payload formats
-   SHOULD use the least amount of fields and information where possible.
-   The use of extensions should be preferred when transmitting optional
-   data.
+   SHOULD use the least amount of fields and information where possible,
+   realising that data minimisation and resource management can be at
+   odds with one another.  The use of extensions should be preferred
+   when transmitting optional data.
 
 4.3.  Algorithms
 
@@ -281,10 +287,11 @@ Table of Contents
 
    The timescale, in addition to any other time-sensitive information,
    MUST be sufficient to calculate representations of both UTC and TAI
-   [TF.460-6], with UTC being the current timescale up to NTPv4.
-   Through extensions the protocol SHOULD support additional timescale
-   representations outside of the main specification, and all
-   transmissions of time data MUST indicate the timescale in use.
+   [TF.460-6], noting that UTC itself as the current timescale used in
+   NTPv4 is neither linear nor monotonic unlike TAI.  Through extensions
+   the protocol SHOULD support additional timescale representations
+   outside of the main specification, and all transmissions of time data
+   MUST indicate the timescale in use.
 
 4.5.  Leap seconds
 
@@ -344,11 +351,12 @@ Table of Contents
 
    Data authentication and integrity MUST be supported by the protocol,
    with optional support for data confidentiality.  Downgrade attacks by
-   an in-path attacker must be mitigated.  The protocol SHOULD support
-   different mechanisms to support different deployment use cases.
-   Extensions and additional modes SHOULD also incorporate
-   authentication and integrity on data which could be manipulated by an
-   attacker, in-path or off-path.
+   an in-path attacker must be mitigated.  The protocol MUST define at
+   least one common mechanism to ensure interoperability, but should
+   also include support different mechanisms to support different
+   deployment use cases.  Extensions and additional modes SHOULD also
+   incorporate authentication and integrity on data which could be
+   manipulated by an attacker, in-path or off-path.
 
    Upgrading cryptographic algorithms must be supported, allowing for
    more secure cryptographic primitives to be incorporated as they are
@@ -410,9 +418,9 @@ Table of Contents
    [I-D.ietf-ntp-roughtime]
               Malhotra, A., Langley, A., Ladd, W., and M. Dansarie,
               "Roughtime", Work in Progress, Internet-Draft, draft-ietf-
-              ntp-roughtime-07, 26 September 2022,
+              ntp-roughtime-08, 18 October 2023,
               <https://datatracker.ietf.org/doc/html/draft-ietf-ntp-
-              roughtime-07>.
+              roughtime-08>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -451,11 +459,6 @@ Table of Contents
    [google-smear]
               "Google Leap Smear", n.d.,
               <https://developers.google.com/time/smear>.
-
-   [IEEE-1588-2019]
-              "IEEE Standard for a Precision Clock Synchronization
-              Protocol for Networked Measurement and Control Systems",
-              n.d..
 
    [ntp-misuse]
               "NTP server misuse and abuse", n.d.,
