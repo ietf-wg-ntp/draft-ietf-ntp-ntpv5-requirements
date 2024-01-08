@@ -43,9 +43,6 @@ informative:
     ntppool:
         title: "pool.ntp.org: the internet cluster of ntp servers"
         target: "https://www.ntppool.org"
-    IEEE-1588-2019:
-        title: "IEEE Standard for a Precision Clock Synchronization Protocol for Networked Measurement and Control Systems"
-        doi: "10.1109/IEEESTD.2020.9120376"
     TF.460-6:
         title: "Standard-frequency and time-signal emissions"
         target: "https://www.itu.int/rec/R-REC-TF.460-6-200202-I/en"
@@ -57,7 +54,10 @@ informative:
 
 This document describes the use cases, requirements, and considerations that
 should be factored in the design of a successor protocol to supersede version 4
-of the NTP protocol presently referred to as NTP version 5 ("NTPv5").
+of the NTP protocol presently referred to as NTP version 5 ("NTPv5"). It aims to
+define what capabilities and requirements such a protocol possesses, informing
+the design of the protocol in addition to capturing any working group consensus
+made in development.
 
 --- note_Note_to_Readers
 
@@ -87,22 +87,23 @@ in {{RFC7384}} or NTP specific terminology and concepts within {{RFC5905}}.
 
 # Use Cases and Existing Deployments of NTP
 
-There are several common scenarios for existing NTPv4 deployments: publicly
-accessible NTP services such as the NTP Pool {{ntppool}} are used to offer clock
-synchronisation for end users and embedded devices, ISP-provided servers are
-used to synchronise devices such as customer-premises equipment where reduced
-accuracy may be tolerable. Depending on the network and path these deployments
+As a protocol, NTP is used synchronise large amounts of computers via both
+private networks and the open internet, and there are several common scenarios
+for existing NTPv4 deployments: publicly accessible NTP services such as the NTP
+Pool {{ntppool}} are used to offer clock synchronisation for end users and
+embedded devices, ISP-provided servers are used to synchronise devices such as
+customer-premises equipment. Depending on the network and path these deployments
 may be affected by variable latency as well as throttling or blocking by
 providers.
 
 Data centres and cloud computing providers have also deployed and offer NTP
 services both for internal use and for customers, particularly where the network
-is unable to offer or does not require other protocols e.g. PTP
-{{IEEE-1588-2019}}, and where there may already be familiarity with NTP. As
-these deployments are less likely to be constrained by network latency or power
-the potential for higher levels of accuracy and precision within the bounds of
-the protocol are possible, particular through the use of modifications such as
-the use of bespoke algorithms.
+is unable to offer or does not require the capabilities other protocols can
+provide, and where there may already be familiarity with NTP. As these
+deployments are less likely to be constrained by network latency or power the
+potential for higher levels of accuracy and precision within the bounds of the
+protocol are possible, particular through the use of modifications such as the
+use of bespoke algorithms.
 
 # Threat Analysis and Modeling
 
@@ -173,7 +174,7 @@ signalling unwanted traffic (e.g Kiss of Death) or easily identifiable packet
 formats which make rate-limiting, filtering, or blocking by firewalls possible.
 
 The protocol's loop avoidance mechanisms SHOULD be able to use identifiers that
-change over time and MUST NOT use identifiers tied to network topology. In
+change over time. Identifiers MUST NOT relate to network topology, in
 particular such mechanism should not rely on any FQDN, IP address or identifier
 tied to a public certificate used or owned by the server. Servers SHOULD be
 able to migrate and change any identifier used as stratum topologies or network
@@ -198,7 +199,7 @@ The protocol SHOULD have provisions for deployments where Network Address
 Translation occurs and define behaviours when NAT rebinding occurs. This should
 also not compromise any DDoS mitigation(s) that the protocol may define.
 
-Client and server protocol modes MUST be supported, and other modes such as
+Client and server protocol modes MUST be supported. Other modes such as
 symmetric and broadcast MAY be supported by the protocol but SHOULD NOT be
 required by implementers to implement. Considerations should be made in these
 modes to avoid implementations and deployments from vulnerabilities and attacks.
@@ -207,8 +208,9 @@ modes to avoid implementations and deployments from vulnerabilities and attacks.
 
 To minimise ongoing use of deprecated fields and exposing identifying
 information of implementations and deployments, payload formats SHOULD use the
-least amount of fields and information where possible. The use of extensions
-should be preferred when transmitting optional data.
+least amount of fields and information where possible, realising that data
+minimisation and resource management can be at odds with one another. The use of
+extensions should be preferred when transmitting optional data.
 
 ## Algorithms
 
@@ -236,11 +238,11 @@ epoch and data model that NTPv4 defines to allow for implementations to better
 support both versions of the protocol, allowing for simpler implementations.
 
 The timescale, in addition to any other time-sensitive information, MUST be
-sufficient to calculate representations of both UTC and TAI {{TF.460-6}}, with
-UTC being the current timescale up to NTPv4. Through extensions the protocol
-SHOULD support additional timescale representations outside of the main
-specification, and all transmissions of time data MUST indicate the timescale in
-use.
+sufficient to calculate representations of both UTC and TAI {{TF.460-6}}, noting
+that UTC itself as the current timescale used in NTPv4 is neither linear nor
+monotonic unlike TAI. Through extensions the protocol SHOULD support additional
+timescale representations outside of the main specification, and all
+transmissions of time data MUST indicate the timescale in use.
 
 ## Leap seconds
 
@@ -294,10 +296,11 @@ server SHALL NOT be re-transmitted towards higher stratum servers.
 
 Data authentication and integrity MUST be supported by the protocol, with
 optional support for data confidentiality. Downgrade attacks by an in-path
-attacker must be mitigated. The protocol SHOULD support different mechanisms to
-support different deployment use cases. Extensions and additional modes SHOULD
-also incorporate authentication and integrity on data which could be manipulated
-by an attacker, in-path or off-path.
+attacker must be mitigated. The protocol MUST define at least one common
+mechanism to ensure interoperability, but should also include support different
+mechanisms to support different deployment use cases. Extensions and additional
+modes SHOULD also incorporate authentication and integrity on data which could
+be manipulated by an attacker, in-path or off-path.
 
 Upgrading cryptographic algorithms must be supported, allowing for more secure
 cryptographic primitives to be incorporated as they are developed and as attacks
