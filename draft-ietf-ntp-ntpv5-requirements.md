@@ -202,7 +202,7 @@ also not compromise any DDoS mitigation(s) that the protocol may define.
 Client and server protocol modes MUST be supported. Other modes such as
 symmetric and broadcast MAY be supported by the protocol but SHOULD NOT be
 required by implementers to implement. Considerations should be made in these
-modes to avoid implementation vulnerabilities and to protect deployments from1
+modes to avoid implementation vulnerabilities and to protect deployments from
 attacks.
 
 ## Data Minimisation
