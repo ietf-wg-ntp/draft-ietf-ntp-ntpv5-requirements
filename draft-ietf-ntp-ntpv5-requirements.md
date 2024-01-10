@@ -100,9 +100,9 @@ Data centres and cloud computing providers have also deployed and offer NTP
 services both for internal use and for customers, particularly where the network
 is unable to offer or does not require the capabilities other protocols can
 provide, and where there may already be familiarity with NTP. As these
-deployments are less likely to be constrained by network latency or power the
+deployments are less likely to be constrained by network latency or power, the
 potential for higher levels of accuracy and precision within the bounds of the
-protocol are possible, particular through the use of modifications such as the
+protocol are possible, particularly through the use of modifications such as the
 use of bespoke algorithms.
 
 # Threat Analysis and Modeling
@@ -150,20 +150,20 @@ Conversely, on-path attackers who can manipulate timestamps could also speed up
 a client's clock resulting in drift-related malfunctions and errors such as
 premature expiration of certificates on affected hosts. An attacker may also
 manipulate other data in flight to disrupt service and cause de-synchronisation.
-Additionally attacks via replaying transmitted packets can also delay or confuse
-receiving clocks impacting ongoing synchronisation.
+Additionally attacks via replaying previously transmitted packets can also delay
+or confuse receiving clocks, impacting ongoing synchronisation.
 
 Message authentication with regular key rotation should mitigate all of these
 cases; however deployments should consider finding an appropriate compromise
-between the frequency of rotation to balance the window of attack vs rate of
-re-keying.
+between the frequency of rotation to balance the window of attack and the rate
+of re-keying.
 
 # Requirements
 
 At a high level, NTPv5 should be a protocol that is capable of operating in
 local networks and over public internet connections where packet loss,
-delay, and filtering may occur. It should be able to provide enough
-information for both basic time information and synchronisation.
+delay, and filtering may occur. It should provide both basic time information
+and synchronisation.
 
 ## Resource Management
 
@@ -202,7 +202,8 @@ also not compromise any DDoS mitigation(s) that the protocol may define.
 Client and server protocol modes MUST be supported. Other modes such as
 symmetric and broadcast MAY be supported by the protocol but SHOULD NOT be
 required by implementers to implement. Considerations should be made in these
-modes to avoid implementations and deployments from vulnerabilities and attacks.
+modes to avoid implementation vulnerabilities and to protect deployments from1
+attacks.
 
 ## Data Minimisation
 
@@ -235,7 +236,7 @@ resolution to meet or exceed NTPv4's capabilities, and have a rollover date
 sufficiently far into the future that the protocol's complete obsolescence is
 likely to occur first. Ideally it should be similar or identical to the existing
 epoch and data model that NTPv4 defines to allow for implementations to better
-support both versions of the protocol, allowing for simpler implementations.
+support both versions of the protocol, simplifying implementation.
 
 The timescale, in addition to any other time-sensitive information, MUST be
 sufficient to calculate representations of both UTC and TAI {{TF.460-6}}, noting
@@ -251,7 +252,7 @@ order for clients to generate a UTC representation, but must be transmitted as
 separate information to the timescale. The specification MUST require that
 servers transmit upcoming leap seconds greater than 24 hours in linear timescale
 in advance if that information is known by the server. If the server learns of a
-leap second less than 24 hours before an upcoming leap second event, it will
+leap second less than 24 hours before an upcoming leap second event, it MUST
 start transmitting the information immediately.
 
 Smearing {{google-smear}} of leap seconds SHOULD be supported in the protocol,
@@ -297,10 +298,10 @@ server SHALL NOT be re-transmitted towards higher stratum servers.
 Data authentication and integrity MUST be supported by the protocol, with
 optional support for data confidentiality. Downgrade attacks by an in-path
 attacker must be mitigated. The protocol MUST define at least one common
-mechanism to ensure interoperability, but should also include support different
-mechanisms to support different deployment use cases. Extensions and additional
-modes SHOULD also incorporate authentication and integrity on data which could
-be manipulated by an attacker, in-path or off-path.
+mechanism to ensure interoperability, but should also include support for 
+different mechanisms to support different deployment use cases. Extensions
+and additional modes SHOULD also incorporate authentication and integrity
+on data which could be manipulated by an attacker, on-path or off-path.
 
 Upgrading cryptographic algorithms must be supported, allowing for more secure
 cryptographic primitives to be incorporated as they are developed and as attacks
@@ -338,7 +339,7 @@ extensions enabling this.
 
 Largely due to previous DDoS amplification attacks, mode 6 messages which have
 historically provided the ability for monitoring of servers SHOULD NOT be
-supported in the core of the protocol, however it may be provided as a separate
+supported in the core of the protocol. However, it may be provided as a separate
 extension specification. It is likely that even with a new version of the
 protocol middleboxes may continue to block this mode in default configurations
 into the future.
