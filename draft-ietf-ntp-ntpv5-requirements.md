@@ -126,7 +126,7 @@ NTPv4 has previously suffered from DDoS amplification attacks using a
 combination of IP address spoofing and private mode commands used in some NTP
 implementations, leading to an attacker being able to direct very large volumes
 of traffic to a victim IP address. Current mitigations are disabling private
-mode commands susceptible to attackes and encouraging network operators to
+mode commands susceptible to attacks and encouraging network operators to
 implement BCP 38 {{RFC2827}} as well as source address validation where
 possible.
 
@@ -232,7 +232,7 @@ requirements.
 
 The protocol should adopt a linear, monotonic timescale as the basis for
 communicating time. The format should provide sufficient scale, precision, and
-resolution to meet or exceed NTPv4's capabilities, and have a rollover date
+resolution to meet or exceed NTPv4's capabilities, and have a roll-over date
 sufficiently far into the future that the protocol's complete obsolescence is
 likely to occur first. Ideally it should be similar or identical to the existing
 epoch and data model that NTPv4 defines to allow for implementations to better
@@ -298,7 +298,7 @@ server SHALL NOT be re-transmitted towards higher stratum servers.
 Data authentication and integrity MUST be supported by the protocol, with
 optional support for data confidentiality. Downgrade attacks by an in-path
 attacker must be mitigated. The protocol MUST define at least one common
-mechanism to ensure interoperability, but should also include support for 
+mechanism to ensure interoperability, but should also include support for
 different mechanisms to support different deployment use cases. Extensions
 and additional modes SHOULD also incorporate authentication and integrity
 on data which could be manipulated by an attacker, on-path or off-path.
