@@ -1034,7 +1034,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Gruessing</td>
-<td class="center">Expires 11 July 2024</td>
+<td class="center">Expires 13 July 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1047,12 +1047,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-ntp-ntpv5-requirements-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-01-08" class="published">8 January 2024</time>
+<time datetime="2024-01-10" class="published">10 January 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2024-07-11">11 July 2024</time></dd>
+<dd class="expires"><time datetime="2024-07-13">13 July 2024</time></dd>
 <dt class="label-authors">Author:</dt>
 <dd class="authors">
 <div class="author">
@@ -1099,7 +1099,7 @@ made in development.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 11 July 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 13 July 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1272,9 +1272,9 @@ providers.<a href="#section-2-1" class="pilcrow">¶</a></p>
 services both for internal use and for customers, particularly where the network
 is unable to offer or does not require the capabilities other protocols can
 provide, and where there may already be familiarity with NTP. As these
-deployments are less likely to be constrained by network latency or power the
+deployments are less likely to be constrained by network latency or power, the
 potential for higher levels of accuracy and precision within the bounds of the
-protocol are possible, particular through the use of modifications such as the
+protocol are possible, particularly through the use of modifications such as the
 use of bespoke algorithms.<a href="#section-2-2" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1303,7 +1303,7 @@ in the way of mitigations.<a href="#section-3-2" class="pilcrow">¶</a></p>
 combination of IP address spoofing and private mode commands used in some NTP
 implementations, leading to an attacker being able to direct very large volumes
 of traffic to a victim IP address. Current mitigations are disabling private
-mode commands susceptible to attackes and encouraging network operators to
+mode commands susceptible to attacks and encouraging network operators to
 implement BCP 38 <span>[<a href="#RFC2827" class="cite xref">RFC2827</a>]</span> as well as source address validation where
 possible.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
 <p id="section-3.1-2">The NTPv5 protocol specification should be designed with current best practices
@@ -1334,12 +1334,12 @@ across multiple heterogeneous sources are likely the most effective mitigations.
 a client's clock resulting in drift-related malfunctions and errors such as
 premature expiration of certificates on affected hosts. An attacker may also
 manipulate other data in flight to disrupt service and cause de-synchronisation.
-Additionally attacks via replaying transmitted packets can also delay or confuse
-receiving clocks impacting ongoing synchronisation.<a href="#section-3.3-1" class="pilcrow">¶</a></p>
+Additionally attacks via replaying previously transmitted packets can also delay
+or confuse receiving clocks, impacting ongoing synchronisation.<a href="#section-3.3-1" class="pilcrow">¶</a></p>
 <p id="section-3.3-2">Message authentication with regular key rotation should mitigate all of these
 cases; however deployments should consider finding an appropriate compromise
-between the frequency of rotation to balance the window of attack vs rate of
-re-keying.<a href="#section-3.3-2" class="pilcrow">¶</a></p>
+between the frequency of rotation to balance the window of attack and the rate
+of re-keying.<a href="#section-3.3-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1351,8 +1351,8 @@ re-keying.<a href="#section-3.3-2" class="pilcrow">¶</a></p>
       </h2>
 <p id="section-4-1">At a high level, NTPv5 should be a protocol that is capable of operating in
 local networks and over public internet connections where packet loss,
-delay, and filtering may occur. It should be able to provide enough
-information for both basic time information and synchronisation.<a href="#section-4-1" class="pilcrow">¶</a></p>
+delay, and filtering may occur. It should provide both basic time information
+and synchronisation.<a href="#section-4-1" class="pilcrow">¶</a></p>
 <div id="resource-management">
 <section id="section-4.1">
         <h3 id="name-resource-management">
@@ -1387,7 +1387,8 @@ also not compromise any DDoS mitigation(s) that the protocol may define.<a href=
 <p id="section-4.1-7">Client and server protocol modes <span class="bcp14">MUST</span> be supported. Other modes such as
 symmetric and broadcast <span class="bcp14">MAY</span> be supported by the protocol but <span class="bcp14">SHOULD NOT</span> be
 required by implementers to implement. Considerations should be made in these
-modes to avoid implementations and deployments from vulnerabilities and attacks.<a href="#section-4.1-7" class="pilcrow">¶</a></p>
+modes to avoid implementation vulnerabilities and to protect deployments from
+attacks.<a href="#section-4.1-7" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="data-minimisation">
@@ -1427,11 +1428,11 @@ requirements.<a href="#section-4.3-2" class="pilcrow">¶</a></p>
         </h3>
 <p id="section-4.4-1">The protocol should adopt a linear, monotonic timescale as the basis for
 communicating time. The format should provide sufficient scale, precision, and
-resolution to meet or exceed NTPv4's capabilities, and have a rollover date
+resolution to meet or exceed NTPv4's capabilities, and have a roll-over date
 sufficiently far into the future that the protocol's complete obsolescence is
 likely to occur first. Ideally it should be similar or identical to the existing
 epoch and data model that NTPv4 defines to allow for implementations to better
-support both versions of the protocol, allowing for simpler implementations.<a href="#section-4.4-1" class="pilcrow">¶</a></p>
+support both versions of the protocol, simplifying implementation.<a href="#section-4.4-1" class="pilcrow">¶</a></p>
 <p id="section-4.4-2">The timescale, in addition to any other time-sensitive information, <span class="bcp14">MUST</span> be
 sufficient to calculate representations of both UTC and TAI <span>[<a href="#TF.460-6" class="cite xref">TF.460-6</a>]</span>, noting
 that UTC itself as the current timescale used in NTPv4 is neither linear nor
@@ -1450,7 +1451,7 @@ order for clients to generate a UTC representation, but must be transmitted as
 separate information to the timescale. The specification <span class="bcp14">MUST</span> require that
 servers transmit upcoming leap seconds greater than 24 hours in linear timescale
 in advance if that information is known by the server. If the server learns of a
-leap second less than 24 hours before an upcoming leap second event, it will
+leap second less than 24 hours before an upcoming leap second event, it <span class="bcp14">MUST</span>
 start transmitting the information immediately.<a href="#section-4.5-1" class="pilcrow">¶</a></p>
 <p id="section-4.5-2">Smearing <span>[<a href="#google-smear" class="cite xref">google-smear</a>]</span> of leap seconds <span class="bcp14">SHOULD</span> be supported in the protocol,
 and the protocol <span class="bcp14">MUST</span> support servers transmitting information if they are
@@ -1509,10 +1510,10 @@ server <span class="bcp14">SHALL NOT</span> be re-transmitted towards higher str
 <p id="section-4.8-1">Data authentication and integrity <span class="bcp14">MUST</span> be supported by the protocol, with
 optional support for data confidentiality. Downgrade attacks by an in-path
 attacker must be mitigated. The protocol <span class="bcp14">MUST</span> define at least one common
-mechanism to ensure interoperability, but should also include support different
-mechanisms to support different deployment use cases. Extensions and additional
-modes <span class="bcp14">SHOULD</span> also incorporate authentication and integrity on data which could
-be manipulated by an attacker, in-path or off-path.<a href="#section-4.8-1" class="pilcrow">¶</a></p>
+mechanism to ensure interoperability, but should also include support for
+different mechanisms to support different deployment use cases. Extensions
+and additional modes <span class="bcp14">SHOULD</span> also incorporate authentication and integrity
+on data which could be manipulated by an attacker, on-path or off-path.<a href="#section-4.8-1" class="pilcrow">¶</a></p>
 <p id="section-4.8-2">Upgrading cryptographic algorithms must be supported, allowing for more secure
 cryptographic primitives to be incorporated as they are developed and as attacks
 and vulnerabilities with incumbent primitives are discovered.<a href="#section-4.8-2" class="pilcrow">¶</a></p>
@@ -1563,7 +1564,7 @@ extensions enabling this.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
         </h3>
 <p id="section-5.3-1">Largely due to previous DDoS amplification attacks, mode 6 messages which have
 historically provided the ability for monitoring of servers <span class="bcp14">SHOULD NOT</span> be
-supported in the core of the protocol, however it may be provided as a separate
+supported in the core of the protocol. However, it may be provided as a separate
 extension specification. It is likely that even with a new version of the
 protocol middleboxes may continue to block this mode in default configurations
 into the future.<a href="#section-5.3-1" class="pilcrow">¶</a></p>
