@@ -8,30 +8,30 @@
 <meta content="James Gruessing" name="author">
 <meta content='
        This document describes the use cases, requirements, and considerations that
-should be factored in the design of a successor protocol to supersede version 4
-of the NTP protocol presently referred to as NTP version 5 ("NTPv5"). It aims to
+should be included in the design of a successor protocol to NTP version 4,
+presently referred to as NTP version 5 ("NTPv5"). It aims to
 define what capabilities and requirements such a protocol possesses, informing
 the design of the protocol in addition to capturing any working group consensus
 made in development. 
     ' name="description">
-<meta content="xml2rfc 3.19.0" name="generator">
+<meta content="xml2rfc 3.20.1" name="generator">
 <meta content="Internet-Draft" name="keyword">
 <meta content="draft-ietf-ntp-ntpv5-requirements-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.19.0
-    Python 3.11.6
+  xml2rfc 3.20.1
+    Python 3.11.8
     ConfigArgParse 1.7
     google-i18n-address 3.1.0
     intervaltree 3.1.0
     Jinja2 3.1.2
     lxml 4.9.3
-    platformdirs 4.1.0
+    platformdirs 4.2.0
     pycountry 22.3.5
     PyYAML 6.0.1
     requests 2.31.0
     setuptools 68.2.2
     six 1.16.0
-    wcwidth 0.2.12
+    wcwidth 0.2.13
 -->
 <link href="draft-ietf-ntp-ntpv5-requirements.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -1030,11 +1030,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">NTPv5 Use Cases and Requirements</td>
-<td class="right">January 2024</td>
+<td class="right">March 2024</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Gruessing</td>
-<td class="center">Expires 13 July 2024</td>
+<td class="center">Expires 19 September 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1047,12 +1047,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-ntp-ntpv5-requirements-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-01-10" class="published">10 January 2024</time>
+<time datetime="2024-03-18" class="published">18 March 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2024-07-13">13 July 2024</time></dd>
+<dd class="expires"><time datetime="2024-09-19">19 September 2024</time></dd>
 <dt class="label-authors">Author:</dt>
 <dd class="authors">
 <div class="author">
@@ -1066,8 +1066,8 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
 <p id="section-abstract-1">This document describes the use cases, requirements, and considerations that
-should be factored in the design of a successor protocol to supersede version 4
-of the NTP protocol presently referred to as NTP version 5 ("NTPv5"). It aims to
+should be included in the design of a successor protocol to NTP version 4,
+presently referred to as NTP version 5 ("NTPv5"). It aims to
 define what capabilities and requirements such a protocol possesses, informing
 the design of the protocol in addition to capturing any working group consensus
 made in development.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
@@ -1099,7 +1099,7 @@ made in development.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 13 July 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 19 September 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1262,16 +1262,16 @@ in <span>[<a href="#RFC7384" class="cite xref">RFC7384</a>]</span> or NTP specif
       </h2>
 <p id="section-2-1">As a protocol, NTP is used synchronise large amounts of computers via both
 private networks and the open internet, and there are several common scenarios
-for existing NTPv4 deployments: publicly accessible NTP services such as the NTP
-Pool <span>[<a href="#ntppool" class="cite xref">ntppool</a>]</span> are used to offer clock synchronisation for end users and
-embedded devices, ISP-provided servers are used to synchronise devices such as
-customer-premises equipment. Depending on the network and path these deployments
-may be affected by variable latency as well as throttling or blocking by
-providers.<a href="#section-2-1" class="pilcrow">¶</a></p>
+for existing NTPv4 deployments: Publicly accessible NTP services such as the NTP
+Pool <span>[<a href="#ntppool" class="cite xref">ntppool</a>]</span> are used to offer clock synchronisation for end user devices
+and embedded devices. ISP-provided servers are used to synchronise devices such
+as customer-premises equipment. Depending on the network and path, these
+deployments may be affected by partial or complete packet loss, variable
+latency, or throttling.<a href="#section-2-1" class="pilcrow">¶</a></p>
 <p id="section-2-2">Data centres and cloud computing providers have also deployed and offer NTP
 services both for internal use and for customers, particularly where the network
 is unable to offer or does not require the capabilities other protocols can
-provide, and where there may already be familiarity with NTP. As these
+provide, or where there may be familiarity with NTP already. As these
 deployments are less likely to be constrained by network latency or power, the
 potential for higher levels of accuracy and precision within the bounds of the
 protocol are possible, particularly through the use of modifications such as the
@@ -1309,8 +1309,9 @@ possible.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
 <p id="section-3.1-2">The NTPv5 protocol specification should be designed with current best practices
 for UDP based protocols in mind <span>[<a href="#RFC8085" class="cite xref">RFC8085</a>]</span>. It should reduce the potential
 amplification factors in request/response payload sizes <span>[<a href="#drdos-amplification" class="cite xref">drdos-amplification</a>]</span>
-through the use of padding of payload data, in addition to restricting command
-and diagnostic modes which could be exploited.<a href="#section-3.1-2" class="pilcrow">¶</a></p>
+through the use of payload data padding to equalise the size of request and
+response packets, in addition to restricting command and diagnostic modes which
+could be exploited.<a href="#section-3.1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="accuracy-degradation">
@@ -1331,7 +1332,7 @@ across multiple heterogeneous sources are likely the most effective mitigations.
 <a href="#section-3.3" class="section-number selfRef">3.3. </a><a href="#name-false-time" class="section-name selfRef">False Time</a>
         </h3>
 <p id="section-3.3-1">Conversely, on-path attackers who can manipulate timestamps could also speed up
-a client's clock resulting in drift-related malfunctions and errors such as
+or slow down a client's clock, resulting in drift-related malfunctions and errors such as
 premature expiration of certificates on affected hosts. An attacker may also
 manipulate other data in flight to disrupt service and cause de-synchronisation.
 Additionally attacks via replaying previously transmitted packets can also delay
@@ -1360,33 +1361,33 @@ and synchronisation.<a href="#section-4-1" class="pilcrow">¶</a></p>
         </h3>
 <p id="section-4.1-1">Historically there have been many documented instances of NTP servers receiving
 ongoing large volumes of unauthorised traffic <span>[<a href="#ntp-misuse" class="cite xref">ntp-misuse</a>]</span> and the design of
-NTPv5 must ensure the risk of these can be minimised through the use of
-signalling unwanted traffic (e.g Kiss of Death) or easily identifiable packet
+NTPv5 must ensure the effects of these can be minimised through the use of
+signalling unwanted traffic (e.g. Kiss of Death) or easily identifiable packet
 formats which make rate-limiting, filtering, or blocking by firewalls possible.<a href="#section-4.1-1" class="pilcrow">¶</a></p>
 <p id="section-4.1-2">The protocol's loop avoidance mechanisms <span class="bcp14">SHOULD</span> be able to use identifiers that
-change over time. Identifiers <span class="bcp14">MUST NOT</span> relate to network topology, in
-particular such mechanism should not rely on any FQDN, IP address or identifier
+change over time. Identifiers <span class="bcp14">MUST NOT</span> relate to network topology. In
+particular they should not rely on any FQDN, IP address, or identifier
 tied to a public certificate used or owned by the server. Servers <span class="bcp14">SHOULD</span> be
-able to migrate and change any identifier used as stratum topologies or network
-configuration changes occur.<a href="#section-4.1-2" class="pilcrow">¶</a></p>
+able to migrate and change the identifiers they use as stratum topologies or network
+configurations change.<a href="#section-4.1-2" class="pilcrow">¶</a></p>
 <p id="section-4.1-3">An additional identifier mechanism <span class="bcp14">MAY</span> be considered for the purposes of client
-allow/deny lists, logging and monitoring. Such a mechanism when included, <span class="bcp14">SHOULD</span>
+allow/deny lists, logging, and monitoring. Such a mechanism, when included, <span class="bcp14">SHOULD</span>
 be independent of any loop avoidance mechanism, and authenticity requirements
 <span class="bcp14">SHOULD</span> be considered.<a href="#section-4.1-3" class="pilcrow">¶</a></p>
 <p id="section-4.1-4">The protocol <span class="bcp14">MUST</span> have the capability for servers to notify clients that the
 service is unavailable and clients <span class="bcp14">MUST</span> have clearly defined behaviours for
 honouring this signalling. In addition servers <span class="bcp14">SHOULD</span> be able to communicate to
 clients that they should reduce their query rate when the server is
-under high load or has reduced capacity.<a href="#section-4.1-4" class="pilcrow">¶</a></p>
-<p id="section-4.1-5">Clients <span class="bcp14">SHOULD</span> periodically re-establish connections with servers to prevent
-maintaining prolonged connectivity to unavailable hosts and give operators
+under high load, has reduced capacity, or otherwise wishes to limit traffic.<a href="#section-4.1-4" class="pilcrow">¶</a></p>
+<p id="section-4.1-5">Clients <span class="bcp14">SHOULD</span> periodically re-establish associations with servers to detect
+unresponsive hosts and to give operators
 the ability to move traffic away from hosts in a timely manner.<a href="#section-4.1-5" class="pilcrow">¶</a></p>
 <p id="section-4.1-6">The protocol <span class="bcp14">SHOULD</span> have provisions for deployments where Network Address
 Translation occurs and define behaviours when NAT rebinding occurs. This should
-also not compromise any DDoS mitigation(s) that the protocol may define.<a href="#section-4.1-6" class="pilcrow">¶</a></p>
+not compromise any DDoS mitigation(s) that the protocol may define.<a href="#section-4.1-6" class="pilcrow">¶</a></p>
 <p id="section-4.1-7">Client and server protocol modes <span class="bcp14">MUST</span> be supported. Other modes such as
 symmetric and broadcast <span class="bcp14">MAY</span> be supported by the protocol but <span class="bcp14">SHOULD NOT</span> be
-required by implementers to implement. Considerations should be made in these
+required of implementations. Considerations should be made in these
 modes to avoid implementation vulnerabilities and to protect deployments from
 attacks.<a href="#section-4.1-7" class="pilcrow">¶</a></p>
 </section>
@@ -1398,7 +1399,7 @@ attacks.<a href="#section-4.1-7" class="pilcrow">¶</a></p>
         </h3>
 <p id="section-4.2-1">To minimise ongoing use of deprecated fields and exposing identifying
 information of implementations and deployments, payload formats <span class="bcp14">SHOULD</span> use the
-least amount of fields and information where possible, realising that data
+smallest number of fields and the least amount of information possible, realising that data
 minimisation and resource management can be at odds with one another. The use of
 extensions should be preferred when transmitting optional data.<a href="#section-4.2-1" class="pilcrow">¶</a></p>
 </section>
@@ -1411,7 +1412,7 @@ extensions should be preferred when transmitting optional data.<a href="#section
 <p id="section-4.3-1">The use of algorithms describing functions such as clock filtering, selection,
 and clustering <span class="bcp14">SHOULD</span> have agility, allowing for implementations to develop and
 deploy new algorithms independently. Signalling of algorithm use or preference
-<span class="bcp14">SHOULD NOT</span> be transmitted by servers, however essential properties of the
+<span class="bcp14">SHOULD NOT</span> be transmitted by servers. However, essential properties of the
 algorithm (e.g. precision) <span class="bcp14">SHOULD</span> be obvious.<a href="#section-4.3-1" class="pilcrow">¶</a></p>
 <p id="section-4.3-2">The working group should consider creating a separate informational document to
 describe an algorithm to assist with implementation, and consider adopting
@@ -1436,7 +1437,7 @@ support both versions of the protocol, simplifying implementation.<a href="#sect
 <p id="section-4.4-2">The timescale, in addition to any other time-sensitive information, <span class="bcp14">MUST</span> be
 sufficient to calculate representations of both UTC and TAI <span>[<a href="#TF.460-6" class="cite xref">TF.460-6</a>]</span>, noting
 that UTC itself as the current timescale used in NTPv4 is neither linear nor
-monotonic unlike TAI. Through extensions the protocol <span class="bcp14">SHOULD</span> support additional
+monotonic, unlike TAI. Through extensions, the protocol <span class="bcp14">SHOULD</span> support additional
 timescale representations outside of the main specification, and all
 transmissions of time data <span class="bcp14">MUST</span> indicate the timescale in use.<a href="#section-4.4-2" class="pilcrow">¶</a></p>
 </section>
@@ -1449,17 +1450,17 @@ transmissions of time data <span class="bcp14">MUST</span> indicate the timescal
 <p id="section-4.5-1">Transmission of UTC leap second information <span class="bcp14">MUST</span> be included in the protocol in
 order for clients to generate a UTC representation, but must be transmitted as
 separate information to the timescale. The specification <span class="bcp14">MUST</span> require that
-servers transmit upcoming leap seconds greater than 24 hours in linear timescale
+servers transmit upcoming leap seconds greater than 24 hours
 in advance if that information is known by the server. If the server learns of a
 leap second less than 24 hours before an upcoming leap second event, it <span class="bcp14">MUST</span>
 start transmitting the information immediately.<a href="#section-4.5-1" class="pilcrow">¶</a></p>
 <p id="section-4.5-2">Smearing <span>[<a href="#google-smear" class="cite xref">google-smear</a>]</span> of leap seconds <span class="bcp14">SHOULD</span> be supported in the protocol,
-and the protocol <span class="bcp14">MUST</span> support servers transmitting information if they are
-configured to smear leap seconds and if they are actively doing so. Behaviours
+and the protocol <span class="bcp14">MUST</span> support servers transmitting information about whether they are
+configured to smear leap seconds and whether they are actively doing so. Behaviours
 for both client and server in handling leap seconds <span class="bcp14">MUST</span> be part of the
-specification; in particular how clients handle multiple servers where some may
+specification; in particular, how clients handle multiple servers where some may
 use leap seconds and others smearing, that servers should not apply both leap
-seconds and smearing, as well as details around smearing timescales. Supported
+seconds and smearing, and details around smearing timescales. Supported
 smearing algorithms <span class="bcp14">MUST</span> be defined or referenced.<a href="#section-4.5-2" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1472,13 +1473,12 @@ smearing algorithms <span class="bcp14">MUST</span> be defined or referenced.<a 
 deployment issues or cause ossification of the protocol caused by middleboxes
 <span>[<a href="#RFC9065" class="cite xref">RFC9065</a>]</span>.<a href="#section-4.6-1" class="pilcrow">¶</a></p>
 <p id="section-4.6-2">Servers that support multiple versions of NTP <span class="bcp14">MUST</span> send a response in the same
-version as the request as the model of backwards compatibility. This does not
+version as the request, to support backwards compatibility. This does not
 preclude servers from acting as a client in one version of NTP and a server in
 another.<a href="#section-4.6-2" class="pilcrow">¶</a></p>
-<p id="section-4.6-3">Protocol ossification <span class="bcp14">MUST</span> be addressed to prevent existing NTPv4
-deployments which respond incorrectly to clients posing as NTPv5 from causing
-issues. Forward prevention of ossification (for a potential NTPv6 protocol in
-the future) should also be taken into consideration.<a href="#section-4.6-3" class="pilcrow">¶</a></p>
+<p id="section-4.6-3">Protocol ossification <span class="bcp14">MUST</span> be addressed to prevent issues caused by existing
+NTPv4 deployments which respond incorrectly to clients posing as NTPv5. Forward
+compatibility with a potential future NTPv6 protocol should also be considered.<a href="#section-4.6-3" class="pilcrow">¶</a></p>
 <div id="dependent-specifications">
 <section id="section-4.6.1">
           <h4 id="name-dependent-specifications">
@@ -1562,11 +1562,11 @@ extensions enabling this.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
         <h3 id="name-remote-monitoring-support">
 <a href="#section-5.3" class="section-number selfRef">5.3. </a><a href="#name-remote-monitoring-support" class="section-name selfRef">Remote Monitoring Support</a>
         </h3>
-<p id="section-5.3-1">Largely due to previous DDoS amplification attacks, mode 6 messages which have
+<p id="section-5.3-1">Due to their misuse in DDoS amplification attacks, mode 6 messages which have
 historically provided the ability for monitoring of servers <span class="bcp14">SHOULD NOT</span> be
-supported in the core of the protocol. However, it may be provided as a separate
+supported in the core of the protocol. However, they may be provided in a separate
 extension specification. It is likely that even with a new version of the
-protocol middleboxes may continue to block this mode in default configurations
+protocol, middleboxes may continue to block this mode in default configurations
 into the future.<a href="#section-5.3-1" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1601,7 +1601,7 @@ no security considerations of its own.<a href="#section-7-1" class="pilcrow">¶<
 <dl class="references">
 <dt id="I-D.ietf-ntp-roughtime">[I-D.ietf-ntp-roughtime]</dt>
         <dd>
-<span class="refAuthor">Malhotra, A.</span>, <span class="refAuthor">Langley, A.</span>, <span class="refAuthor">Ladd, W.</span>, and <span class="refAuthor">M. Dansarie</span>, <span class="refTitle">"Roughtime"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-ntp-roughtime-08</span>, <time datetime="2023-10-18" class="refDate">18 October 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-ntp-roughtime-08">https://datatracker.ietf.org/doc/html/draft-ietf-ntp-roughtime-08</a>&gt;</span>. </dd>
+<span class="refAuthor">Ladd, W.</span> and <span class="refAuthor">M. Dansarie</span>, <span class="refTitle">"Roughtime"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-ntp-roughtime-09</span>, <time datetime="2024-03-04" class="refDate">4 March 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-ntp-roughtime-09">https://datatracker.ietf.org/doc/html/draft-ietf-ntp-roughtime-09</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC2119">[RFC2119]</dt>
         <dd>
