@@ -53,8 +53,8 @@ informative:
 --- abstract
 
 This document describes the use cases, requirements, and considerations that
-should be factored in the design of a successor protocol to supersede version 4
-of the NTP protocol presently referred to as NTP version 5 ("NTPv5"). It aims to
+should be included in the design of a successor protocol to NTP version 4,
+presently referred to as NTP version 5 ("NTPv5"). It aims to
 define what capabilities and requirements such a protocol possesses, informing
 the design of the protocol in addition to capturing any working group consensus
 made in development.
@@ -89,17 +89,17 @@ in {{RFC7384}} or NTP specific terminology and concepts within {{RFC5905}}.
 
 As a protocol, NTP is used synchronise large amounts of computers via both
 private networks and the open internet, and there are several common scenarios
-for existing NTPv4 deployments: publicly accessible NTP services such as the NTP
-Pool {{ntppool}} are used to offer clock synchronisation for end users and
-embedded devices, ISP-provided servers are used to synchronise devices such as
-customer-premises equipment. Depending on the network and path these deployments
-may be affected by variable latency as well as throttling or blocking by
-providers.
+for existing NTPv4 deployments: Publicly accessible NTP services such as the NTP
+Pool {{ntppool}} are used to offer clock synchronisation for end user devices
+and embedded devices. ISP-provided servers are used to synchronise devices such
+as customer-premises equipment. Depending on the network and path, these
+deployments may be affected by partial or complete packet loss, variable
+latency, or throttling.
 
 Data centres and cloud computing providers have also deployed and offer NTP
 services both for internal use and for customers, particularly where the network
 is unable to offer or does not require the capabilities other protocols can
-provide, and where there may already be familiarity with NTP. As these
+provide, or where there may be familiarity with NTP already. As these
 deployments are less likely to be constrained by network latency or power, the
 potential for higher levels of accuracy and precision within the bounds of the
 protocol are possible, particularly through the use of modifications such as the
@@ -133,8 +133,9 @@ possible.
 The NTPv5 protocol specification should be designed with current best practices
 for UDP based protocols in mind {{RFC8085}}. It should reduce the potential
 amplification factors in request/response payload sizes {{drdos-amplification}}
-through the use of padding of payload data, in addition to restricting command
-and diagnostic modes which could be exploited.
+through the use of payload data padding to equalise the size of request and
+response packets, in addition to restricting command and diagnostic modes which
+could be exploited.
 
 ## Accuracy Degradation
 
@@ -147,7 +148,7 @@ across multiple heterogeneous sources are likely the most effective mitigations.
 ## False Time
 
 Conversely, on-path attackers who can manipulate timestamps could also speed up
-a client's clock resulting in drift-related malfunctions and errors such as
+or slow down a client's clock, resulting in drift-related malfunctions and errors such as
 premature expiration of certificates on affected hosts. An attacker may also
 manipulate other data in flight to disrupt service and cause de-synchronisation.
 Additionally attacks via replaying previously transmitted packets can also delay
@@ -169,19 +170,19 @@ and synchronisation.
 
 Historically there have been many documented instances of NTP servers receiving
 ongoing large volumes of unauthorised traffic {{ntp-misuse}} and the design of
-NTPv5 must ensure the risk of these can be minimised through the use of
-signalling unwanted traffic (e.g Kiss of Death) or easily identifiable packet
+NTPv5 must ensure the effects of these can be minimised through the use of
+signalling unwanted traffic (e.g. Kiss of Death) or easily identifiable packet
 formats which make rate-limiting, filtering, or blocking by firewalls possible.
 
 The protocol's loop avoidance mechanisms SHOULD be able to use identifiers that
-change over time. Identifiers MUST NOT relate to network topology, in
-particular such mechanism should not rely on any FQDN, IP address or identifier
+change over time. Identifiers MUST NOT relate to network topology. In
+particular such mechanism should not rely on any FQDN, IP address, or identifier
 tied to a public certificate used or owned by the server. Servers SHOULD be
-able to migrate and change any identifier used as stratum topologies or network
-configuration changes occur.
+able to migrate and change the identifiers they use as stratum topologies or network
+configurations change.
 
 An additional identifier mechanism MAY be considered for the purposes of client
-allow/deny lists, logging and monitoring. Such a mechanism when included, SHOULD
+allow/deny lists, logging, and monitoring. Such a mechanism, when included, SHOULD
 be independent of any loop avoidance mechanism, and authenticity requirements
 SHOULD be considered.
 
@@ -189,19 +190,19 @@ The protocol MUST have the capability for servers to notify clients that the
 service is unavailable and clients MUST have clearly defined behaviours for
 honouring this signalling. In addition servers SHOULD be able to communicate to
 clients that they should reduce their query rate when the server is
-under high load or has reduced capacity.
+under high load, has reduced capacity, or otherwise wishes to limit traffic.
 
-Clients SHOULD periodically re-establish connections with servers to prevent
-maintaining prolonged connectivity to unavailable hosts and give operators
+Clients SHOULD periodically re-establish associations with servers to detect
+unresponsive hosts and to give operators
 the ability to move traffic away from hosts in a timely manner.
 
 The protocol SHOULD have provisions for deployments where Network Address
 Translation occurs and define behaviours when NAT rebinding occurs. This should
-also not compromise any DDoS mitigation(s) that the protocol may define.
+not compromise any DDoS mitigation(s) that the protocol may define.
 
 Client and server protocol modes MUST be supported. Other modes such as
 symmetric and broadcast MAY be supported by the protocol but SHOULD NOT be
-required by implementers to implement. Considerations should be made in these
+required of implementations. Considerations should be made in these
 modes to avoid implementation vulnerabilities and to protect deployments from
 attacks.
 
@@ -218,7 +219,7 @@ extensions should be preferred when transmitting optional data.
 The use of algorithms describing functions such as clock filtering, selection,
 and clustering SHOULD have agility, allowing for implementations to develop and
 deploy new algorithms independently. Signalling of algorithm use or preference
-SHOULD NOT be transmitted by servers, however essential properties of the
+SHOULD NOT be transmitted by servers. However, essential properties of the
 algorithm (e.g. precision) SHOULD be obvious.
 
 The working group should consider creating a separate informational document to
@@ -241,7 +242,7 @@ support both versions of the protocol, simplifying implementation.
 The timescale, in addition to any other time-sensitive information, MUST be
 sufficient to calculate representations of both UTC and TAI {{TF.460-6}}, noting
 that UTC itself as the current timescale used in NTPv4 is neither linear nor
-monotonic unlike TAI. Through extensions the protocol SHOULD support additional
+monotonic, unlike TAI. Through extensions, the protocol SHOULD support additional
 timescale representations outside of the main specification, and all
 transmissions of time data MUST indicate the timescale in use.
 
@@ -250,18 +251,18 @@ transmissions of time data MUST indicate the timescale in use.
 Transmission of UTC leap second information MUST be included in the protocol in
 order for clients to generate a UTC representation, but must be transmitted as
 separate information to the timescale. The specification MUST require that
-servers transmit upcoming leap seconds greater than 24 hours in linear timescale
+servers transmit upcoming leap seconds greater than 24 hours
 in advance if that information is known by the server. If the server learns of a
 leap second less than 24 hours before an upcoming leap second event, it MUST
 start transmitting the information immediately.
 
 Smearing {{google-smear}} of leap seconds SHOULD be supported in the protocol,
-and the protocol MUST support servers transmitting information if they are
-configured to smear leap seconds and if they are actively doing so. Behaviours
+and the protocol MUST support servers transmitting information about whether they are
+configured to smear leap seconds and whether they are actively doing so. Behaviours
 for both client and server in handling leap seconds MUST be part of the
-specification; in particular how clients handle multiple servers where some may
+specification; in particular, how clients handle multiple servers where some may
 use leap seconds and others smearing, that servers should not apply both leap
-seconds and smearing, as well as details around smearing timescales. Supported
+seconds and smearing, and details around smearing timescales. Supported
 smearing algorithms MUST be defined or referenced.
 
 ## Backwards Compatibility with NTS and NTPv4
@@ -271,14 +272,13 @@ deployment issues or cause ossification of the protocol caused by middleboxes
 {{RFC9065}}.
 
 Servers that support multiple versions of NTP MUST send a response in the same
-version as the request as the model of backwards compatibility. This does not
+version as the request, to support backwards compatibility. This does not
 preclude servers from acting as a client in one version of NTP and a server in
 another.
 
-Protocol ossification MUST be addressed to prevent existing NTPv4
-deployments which respond incorrectly to clients posing as NTPv5 from causing
-issues. Forward prevention of ossification (for a potential NTPv6 protocol in
-the future) should also be taken into consideration.
+Protocol ossification MUST be addressed to prevent issues caused by existing
+NTPv4 deployments which respond incorrectly to clients posing as NTPv5. Forward
+compatibility with a potential future NTPv6 protocol should also be considered.
 
 ### Dependent Specifications
 
@@ -337,11 +337,11 @@ extensions enabling this.
 
 ## Remote Monitoring Support
 
-Largely due to previous DDoS amplification attacks, mode 6 messages which have
+Due to their misuse in DDoS amplification attacks, mode 6 messages which have
 historically provided the ability for monitoring of servers SHOULD NOT be
-supported in the core of the protocol. However, it may be provided as a separate
+supported in the core of the protocol. However, they may be provided in a separate
 extension specification. It is likely that even with a new version of the
-protocol middleboxes may continue to block this mode in default configurations
+protocol, middleboxes may continue to block this mode in default configurations
 into the future.
 
 # IANA Considerations
