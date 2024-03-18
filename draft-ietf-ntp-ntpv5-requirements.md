@@ -176,7 +176,7 @@ formats which make rate-limiting, filtering, or blocking by firewalls possible.
 
 The protocol's loop avoidance mechanisms SHOULD be able to use identifiers that
 change over time. Identifiers MUST NOT relate to network topology. In
-particular such mechanism should not rely on any FQDN, IP address, or identifier
+particular they should not rely on any FQDN, IP address, or identifier
 tied to a public certificate used or owned by the server. Servers SHOULD be
 able to migrate and change the identifiers they use as stratum topologies or network
 configurations change.
