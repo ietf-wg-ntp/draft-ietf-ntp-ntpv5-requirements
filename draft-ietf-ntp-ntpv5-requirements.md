@@ -210,7 +210,7 @@ attacks.
 
 To minimise ongoing use of deprecated fields and exposing identifying
 information of implementations and deployments, payload formats SHOULD use the
-least amount of fields and information where possible, realising that data
+smallest number of fields and the least amount of information possible, realising that data
 minimisation and resource management can be at odds with one another. The use of
 extensions should be preferred when transmitting optional data.
 
