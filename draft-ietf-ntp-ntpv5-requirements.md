@@ -8,7 +8,6 @@ author:
     -
       ins: J. Gruessing
       name: James Gruessing
-      organization: Nederlandse Publieke Omroep
       country: Netherlands
       email: james.ietf@gmail.com
 
@@ -64,7 +63,7 @@ made in development.
 *RFC Editor: please remove this section before publication*
 
 Source code and issues for this draft can be found at
-<https://github.com/fiestajetsam/draft-gruessing-ntp-ntpv5-requirements>.
+<https://github.com/ietf-wg-ntp/draft-ietf-ntp-ntpv5-requirements>.
 
 --- middle
 
