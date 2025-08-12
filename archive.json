@@ -1,18 +1,8 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2022-01-13T00:45:05.076274+00:00",
-  "repo": "fiestajetsam/draft-gruessing-ntp-ntpv5-requirements",
+  "timestamp": "2025-08-12T19:57:52.430837+00:00",
+  "repo": "ietf-wg-ntp/draft-ietf-ntp-ntpv5-requirements",
   "labels": [
-    {
-      "name": "bug",
-      "description": "Something isn't working",
-      "color": "d73a4a"
-    },
-    {
-      "name": "documentation",
-      "description": "Improvements or additions to documentation",
-      "color": "0075ca"
-    },
     {
       "name": "duplicate",
       "description": "This issue or pull request already exists",
@@ -22,16 +12,6 @@
       "name": "enhancement",
       "description": "New feature or request",
       "color": "a2eeef"
-    },
-    {
-      "name": "help wanted",
-      "description": "Extra attention is needed",
-      "color": "008672"
-    },
-    {
-      "name": "good first issue",
-      "description": "Good for newcomers",
-      "color": "7057ff"
     },
     {
       "name": "invalid",
@@ -54,39 +34,46 @@
       "number": 1,
       "id": "MDU6SXNzdWUxMDIzNTk5MzQx",
       "title": "Data minimisation",
-      "url": "https://github.com/fiestajetsam/draft-gruessing-ntp-ntpv5-requirements/issues/1",
-      "state": "OPEN",
-      "author": "fiestajetsam",
-      "authorAssociation": "OWNER",
+      "url": "https://github.com/ietf-wg-ntp/draft-ietf-ntp-ntpv5-requirements/issues/1",
+      "state": "CLOSED",
+      "author": null,
+      "authorAssociation": "NONE",
       "assignees": [],
       "labels": [],
       "body": "Hal Murray [writes](https://mailarchive.ietf.org/arch/msg/ntp/GLJzQnXnnztCqHAIuLYa11ICcOo/):\r\n\r\n> Draft 04 from Mar 2019 has expired.\r\n> \r\n> I thought it was well done.  Did it expire because people lost interest?  If \r\n> so, should we add data-minimization to the NTPv5 list?\r\n> \r\n> Section 5.1 in RFC 8633, BCP, July 2019, is on Minimizing Information Leakage\r\n\r\nMinimization of data should be part of the design of the wire format and a requirement or two can be included into the security considerations of the document. It's worth noting that several values of the [data minimization](https://datatracker.ietf.org/doc/html/draft-ietf-ntp-data-minimization) draft may not either apply or won't be present in t he specification.",
       "createdAt": "2021-02-09T13:38:19Z",
-      "updatedAt": "2021-10-12T09:44:51Z",
-      "closedAt": null,
+      "updatedAt": "2022-12-30T18:13:59Z",
+      "closedAt": "2022-12-30T18:13:59Z",
       "comments": []
     },
     {
       "number": 2,
       "id": "MDU6SXNzdWUxMDIzNTk5NDUy",
       "title": "Impacts on dependant standards",
-      "url": "https://github.com/fiestajetsam/draft-gruessing-ntp-ntpv5-requirements/issues/2",
-      "state": "OPEN",
-      "author": "fiestajetsam",
-      "authorAssociation": "OWNER",
+      "url": "https://github.com/ietf-wg-ntp/draft-ietf-ntp-ntpv5-requirements/issues/2",
+      "state": "CLOSED",
+      "author": null,
+      "authorAssociation": "NONE",
       "assignees": [],
       "labels": [],
       "body": "As one example, SDP ([RFC 8866](https://www.rfc-editor.org/rfc/rfc8866.html)) uses \"NTP\" time or rather, NTP's epoch with second resolution to represent timestamps. \r\n\r\nPresuming we have a timescale with a new epoch, considerations for it as well as other protocols which clearly depend on implementations calculating those values must be taken into account.",
       "createdAt": "2021-02-08T21:14:50Z",
-      "updatedAt": "2021-10-12T09:44:57Z",
-      "closedAt": null,
+      "updatedAt": "2022-07-20T07:28:28Z",
+      "closedAt": "2022-07-20T07:28:28Z",
       "comments": [
         {
-          "author": "fiestajetsam",
-          "authorAssociation": "OWNER",
+          "author": null,
+          "authorAssociation": "NONE",
           "body": "I've spent a fair bit of time looking at many RFCs I can find which refers to 5905. Many refer to it in informative contexts, such as suggesting how a deployment could have time synchronisations, particularly when \"bootstrapping\", likely because of a dependency with PKI systems (e.g. knowing current UTC to determine if certificates are in their `notBefore` and `notAfter` windows). However several other themes of references have been found:\r\n\r\n## Dependency on timestamp format and epoch\r\n*  [RFC 9034](https://datatracker.ietf.org/doc/html/rfc9034) - Packet Delivery Deadline Time in the Routing Header for IPv6... \r\n*  [RFC 8877](https://datatracker.ietf.org/doc/html/rfc8877) - Guidelines for Defining Packet Timestamps\r\n*  [RFC 8762](https://datatracker.ietf.org/doc/html/rfc8762) - Simple Two-Way Active Measurement Protocol\r\n*  [RFC 8592](https://datatracker.ietf.org/doc/html/rfc8592) - Key Performance Indicator (KPI) Stamping for the Network Service Header (NSH)\r\n* A numerous number of RTP related documents, including SDP, RTCP, RTSP etc.\r\n\r\nI think I can conclude from this that there are significant decisions for the working group to make regarding any changes to how timestamps are represented, and which epoch are used as these may add complexity to other systems interdependent on it. What I've added to the document specifies keeping the status quo, unless it's at contradiction to other requirements.\r\n\r\n## Yang and related metadata\r\n*  [RFC 8532](https://datatracker.ietf.org/doc/html/rfc8532) - Connectionless OAM YANG Data Model, which is part of the YANG eco  system and referenced by [draft-ietf-ntp-yang-data-model](https://datatracker.ietf.org/doc/draft-ietf-ntp-yang-data-model/)\r\n*  [RFC 8520](https://datatracker.ietf.org/doc/html/rfc8520) - Manufacturer Usage Description, which defines a URN scheme that defines NTP and DNS. Whilst there isn't really anything to consider for the NTP WG here, the listed experts on the [IANA registry](https://www.iana.org/assignments/mud/mud.xhtml) might want to consider if they will distinguish between NTPv5 or v4.\r\n\r\n## Discovery\r\nThis includes documents like [RFC 5908](https://datatracker.ietf.org/doc/html/rfc5908) which covers the DHCPv6 option.\r\n\r\nThere is likely considerations the working group would have to make regarding backwards compatibility, and if it's not feasible having to allocate new DHCPv4/v6 and v6 RA announcements.\r\n",
           "createdAt": "2021-10-09T21:10:55Z",
           "updatedAt": "2021-10-09T21:10:55Z"
+        },
+        {
+          "author": null,
+          "authorAssociation": "NONE",
+          "body": "Going to close this, noting that the data model will be defined in the issue above. As for discovery, this brings in questions about how to engage with the working group about document structure, which is now in part set by the milestones agreed in last charter. My initial idea would be:\r\n\r\n* Requirements document, to set the theme of things\r\n* Core protocol spec, which defines wire spec, data model, and client/server behaviour\r\n* A reference set of algorithms for synchronisation, separate for modularity\r\n* Discovery, just defining DHCPv4/6/IPv6RA options.\r\n... and optionally, later on ...\r\n* A BCP that takes in considerations on deploying NTPv5, or NTS.",
+          "createdAt": "2022-07-20T07:28:28Z",
+          "updatedAt": "2022-07-20T07:28:28Z"
         }
       ]
     },
@@ -94,16 +81,16 @@
       "number": 3,
       "id": "MDU6SXNzdWUxMDIzNTk5NTY4",
       "title": "Splitting out of implementation details",
-      "url": "https://github.com/fiestajetsam/draft-gruessing-ntp-ntpv5-requirements/issues/3",
-      "state": "OPEN",
-      "author": "fiestajetsam",
-      "authorAssociation": "OWNER",
+      "url": "https://github.com/ietf-wg-ntp/draft-ietf-ntp-ntpv5-requirements/issues/3",
+      "state": "CLOSED",
+      "author": null,
+      "authorAssociation": "NONE",
       "assignees": [],
       "labels": [],
       "body": "As was suggested on [the mailing list](https://mailarchive.ietf.org/arch/msg/ntp/1IJuu-VTIJrDp_TMpRW3bIfNsZ4/).\r\n\r\nConsiderations like PLL overshooting and oscillation should be included in addition.",
       "createdAt": "2020-12-31T13:36:09Z",
-      "updatedAt": "2021-10-12T09:45:04Z",
-      "closedAt": null,
+      "updatedAt": "2022-12-30T18:24:38Z",
+      "closedAt": "2022-12-30T18:24:37Z",
       "comments": [
         {
           "author": "sa0mad",
@@ -111,6 +98,13 @@
           "body": "Implementation hints that avoids severe issues is better placed as non-normative appendixes rather than main normative specifications. We may choose to update those through informal RFCs without it actually changing the protocol, it will however change the performance.",
           "createdAt": "2020-12-31T14:09:00Z",
           "updatedAt": "2020-12-31T14:09:00Z"
+        },
+        {
+          "author": null,
+          "authorAssociation": "NONE",
+          "body": "As I'm moving towards a requirements document that defines what's in the protocol and not in the document(s), I think this should be closed, noting that I don't disagree with this work being done (it definitely should be discussed and documented in the NTP wg) just not in this spec. This also makes me consider rewording the section on algorithms a little bit.",
+          "createdAt": "2022-12-30T18:24:37Z",
+          "updatedAt": "2022-12-30T18:24:37Z"
         }
       ]
     },
@@ -118,10 +112,10 @@
       "number": 4,
       "id": "I_kwDOGM-2Jc49Oeux",
       "title": "Security Considerations",
-      "url": "https://github.com/fiestajetsam/draft-gruessing-ntp-ntpv5-requirements/issues/4",
+      "url": "https://github.com/ietf-wg-ntp/draft-ietf-ntp-ntpv5-requirements/issues/4",
       "state": "CLOSED",
-      "author": "fiestajetsam",
-      "authorAssociation": "OWNER",
+      "author": null,
+      "authorAssociation": "NONE",
       "assignees": [],
       "labels": [],
       "body": "Two things need fixing here:\r\n\r\n1. The Security Considerations section is in relation to the document, not to the specification. The prose in there needs to be split out into a different structure.\r\n2. The language around encryption needs re-work, as even some very smart people are asking questions. For example I should probably ditch \"encryption\" and instead talk about \"confidentiality\" and \"authentication\", perhaps even expanding the definitions in the notational conventions section,",
@@ -134,50 +128,1007 @@
       "number": 5,
       "id": "I_kwDOGM-2Jc4-tWTt",
       "title": "Refer to ITU-R FR.460-6",
-      "url": "https://github.com/fiestajetsam/draft-gruessing-ntp-ntpv5-requirements/issues/5",
-      "state": "OPEN",
-      "author": "fiestajetsam",
-      "authorAssociation": "OWNER",
+      "url": "https://github.com/ietf-wg-ntp/draft-ietf-ntp-ntpv5-requirements/issues/5",
+      "state": "CLOSED",
+      "author": null,
+      "authorAssociation": "NONE",
       "assignees": [],
       "labels": [],
       "body": "[This recommendation](https://www.itu.int/dms_pubrec/itu-r/rec/tf/R-REC-TF.460-6-200202-I!!PDF-E.pdf) states:\r\n\r\n> ...that standard-frequency and time-signal emissions, and other time-signal emissions intended for scientific applications (with the possible exception of those dedicated to special systems) should contain information on UT1 \u2212 UTC and TAI \u2212 UTC...\r\n\r\nI should read this to get its full context, and consider reference in the spec, this may help in getting consensus regarding timescales.",
       "createdAt": "2021-11-12T15:19:06Z",
-      "updatedAt": "2021-11-13T10:42:53Z",
-      "closedAt": null,
+      "updatedAt": "2022-09-25T15:26:55Z",
+      "closedAt": "2022-09-25T15:26:55Z",
       "comments": []
     },
     {
       "number": 6,
       "id": "I_kwDOGM-2Jc4-vkH6",
       "title": "Requirements for specification vs requirements for protocol",
-      "url": "https://github.com/fiestajetsam/draft-gruessing-ntp-ntpv5-requirements/issues/6",
-      "state": "OPEN",
-      "author": "fiestajetsam",
-      "authorAssociation": "OWNER",
+      "url": "https://github.com/ietf-wg-ntp/draft-ietf-ntp-ntpv5-requirements/issues/6",
+      "state": "CLOSED",
+      "author": null,
+      "authorAssociation": "NONE",
       "assignees": [],
       "labels": [],
       "body": "The biggest editorial issue with this draft is the use of language that conflates requirements of the protocol, versus requirements of the specification(s) which will define it. In reality, this document should be using language that targets the protocol requirements first at foremost, maybe with suggestions on what to include in the specification as non-normative.",
       "createdAt": "2021-11-13T11:05:38Z",
-      "updatedAt": "2021-11-13T11:05:38Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2022-12-30T18:17:26Z",
+      "closedAt": "2022-12-30T18:17:26Z",
+      "comments": [
+        {
+          "author": null,
+          "authorAssociation": "NONE",
+          "body": "Reading through current HEAD of the document, I think this has been addressed. Obviously if anything else sticks out after this point in time we should be able to addresses it as needed.",
+          "createdAt": "2022-12-30T18:17:26Z",
+          "updatedAt": "2022-12-30T18:17:26Z"
+        }
+      ]
     },
     {
       "number": 7,
       "id": "I_kwDOGM-2Jc4_vjzE",
       "title": "Stronger leap second transmission requirements",
-      "url": "https://github.com/fiestajetsam/draft-gruessing-ntp-ntpv5-requirements/issues/7",
-      "state": "OPEN",
-      "author": "fiestajetsam",
-      "authorAssociation": "OWNER",
+      "url": "https://github.com/ietf-wg-ntp/draft-ietf-ntp-ntpv5-requirements/issues/7",
+      "state": "CLOSED",
+      "author": null,
+      "authorAssociation": "NONE",
       "assignees": [],
       "labels": [],
       "body": "[Doug writes](https://mailarchive.ietf.org/arch/msg/ntp/uAiuAXFQfHsfVixsFw7MjwDpqyQ/):\r\n\r\n> We could consider a stronger requirement, such as:\r\n>\r\n>The specification MUST require that servers transmit upcoming leap seconds greater than 1 calendar day in advance if that information is known by the server. If the server learns of a leap second less than 1 calendar day before a leap second event, it will start transmitting the information immediately.\r\n\r\nI agree with this and should think about including something like it (noting that I want to make protocol not specification requirements.",
       "createdAt": "2021-12-02T11:21:45Z",
-      "updatedAt": "2021-12-02T11:21:45Z",
-      "closedAt": null,
+      "updatedAt": "2022-09-25T16:46:06Z",
+      "closedAt": "2022-09-25T16:46:06Z",
       "comments": []
+    },
+    {
+      "number": 8,
+      "id": "I_kwDOGM-2Jc5E8mEj",
+      "title": "Cite references to deployment issues of older NTP versions",
+      "url": "https://github.com/ietf-wg-ntp/draft-ietf-ntp-ntpv5-requirements/issues/8",
+      "state": "CLOSED",
+      "author": null,
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "This is something [Doug mentioned](https://mailarchive.ietf.org/arch/msg/ntp/4Z7QHymZjB2iA6zPNHDgHOxsp6c/). ",
+      "createdAt": "2022-03-02T08:11:21Z",
+      "updatedAt": "2023-02-10T16:43:54Z",
+      "closedAt": "2023-02-10T16:43:53Z",
+      "comments": [
+        {
+          "author": null,
+          "authorAssociation": "NONE",
+          "body": "I'm not sure this is worth following up with; [Wikipedia ](https://en.wikipedia.org/wiki/NTP_server_misuse_and_abuse) (which I include as informative) seems to do a good job cataloguing all the various historical issues, and I see less benefit highlighting any that are more relevant to others.",
+          "createdAt": "2023-02-10T16:43:53Z",
+          "updatedAt": "2023-02-10T16:43:53Z"
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "id": "I_kwDOGM-2Jc5OHbKT",
+      "title": "Finalise data model and epoch",
+      "url": "https://github.com/ietf-wg-ntp/draft-ietf-ntp-ntpv5-requirements/issues/10",
+      "state": "CLOSED",
+      "author": null,
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "As commented in #2, there's plenty of existing implementations that use the v4 timestamp, epoch and other parts of the data model. If we deviate too hard here, there's risk of impact into interop - but on the other side, new protocol allows for being able to do better designs, and the TAI/UTC requirements already change things up a little bit.\r\n\r\nConsensus calls likely should be made on this subject within the working group.",
+      "createdAt": "2022-07-20T07:24:59Z",
+      "updatedAt": "2023-02-10T15:10:55Z",
+      "closedAt": "2023-02-10T15:10:55Z",
+      "comments": []
+    },
+    {
+      "number": 11,
+      "id": "I_kwDOGM-2Jc5OqAGn",
+      "title": "Review RFC 7384",
+      "url": "https://github.com/ietf-wg-ntp/draft-ietf-ntp-ntpv5-requirements/issues/11",
+      "state": "CLOSED",
+      "author": null,
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "What is defined [in this document](https://datatracker.ietf.org/doc/html/rfc7384) should match up with my work.",
+      "createdAt": "2022-07-27T14:15:53Z",
+      "updatedAt": "2023-02-12T22:39:28Z",
+      "closedAt": "2023-02-12T22:39:28Z",
+      "comments": []
+    },
+    {
+      "number": 14,
+      "id": "I_kwDOGM-2Jc5ZOxmf",
+      "title": "Handling modes 1,2, and 5",
+      "url": "https://github.com/ietf-wg-ntp/draft-ietf-ntp-ntpv5-requirements/issues/14",
+      "state": "CLOSED",
+      "author": null,
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "As discussed in the December interim, the document should have something to say about these existing modes and consensus sort.",
+      "createdAt": "2022-12-14T17:02:03Z",
+      "updatedAt": "2023-07-31T07:14:22Z",
+      "closedAt": "2023-07-31T07:14:22Z",
+      "comments": [
+        {
+          "author": null,
+          "authorAssociation": "NONE",
+          "body": "This is something I think needs to be a working group consensus call, given the size of impact. On the basis of that outcome will I then put in any text if required.",
+          "createdAt": "2023-02-10T17:13:00Z",
+          "updatedAt": "2023-02-10T17:13:00Z"
+        },
+        {
+          "author": null,
+          "authorAssociation": "NONE",
+          "body": "117 Update: WG Consensus is to include text saying that client/server MUST be supported, and that other modes MAY be supported - this leaving room for ongoing discussions in the protocol specification on which additional modes will be part of, or outside of the base spec.",
+          "createdAt": "2023-07-28T19:38:01Z",
+          "updatedAt": "2023-07-28T19:38:01Z"
+        }
+      ]
+    },
+    {
+      "number": 15,
+      "id": "I_kwDOGM-2Jc5hRsri",
+      "title": "Smearing",
+      "url": "https://github.com/ietf-wg-ntp/draft-ietf-ntp-ntpv5-requirements/issues/15",
+      "state": "CLOSED",
+      "author": null,
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "As I posted to the list, this is to do the possible work to update the requirements around smearing - in particular to be clear:\r\n* Wether or not smearing of timestamps is permissible\r\n* How UTC is recoverable (such as servers transmitting the smear scale, or UTC offset)",
+      "createdAt": "2023-03-20T12:40:52Z",
+      "updatedAt": "2023-07-31T07:14:30Z",
+      "closedAt": "2023-07-31T07:14:30Z",
+      "comments": [
+        {
+          "author": null,
+          "authorAssociation": "NONE",
+          "body": "117 Update: WG consensus call is to support smearing, however I'll need to have a think about how to best scope the description of this requirement to give room for the protocol specification to work out lower level details (for example, does a server announce smearing capability in addition to if the current timestamps are smeared?).",
+          "createdAt": "2023-07-28T19:36:36Z",
+          "updatedAt": "2023-07-28T19:36:36Z"
+        }
+      ]
+    },
+    {
+      "number": 16,
+      "id": "I_kwDOGM-2Jc5s_2b1",
+      "title": "Mandate timescale indication",
+      "url": "https://github.com/ietf-wg-ntp/draft-ietf-ntp-ntpv5-requirements/issues/16",
+      "state": "CLOSED",
+      "author": null,
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "Ulrich suggests:\r\n> \" all transmissions of time data SHALL indicate the timescale in use.\" Why not \"MUST\"?",
+      "createdAt": "2023-07-31T08:32:42Z",
+      "updatedAt": "2023-07-31T17:54:02Z",
+      "closedAt": "2023-07-31T17:54:02Z",
+      "comments": []
+    },
+    {
+      "number": 17,
+      "id": "I_kwDOGM-2Jc5s_5UP",
+      "title": "Loop detection rewording",
+      "url": "https://github.com/ietf-wg-ntp/draft-ietf-ntp-ntpv5-requirements/issues/17",
+      "state": "CLOSED",
+      "author": null,
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "Ulrich suggests:\r\n> Isn't it preferable to use _positive_ requirements instead of negative ones? For example: Instead of \" The protocol's loop avoidance mechanisms SHOULD NOT use identifiers tied to network topology.\" Why not \" The protocol's loop avoidance mechanisms SHOULD be able to use identifiers that change over time. \"?\r\n\r\nI'd propose rewording it to:\r\n> The protocol's loop avoidance mechanisms MUST be able to use identifiers that change over time and are not tied to network topology",
+      "createdAt": "2023-07-31T08:40:22Z",
+      "updatedAt": "2023-08-01T07:23:18Z",
+      "closedAt": "2023-08-01T07:23:18Z",
+      "comments": [
+        {
+          "author": null,
+          "authorAssociation": "NONE",
+          "body": "cc @davidv1992 as this touches your contributions and I suspect you'll have opinions about the text I've proposed in 3cd72f231b4aad3.",
+          "createdAt": "2023-07-31T18:55:24Z",
+          "updatedAt": "2023-07-31T18:55:24Z"
+        },
+        {
+          "author": "davidv1992",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I see no problems in the new wording.",
+          "createdAt": "2023-08-01T06:19:13Z",
+          "updatedAt": "2023-08-01T06:19:13Z"
+        },
+        {
+          "author": null,
+          "authorAssociation": "NONE",
+          "body": "Thanks!",
+          "createdAt": "2023-08-01T07:23:18Z",
+          "updatedAt": "2023-08-01T07:23:18Z"
+        }
+      ]
+    },
+    {
+      "number": 18,
+      "id": "I_kwDOGM-2Jc5s__bN",
+      "title": "Clarify ossification",
+      "url": "https://github.com/ietf-wg-ntp/draft-ietf-ntp-ntpv5-requirements/issues/18",
+      "state": "CLOSED",
+      "author": null,
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "Ulrich writes:\r\n> On \" ossification of the protocol\": I'm unsure everybody understands what that is intended to mean.\r\nThis should be expanded, including informative reference to [RFC 9065](https://datatracker.ietf.org/doc/html/rfc9065)",
+      "createdAt": "2023-07-31T08:55:36Z",
+      "updatedAt": "2023-09-11T20:46:44Z",
+      "closedAt": "2023-09-11T20:46:43Z",
+      "comments": []
+    },
+    {
+      "number": 19,
+      "id": "I_kwDOGM-2Jc5tAAby",
+      "title": "Smearing updates",
+      "url": "https://github.com/ietf-wg-ntp/draft-ietf-ntp-ntpv5-requirements/issues/19",
+      "state": "CLOSED",
+      "author": null,
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "Ulrich writes:\r\n\r\n> On \" Smearing of leap seconds\": Should there be some reference when \"smearing\" occurs first?\r\n>\r\n> On \" the protocol MUST support servers transmitting both\": It's not clear what \"both\" actually is.\r\n> \r\n> Also the requirement that the exact smearing algorithm MUST be specified is missing IMHO.",
+      "createdAt": "2023-07-31T08:57:09Z",
+      "updatedAt": "2023-07-31T21:12:10Z",
+      "closedAt": "2023-07-31T21:12:10Z",
+      "comments": [
+        {
+          "author": null,
+          "authorAssociation": "NONE",
+          "body": "As for a reference on smearing, sadly the best resource I can find is [Google's own documentation](https://developers.google.com/time/smear#software) which is the most complete. Having struggles finding any sort of direct research or the likes, I'll timebox some more digging for later.",
+          "createdAt": "2023-07-31T20:55:25Z",
+          "updatedAt": "2023-07-31T20:55:25Z"
+        }
+      ]
+    },
+    {
+      "number": 20,
+      "id": "I_kwDOGM-2Jc5tAHdT",
+      "title": "Service availability",
+      "url": "https://github.com/ietf-wg-ntp/draft-ietf-ntp-ntpv5-requirements/issues/20",
+      "state": "CLOSED",
+      "author": null,
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [
+        "wontfix"
+      ],
+      "body": "Ulrich writes:\r\n> On \" The protocol MUST have the capability for servers to notify clients that the service is unavailable\": I think it should be mentioned that clients deliberately ignoring such signaling SHOULD (or MUST) be handled accordingly (still to be defined or at least suggested how to).\r\n\r\nIn addition to this there should be some text describing some suggestions on how this should be dealt with.",
+      "createdAt": "2023-07-31T09:09:46Z",
+      "updatedAt": "2023-09-12T17:20:41Z",
+      "closedAt": "2023-09-12T17:20:41Z",
+      "comments": [
+        {
+          "author": null,
+          "authorAssociation": "NONE",
+          "body": "In thinking about this, I'm not sure there's any requirements we could add here to the protocol - if a source is sending a lot of incoming requests and is not (intentionally or otherwise) ignoring a KoD or something of that nature, as a host or a network operator your options are limited to implementing traffic management in firewall/routing and/or emailing noc@ on the other side. I don't see any other realistic options here. Further I don't think there's any more that could be included into a document because like in #39, this becomes more in the \"deployment considerations\" domain which I think is outside of scope of this I-D.",
+          "createdAt": "2023-09-12T17:20:41Z",
+          "updatedAt": "2023-09-12T17:20:41Z"
+        }
+      ]
+    },
+    {
+      "number": 21,
+      "id": "I_kwDOGM-2Jc5tANYp",
+      "title": "Agility is a slightly obtuse word",
+      "url": "https://github.com/ietf-wg-ntp/draft-ietf-ntp-ntpv5-requirements/issues/21",
+      "state": "CLOSED",
+      "author": null,
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "Ulrich writes:\r\n> Why not rephrase \" Cryptographic agility\" to \"Upgrading cryptographic algorithms\"?\r\n\r\n... and I agree.",
+      "createdAt": "2023-07-31T09:24:11Z",
+      "updatedAt": "2023-07-31T17:49:27Z",
+      "closedAt": "2023-07-31T17:49:27Z",
+      "comments": []
+    },
+    {
+      "number": 22,
+      "id": "I_kwDOGM-2Jc5tAPy5",
+      "title": "NTPv4's current timescale",
+      "url": "https://github.com/ietf-wg-ntp/draft-ietf-ntp-ntpv5-requirements/issues/22",
+      "state": "CLOSED",
+      "author": null,
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "Ulrich suggests:\r\n\r\n> Maybe re-phrase \" UTC and TAI [TF.460-6].\" To \" UTC (the current timescale up to NTPv4) and TAI [TF.460-6]. (a possible future timescale starzing at NTPv5)\"",
+      "createdAt": "2023-07-31T09:29:47Z",
+      "updatedAt": "2023-07-31T19:37:41Z",
+      "closedAt": "2023-07-31T19:37:40Z",
+      "comments": []
+    },
+    {
+      "number": 23,
+      "id": "I_kwDOGM-2Jc5tBNEy",
+      "title": "Multiple version matching",
+      "url": "https://github.com/ietf-wg-ntp/draft-ietf-ntp-ntpv5-requirements/issues/23",
+      "state": "CLOSED",
+      "author": null,
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "Ulrich writes:\r\n\r\n> On \" Servers that support multiple versions of NTP must send a response in the same version\": Why not MUST?",
+      "createdAt": "2023-07-31T11:59:13Z",
+      "updatedAt": "2023-07-31T17:48:17Z",
+      "closedAt": "2023-07-31T17:48:17Z",
+      "comments": []
+    },
+    {
+      "number": 24,
+      "id": "I_kwDOGM-2Jc5tBTw-",
+      "title": "Improving DDoS threat model point",
+      "url": "https://github.com/ietf-wg-ntp/draft-ietf-ntp-ntpv5-requirements/issues/24",
+      "state": "CLOSED",
+      "author": null,
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "Ulrich write:\r\n\r\n> For \" 3.1. Denial of Service and Amplification\" I'd start the section with a sentence explaining that the UDP protocol can be misused for packet injection and packet redirection, and when a response is longer than a request it can be used as traffic amplification attack as well. Thus extra security measures have to be applied to prevent such (maybe also add a reference to some RFC dealing with that subject). Just listing \"private mode\" as culprit seems a bit biased IMHO.\r\n\r\nThis could be reworded a little bit better.",
+      "createdAt": "2023-07-31T12:15:05Z",
+      "updatedAt": "2023-09-16T18:16:18Z",
+      "closedAt": "2023-09-16T18:16:18Z",
+      "comments": [
+        {
+          "author": "hart-NTP",
+          "authorAssociation": "NONE",
+          "body": "For context, ntpdremoved the ntpd mode 7 monlist code entirely in 4.2.7p26 released in April 2010.  That made it into the ntp-stable release 4.2.8 in December 2014.  The ntpsec fork was after that.  Also, in November 2011 4.2.7p230 disabled all mode 7 responses by ntpd by default, introducing a ntp.conf \"enable mode7\" override.\r\n\r\nEven with the various bundled ntpd versions shipping for some time after those changes, it's been years since private mode has been a source of amplification.  I don't think it is a good example of why NTPv5 needs to do things differently.  Other mode 6 & mode 7 interactions are mild amplilfiers, but there are juicier targets to leverage.",
+          "createdAt": "2023-07-31T14:27:12Z",
+          "updatedAt": "2023-07-31T14:27:12Z"
+        },
+        {
+          "author": null,
+          "authorAssociation": "NONE",
+          "body": "@hart-NTP Which juicier targets are you thinking of specifically?",
+          "createdAt": "2023-07-31T21:27:56Z",
+          "updatedAt": "2023-07-31T21:27:56Z"
+        },
+        {
+          "author": "hart-NTP",
+          "authorAssociation": "NONE",
+          "body": "Open DNS resolvers.  There are so many to choose from, public and private.  I'm guessing the big public resolvers have some mitigations to prevent sending too much via UDP to a single IP, but many ISPs have open resolvers as well.",
+          "createdAt": "2023-07-31T23:48:52Z",
+          "updatedAt": "2023-07-31T23:48:52Z"
+        },
+        {
+          "author": null,
+          "authorAssociation": "NONE",
+          "body": "Miroslav writes:\r\n\r\n>  NTPv4 has previously suffered from DDoS amplification attacks using a\r\n combination of IP address spoofing and private mode commands used in\r\n many NTP implementations,\r\n> \r\n> I suggest replacing \"many\" with \"some\". AFAIK only the ntp.org ntpd\r\nand its fork ntpsec have this issue.",
+          "createdAt": "2023-08-14T10:13:51Z",
+          "updatedAt": "2023-08-14T10:13:51Z"
+        }
+      ]
+    },
+    {
+      "number": 25,
+      "id": "I_kwDOGM-2Jc5tBXce",
+      "title": "Packet replay",
+      "url": "https://github.com/ietf-wg-ntp/draft-ietf-ntp-ntpv5-requirements/issues/25",
+      "state": "CLOSED",
+      "author": null,
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [
+        "question"
+      ],
+      "body": "Ulrich writes:\r\n> For \" 3.3. False Time\" ... Should packet replays be mentioned there, too?\r\n\r\nI'm not sure exactly how to cover this, some suggestive text would be welcome.",
+      "createdAt": "2023-07-31T12:23:37Z",
+      "updatedAt": "2023-09-16T16:16:11Z",
+      "closedAt": "2023-09-16T16:16:11Z",
+      "comments": []
+    },
+    {
+      "number": 26,
+      "id": "I_kwDOGM-2Jc5tBiBZ",
+      "title": "Timescales and multiple versions",
+      "url": "https://github.com/ietf-wg-ntp/draft-ietf-ntp-ntpv5-requirements/issues/26",
+      "state": "CLOSED",
+      "author": null,
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [
+        "question"
+      ],
+      "body": "Ulrich writes:\r\n> On \" to allow for implementations to more easily support both versions of the protocol.\" \"more easily than WHAT?\"\r\n\r\nI think this is referring to the section on timescales which states as of -02:\r\n> Ideally it should be similar or identical to the existing epoch and data model that NTPv4 defines to allow for implementations to more easily support both versions of the protocol.",
+      "createdAt": "2023-07-31T12:46:44Z",
+      "updatedAt": "2023-09-12T17:37:10Z",
+      "closedAt": "2023-09-12T17:37:10Z",
+      "comments": []
+    },
+    {
+      "number": 27,
+      "id": "I_kwDOGM-2Jc5tBi_Y",
+      "title": "On-path delay attacks",
+      "url": "https://github.com/ietf-wg-ntp/draft-ietf-ntp-ntpv5-requirements/issues/27",
+      "state": "CLOSED",
+      "author": null,
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "Ulrich writes:\r\n> For \" The risk that an on-path attacker can delay\" it could read \"... systematically delay\" instead, meaning that a single random delay will likely be detected and handled by the protocol.",
+      "createdAt": "2023-07-31T12:49:02Z",
+      "updatedAt": "2023-07-31T17:46:39Z",
+      "closedAt": "2023-07-31T17:46:39Z",
+      "comments": []
+    },
+    {
+      "number": 28,
+      "id": "I_kwDOGM-2Jc5tBmU2",
+      "title": "On unauthorised traffic",
+      "url": "https://github.com/ietf-wg-ntp/draft-ietf-ntp-ntpv5-requirements/issues/28",
+      "state": "CLOSED",
+      "author": null,
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "Ulrich writes:\r\n\r\n> On \" servers receiving large amounts of unauthorised traffic [ntp-misuse] and the design of NTPv5 must ensure the risk of these can be minimized.\": I think NTP cannot minimize the risk of such things (large amount of unauthorized traffic) to happen, but it can (or at least try to) _handle_ the situation properly.\r\n\r\nI don't completely agree, but if there's a better way to write this...",
+      "createdAt": "2023-07-31T12:56:23Z",
+      "updatedAt": "2023-09-16T17:31:30Z",
+      "closedAt": "2023-09-16T17:31:30Z",
+      "comments": [
+        {
+          "author": "hart-NTP",
+          "authorAssociation": "NONE",
+          "body": "I'm curious what you have in mind in saying in email \"the design of NTPv5 could minimise (but not 100% mitigate) large amounts of unauthorised traffic.\"  Ulrich likely had in mind that there's not much you can do with UDP to prevent flooding, and effective mitigation usually needs more/faster servers or upstream filtering.  Remember that some client implementations are horrible, such as querying repeatedly at high rate until they get a useful response.",
+          "createdAt": "2023-07-31T14:32:12Z",
+          "updatedAt": "2023-07-31T14:32:12Z"
+        },
+        {
+          "author": null,
+          "authorAssociation": "NONE",
+          "body": "I agree that UDP is part of the issue here (and BCP 38 was supposed to be part of the solution to fix it, but well...) however there's something to be said about how protocols operate on top of UDP. that can either be exploited by how UDP works, or exacerbate UDP's flaws. This is something that needs some further thought, I am willing to bet later reviews will also expect greater clarity over this point.",
+          "createdAt": "2023-07-31T21:25:41Z",
+          "updatedAt": "2023-07-31T21:25:41Z"
+        }
+      ]
+    },
+    {
+      "number": 29,
+      "id": "I_kwDOGM-2Jc5tBn6o",
+      "title": "Hardware timestamping and authentication",
+      "url": "https://github.com/ietf-wg-ntp/draft-ietf-ntp-ntpv5-requirements/issues/29",
+      "state": "CLOSED",
+      "author": null,
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "Ulrich writes:\r\n\r\n> For \" 3.3. False Time\" it's not obvious how \" consideration should also be made for hardware-based timestamping \" will help.\r\n\r\n> On \" Intermediate devices such as hardware capable of performing timestamping of packets SHOULD be able to add information to packets in flight without requiring modification or removal of authentication or confidentiality on the packet.\": shouldn't it be preferable to integrity-protect these, too? Here it's not clear whther such hardware will replace a timestamp in  a packet or will add some extension field to a packet. In the latter case one could also add a MAC built from the existing MAC and the new timestamp. So the receiver could check both MACs: If the additional MAC fails, it would ignore the hardware timestamp and continue checking the original MAC...\r\n\r\nThe way I thought I set the wording was that timestamps not from middleboxes must have authentication, and hardware NICs/middleboxes/etc that rewrite or append timestamps should. This should be clarified.",
+      "createdAt": "2023-07-31T13:00:06Z",
+      "updatedAt": "2023-09-16T17:09:51Z",
+      "closedAt": "2023-09-16T17:09:51Z",
+      "comments": []
+    },
+    {
+      "number": 30,
+      "id": "I_kwDOGM-2Jc5tBpeA",
+      "title": "Modes normative text",
+      "url": "https://github.com/ietf-wg-ntp/draft-ietf-ntp-ntpv5-requirements/issues/30",
+      "state": "CLOSED",
+      "author": null,
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "Ulrich writes:\r\n\r\n> On \" MAY be supported and SHOULD NOT be required\": it's redundant (both says the same).",
+      "createdAt": "2023-07-31T13:03:24Z",
+      "updatedAt": "2023-07-31T17:45:44Z",
+      "closedAt": "2023-07-31T17:45:44Z",
+      "comments": []
+    },
+    {
+      "number": 31,
+      "id": "I_kwDOGM-2Jc5tBqp6",
+      "title": "Remote monitoring requirements",
+      "url": "https://github.com/ietf-wg-ntp/draft-ietf-ntp-ntpv5-requirements/issues/31",
+      "state": "CLOSED",
+      "author": null,
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [
+        "question"
+      ],
+      "body": "Ulrich writes:\r\n\r\n> On \" 4. Requirements\": Is (remote) \"monitoring\" definitely no longer a requirement?\r\n\r\nI don't believe this ever was, and I can't find reference to it in any previous version of the document - have I missed something here? Regardless, perhaps this should be explicitly stated.",
+      "createdAt": "2023-07-31T13:06:25Z",
+      "updatedAt": "2023-09-12T17:50:46Z",
+      "closedAt": "2023-09-12T17:50:46Z",
+      "comments": []
+    },
+    {
+      "number": 32,
+      "id": "I_kwDOGM-2Jc5tBsKT",
+      "title": "Signalling of algorithm use",
+      "url": "https://github.com/ietf-wg-ntp/draft-ietf-ntp-ntpv5-requirements/issues/32",
+      "state": "CLOSED",
+      "author": null,
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "Ulrich writes:\r\n\r\n> On \" Signalling of algorithm use or preference SHOULD NOT be transmitted by servers.\" I'd add that the algorithm does not have to be specified (enumerated), but the essential properties of the algorithm MUST (or SHOULD) be obvious (like precision, etc.). ",
+      "createdAt": "2023-07-31T13:10:00Z",
+      "updatedAt": "2023-09-11T19:42:31Z",
+      "closedAt": "2023-09-11T19:42:31Z",
+      "comments": []
+    },
+    {
+      "number": 33,
+      "id": "I_kwDOGM-2Jc5tBs2I",
+      "title": "Data minimisation",
+      "url": "https://github.com/ietf-wg-ntp/draft-ietf-ntp-ntpv5-requirements/issues/33",
+      "state": "CLOSED",
+      "author": null,
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "Ulrich suggests:\r\n\r\n> I would re-phrase (too much in one sentence IMHO): \" To minimise ongoing use of deprecated fields and exposing identifying information of implementations and deployments payload formats SHOULD use the least amount of fields and information where possible, favouring the use of extensions to transmit optional data.\"",
+      "createdAt": "2023-07-31T13:11:37Z",
+      "updatedAt": "2023-07-31T18:00:44Z",
+      "closedAt": "2023-07-31T18:00:44Z",
+      "comments": []
+    },
+    {
+      "number": 34,
+      "id": "I_kwDOGM-2Jc5tBuwj",
+      "title": "Unknown extenion handling",
+      "url": "https://github.com/ietf-wg-ntp/draft-ietf-ntp-ntpv5-requirements/issues/34",
+      "state": "CLOSED",
+      "author": null,
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "Ulrich writes:\r\n\r\n> On \" Unknown extensions received by a server from a lower stratum server SHALL not be added to response messages sent by the server receiving these extensions.\": Isn't the part \" sent by the server receiving these extensions \" completely redundant?: A \"response\" is specific to a request, isn't it?",
+      "createdAt": "2023-07-31T13:16:04Z",
+      "updatedAt": "2023-09-11T19:54:25Z",
+      "closedAt": "2023-09-11T19:54:25Z",
+      "comments": []
+    },
+    {
+      "number": 35,
+      "id": "I_kwDOGM-2Jc5tBwVj",
+      "title": "Data authentication, integrity...",
+      "url": "https://github.com/ietf-wg-ntp/draft-ietf-ntp-ntpv5-requirements/issues/35",
+      "state": "CLOSED",
+      "author": null,
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "Ulrich writes:\r\n\r\n> On \" Data authentication and optional data confidentiality MUST be integrated into the protocol\": Isn't that missing the most important \"integrity\"?\r\n\r\nCryptographic authentication comes with the side benefit of integrity guarantee; however maybe this could be phrased differently?",
+      "createdAt": "2023-07-31T13:19:23Z",
+      "updatedAt": "2023-07-31T18:07:30Z",
+      "closedAt": "2023-07-31T18:07:30Z",
+      "comments": []
+    },
+    {
+      "number": 36,
+      "id": "I_kwDOGM-2Jc5tByWu",
+      "title": "On Dependencies...",
+      "url": "https://github.com/ietf-wg-ntp/draft-ietf-ntp-ntpv5-requirements/issues/36",
+      "state": "CLOSED",
+      "author": null,
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "> On \" Many other documents make use of NTP's data formats ([RFC5905] Section 6) for representing time, notably for media and packet timestamp measurements.\": It's not clear what those \"other\" (non-NTP?) documents are, and how they would be affected when the NTP timestamp format would change.\r\n\r\nI talked about this at IETF 112, maybe referring to some of these specs is an idea? I would say YANG, DHCP are out, however the realtime media and benchmarking may be appropriate.",
+      "createdAt": "2023-07-31T13:24:02Z",
+      "updatedAt": "2023-09-13T10:39:54Z",
+      "closedAt": "2023-09-13T10:39:54Z",
+      "comments": [
+        {
+          "author": null,
+          "authorAssociation": "NONE",
+          "body": "Slightly connected to #26 as well, as changing the timescales, epoch etc have a knock-on effect...",
+          "createdAt": "2023-07-31T13:25:17Z",
+          "updatedAt": "2023-07-31T13:25:17Z"
+        }
+      ]
+    },
+    {
+      "number": 37,
+      "id": "I_kwDOGM-2Jc5tB1fh",
+      "title": "Time services versus network service providers",
+      "url": "https://github.com/ietf-wg-ntp/draft-ietf-ntp-ntpv5-requirements/issues/37",
+      "state": "CLOSED",
+      "author": null,
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "Ulrich writes:\r\n\r\n> Think this section is rather confusing: \" Clients SHOULD periodically re-establish connections with servers to prevent attempting to maintain connectivity to a dead host and give network operators the ability to move traffic away from hosts in a timely manner\": What is the relationship between clients querying servers and network operators moving traffic?\r\n\r\nI kinda agree, this should separate network providers from time sync providers even though they can be one and the same....",
+      "createdAt": "2023-07-31T13:29:11Z",
+      "updatedAt": "2023-07-31T17:45:59Z",
+      "closedAt": "2023-07-31T17:45:59Z",
+      "comments": [
+        {
+          "author": "hart-NTP",
+          "authorAssociation": "NONE",
+          "body": "It's not terribly common, unfortunately, for ISPs in the US to provide time service to their clients.  In my experience most folks are using pool.ntp.org, time.apple.com, time.google.com, NIST/USNO, etc.  Most ISPs focus on things that bring in revenue.  Sure, they likely use NTP themselves, and could easily provide the service to clients, but I've never run across it.  Which ISP wants to field customer support tickets about clients having trouble finding the time?",
+          "createdAt": "2023-07-31T14:36:25Z",
+          "updatedAt": "2023-07-31T14:36:25Z"
+        }
+      ]
+    },
+    {
+      "number": 38,
+      "id": "I_kwDOGM-2Jc5tB2Ih",
+      "title": "Leap Second notification requirements",
+      "url": "https://github.com/ietf-wg-ntp/draft-ietf-ntp-ntpv5-requirements/issues/38",
+      "state": "CLOSED",
+      "author": null,
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [
+        "question"
+      ],
+      "body": "Ulrich writes:\r\n\r\n> Why use \" greater than 1 calendar day\" and not \"greater than 24 hours in linear timescale\"?",
+      "createdAt": "2023-07-31T13:30:39Z",
+      "updatedAt": "2023-09-12T17:24:47Z",
+      "closedAt": "2023-09-12T17:24:47Z",
+      "comments": []
+    },
+    {
+      "number": 39,
+      "id": "I_kwDOGM-2Jc5tB293",
+      "title": "\"Bootstrap\" protocol",
+      "url": "https://github.com/ietf-wg-ntp/draft-ietf-ntp-ntpv5-requirements/issues/39",
+      "state": "CLOSED",
+      "author": null,
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [
+        "question",
+        "wontfix"
+      ],
+      "body": "Ulrich writes:\r\n> Should some kind of \"boot protocol\" be part of the specification? Meaning: If the client has no idea what the current time is, how can the \"chicken-egg paradoxon\" be solved (time required to check authentication, authentic responses needed to trust the time sent). I think in times of \"IoT\" this might be an important aspect (in the past \"servers\" had a battery backed up clock, or a trusted operator that sets/verifies/checks the clock on boot).\r\n\r\nI disagree, thinking this should be left out of protocol spec but should be BCP'd as different deployments and implementations will have different requirements.",
+      "createdAt": "2023-07-31T13:32:08Z",
+      "updatedAt": "2023-09-12T17:16:23Z",
+      "closedAt": "2023-09-12T17:16:23Z",
+      "comments": [
+        {
+          "author": null,
+          "authorAssociation": "NONE",
+          "body": "I'm not convinced this should be part of the document - deployment considerations, use of other backup sources of time or other protocols is by in large out of scope.",
+          "createdAt": "2023-09-12T17:09:26Z",
+          "updatedAt": "2023-09-12T17:09:26Z"
+        }
+      ]
+    },
+    {
+      "number": 40,
+      "id": "I_kwDOGM-2Jc5tB3rE",
+      "title": "On referencing PTP",
+      "url": "https://github.com/ietf-wg-ntp/draft-ietf-ntp-ntpv5-requirements/issues/40",
+      "state": "CLOSED",
+      "author": null,
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [
+        "question"
+      ],
+      "body": "Ulrich writes:\r\n\r\n> I find the part \" particularly where the network is unable to offer or does not require PTP [IEEE-1588-2019], \" rather confusing: What is the relation to NTP there?\r\nLikewise for \" such as customer-premises equipment where reduced accuracy may be tolerable\": It may be, or not. I think  this is just speculation.\r\n\r\nI don't see it as an issue, however there may be better ways of writing it.",
+      "createdAt": "2023-07-31T13:33:29Z",
+      "updatedAt": "2023-09-12T17:15:35Z",
+      "closedAt": "2023-09-12T17:15:35Z",
+      "comments": []
+    },
+    {
+      "number": 41,
+      "id": "I_kwDOGM-2Jc5uPvPF",
+      "title": "Rephrasing of mode support",
+      "url": "https://github.com/ietf-wg-ntp/draft-ietf-ntp-ntpv5-requirements/issues/41",
+      "state": "CLOSED",
+      "author": null,
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "Miroslav writes:\r\n\r\n> > From 4.1:\r\n> >   Client and server protocol modes MUST be supported, and other modes\r\n> >   such as symmetric and broadcast MAY be supported and SHOULD NOT be\r\n> >   required by implementors to implement.  Considerations should be\r\n> >   made in these modes to avoid implementations and deployments from\r\n> >   vulnerabilities and attacks.\r\n>\r\n> So we are postponing the decision on which modes to support to the\r\nprotocol specification? I was hoping the requirements draft would\r\nprovide more guidance than \"MAY\".\r\n> \r\n> I think I suggested this before. Instead of naming modes, why not\r\nsimply say: \"NTPv5 MUST be resilient to off-path and replay attacks\"?\r\nI think that is a reasonable requirement for any internet protocol\r\nthat nobody should have any objections to it.\r\n>\r\n> The people who think symmetric and/or broadcast need to be\r\nsupported will be forced to find a fix, or if they cannot do that at\r\nleast understand it well enough to realize why they shouldn't be\r\nsupported.",
+      "createdAt": "2023-08-14T11:46:03Z",
+      "updatedAt": "2023-09-16T18:55:43Z",
+      "closedAt": "2023-09-16T18:55:42Z",
+      "comments": [
+        {
+          "author": null,
+          "authorAssociation": "NONE",
+          "body": "The text as it stands is my understanding based on the suggestions made in summary on list and what was [presented at IETF 117](https://youtu.be/AB_YpWjo_EY?t=1408).\r\n\r\nGiven the background of this subject I'm hesitant now to be making any further changes to this text particularly as it's had to go through a consensus call to get there. I also don't think this text should cause any issues in future - particularly when it already contains the requirement to mandate authentication, and I've added another statement that extends it to \r\nextensions and additional modes too.",
+          "createdAt": "2023-09-16T18:55:42Z",
+          "updatedAt": "2023-09-16T18:55:42Z"
+        }
+      ]
+    },
+    {
+      "number": 44,
+      "id": "I_kwDOGM-2Jc65z1Zv",
+      "title": "Comparison to NTPv5 spec version 04",
+      "url": "https://github.com/ietf-wg-ntp/draft-ietf-ntp-ntpv5-requirements/issues/44",
+      "state": "OPEN",
+      "author": "talmi",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "**NTPv5 Requirement document 04 vs. NTPv5 spec 04**\n\n\n**Requirements that are met by NTPv5 spec**\n1. ntpv5-requirements: Section 3 - Security primitives such as authentication and encryption.\n   ntpv5 spec: MAC extension field (Sec 5.3), NTS (Sec 9).\n2. ntpv5-requirements: Section 3.1 - DoS/DDoS mitigation - reduce amplification by equal request/response, restrict command and diagnostic modes that could be exploited.\n   ntpv5 spec: request and response are equal in size (Sec 5), only client-server mode is supported (Sec 1).\n3. ntpv5-requirements: Section 3.2 - path diversity,  synchronisation across multiple heterogeneous sources.\n   ntpv5 spec: multi-source and multi-path are described in the security considerations (Sec 13), but generally the selection/combining is out of scope of the spec.\n4. ntpv5-requirements: Section 3.3 - message authentication with key rotation.\n   ntpv5 spec: NTS (Sec 9).\n5. ntpv5-requirements: Section 4.1 - loop avoidance using identifiers.\n   ntpv5 spec: reference ID extension fields (Sec 5.4).\n6. ntpv5-requirements: Section 4.1 - The protocol MUST have the capability for servers to notify clients that the service is unavailable and clients MUST have clearly defined behaviours for honouring this signalling. In addition servers SHOULD be able to communicate to clients that they should reduce their query rate when the server is under high load or has reduced capacity.\n   ntpv5 spec: \"Synchronized\" flag (Sec 4) indicates whether server is able to provide time. \"Poll\" field (Sec 4) indicates if the server wants the client to reduce the polling interval or to stop sending requests.\n7. ntpv5-requirements: Section 4.1 - Client/server mode is a MUST. Other modes optional.\n   ntpv5 spec: only client-server mode is supported (Sec 1).\n8. ntpv5-requirements: Section 4.2 - data minimization.\n   ntpv5 spec: throughout the document, specifically Sec 4, e.g., client's timestamp which is not included.\n9. ntpv5-requirements: Section 4.3 - algorithm flexibility, precision indication.\n   ntpv5 spec: algorithm is out of scope, \"Precision\" field is used by server (Sec 4).\n10. ntpv5-requirements: Section 4.4 - timescale requirements.\n    ntpv5 spec: four timescales are supported and the timescale is indicated in the header (Sec 4).\n11. ntpv5-requirements: Section 4.5 - leap second requirements.\n    ntpv5 spec: Leap Indication flag is used in the header (Sec 4), and the leap-smeared UTC timescale is supported (Sec 4).\n12. ntpv5-requirements: Section 4.6 - backwards compatibility.\n    ntpv5 spec: servers that support multiple versions respond with the version they received (Sec 1), version negotiation (Sec 10) is supported to prevent issues with existing implementations that respond incorrectly to version 5.\n13. ntpv5-requirements: Section 4.6.1 - dependent specifications that rely on the timestamp format.\n    ntpv5 spec: timestamp format (Sec 3) is the same as NTPv4, except the support of multiple timescales.\n14. ntpv5-requirements: Section 4.7 - extensibility.\n    ntpv5 spec: extension fields are supported (Sec 5). Unknown extensions are ignored.\n15. ntpv5-requirements: Section 4.8 - The protocol MUST define at least one common mechanism to ensure interoperability, but should also include support for different mechanisms to support different deployment use cases. \n    ntpv5 spec: MAC extension field (Sec 5.3), NTS (Sec 9).\n16. ntpv5-requirements: Section 4.8 - Extensions and additional modes SHOULD also incorporate authentication and integrity on data which could be manipulated by an attacker, on-path or off-path. \n    ntpv5 spec: extensions are also authenticated, except for correction extension (Sec 5).\n17. ntpv5-requirements: Section 4.8 - Intermediate devices such as networking equipment capable of modifying NTP packets, for example to adjust timestamps MUST be able to do so without compromising authentication or confidentiality. \n    ntpv5 spec: extensions are authenticated, except for correction extension (Sec 5).\n\n\n**Requirements that need some discussion**\n1. ntpv5-requirements: Section 4.1 - use of signalling unwanted traffic (e.g Kiss of Death) or easily identifiable packet formats which make rate-limiting, filtering, or blocking by firewalls possible.\n   ntpv5 spec: Poll field (Sec 4) - value 127 indicates the server does not want to hear from the client again. Needs further explanation in the spec. Does this address the requirement? - TBD.\n2. ntpv5-requirements: Section 4.1 - An additional identifier mechanism MAY be considered for the purposes of client allow/deny lists, logging and monitoring. Such a mechanism when included, SHOULD be independent of any loop avoidance mechanism, and authenticity requirements SHOULD be considered.\n   ntpv5 spec: no specific section. TBD.\n3. ntpv5-requirements: Section 4.1 - Clients SHOULD periodically re-establish connections with servers to prevent maintaining prolonged connectivity to unavailable hosts and give operators the ability to move traffic away from hosts in a timely manner.\n   ntpv5 spec: no specific section. TBD.\n4. ntpv5-requirements: Section 4.1 - The protocol SHOULD have provisions for deployments where Network Address Translation occurs and define behaviours when NAT rebinding occurs. This should also not compromise any DDoS mitigation(s) that the protocol may define.\n   ntpv5 spec: no specific section. TBD.\n5. ntpv5-requirements: Section 4.8 - Downgrading attacks that could lead to an adversary disabling or removing encryption or authentication MUST NOT be possible in the design of the protocol. \n   ntpv5 spec: TBD - it seems like a policy, rather than a protocol issue.\n ",
+      "createdAt": "2025-06-04T10:46:44Z",
+      "updatedAt": "2025-07-02T14:28:47Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "mlichvar",
+          "authorAssociation": "NONE",
+          "body": "Thanks for the analysis.\n\nFor the discuss points:\n\n1. Are you suggesting we should describe what exactly the client must do when it receives a poll of 127? I think there were some attempts before, but not very successful (e.g. RFC5905).\n2. Some context for that requirement is here: https://mailarchive.ietf.org/arch/msg/ntp/Kp8Y7M0OpONRmCYtHTrvn59BiZA/ . I suspect this might conflict with the data minimization requirements.\n3. We can add that suggestion, maybe together with some recommended polling intervals in a new section discussing general use of public servers?\n4. The protocol works with clients behind NAT. The server is mostly stateless (the exception is the interleaved mode but that is designed to ignore or recover from changes in the client's IP address), so I'd say this requirement is already met.\n5. I'd say the protocol design doesn't enable downgrade attacks by not having negotiation of the use of the MAC or NTS. It's set by the configuration.",
+          "createdAt": "2025-06-09T12:48:00Z",
+          "updatedAt": "2025-06-09T12:48:00Z"
+        },
+        {
+          "author": "talmi",
+          "authorAssociation": "NONE",
+          "body": "In response to your comments:\n1. In my opinion it would make sense to add text that clarifies that a poll value of 127 is a bit similar to kiss of death. I believe that would be enough.\n2. I agree.\n3. I am not sure this requirement is needed in the NTPv5 spec. The word \"connection\" is not used in the spec. If we put aside security associations, NTPv5 does not really use a \"connection\".\n4. I agree.\n5. Maybe we should add some text in the security considerations that explains this.",
+          "createdAt": "2025-06-10T05:27:59Z",
+          "updatedAt": "2025-06-10T05:27:59Z"
+        },
+        {
+          "author": "mlichvar",
+          "authorAssociation": "NONE",
+          "body": "The poll of 127 is now clarified in the document to be similar to the NTPv4 KoD DENY code. Let me know if you think more text is needed.",
+          "createdAt": "2025-06-16T14:01:51Z",
+          "updatedAt": "2025-06-16T14:01:51Z"
+        },
+        {
+          "author": "talmi",
+          "authorAssociation": "NONE",
+          "body": "Looks good. I would suggest s/KoD/Kiss-o'-Death (KoD)/.",
+          "createdAt": "2025-06-17T05:14:43Z",
+          "updatedAt": "2025-06-17T05:14:43Z"
+        },
+        {
+          "author": "mlichvar",
+          "authorAssociation": "NONE",
+          "body": "The latest text now spells it out. Thanks for the suggestion.",
+          "createdAt": "2025-07-02T14:28:47Z",
+          "updatedAt": "2025-07-02T14:28:47Z"
+        }
+      ]
     }
   ],
-  "pulls": []
+  "pulls": [
+    {
+      "number": 9,
+      "id": "PR_kwDOGM-2Jc42eFVR",
+      "title": "Revised spelling, grammar, punctuation",
+      "url": "https://github.com/ietf-wg-ntp/draft-ietf-ntp-ntpv5-requirements/pull/9",
+      "state": "MERGED",
+      "author": "paulgear",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Hi James, here are my suggested edits after reading the document through fully.\r\n\r\nI've tried to improve consistency, and reduce wordiness to make the document a little more accessible for non-native English speakers.  I've also tried to make sure BCP 14 keywords are more consistently used.  I'm happy to explain each wording choice in the PR discussion if you like, but I hope most of the edits are self-evidently better.\r\n\r\nThere are some technical items in the draft which I think need changing, but I'll address them as separate PRs or discussion on the mailing list.",
+      "createdAt": "2022-04-20T07:01:38Z",
+      "updatedAt": "2022-05-02T16:37:36Z",
+      "baseRepository": "ietf-wg-ntp/draft-ietf-ntp-ntpv5-requirements",
+      "baseRefName": "main",
+      "baseRefOid": "4008b1e097be2fc8a64fc5ce4ecf9bd8b2c9d9cb",
+      "headRepository": "paulgear/draft-gruessing-ntp-ntpv5-requirements",
+      "headRefName": "main",
+      "headRefOid": "c0462f7b7b8817418f575a1f00ea833f0e8667d4",
+      "closedAt": "2022-05-02T16:37:36Z",
+      "mergedAt": "2022-05-02T16:37:35Z",
+      "mergedBy": null,
+      "mergeCommit": {
+        "oid": "b21024fde093d6ebac7b5a8a3b7dd96e32691ce7"
+      },
+      "comments": [
+        {
+          "author": null,
+          "authorAssociation": "NONE",
+          "body": "Thanks for the PR but would it be possible to separate the nits from those where normative requirements are changed? As it is an individual draft and still awaiting WG call for adoption I have been **very** deliberate in choosing where normative language is used or not used - these are not inconsistencies but subtleties.",
+          "createdAt": "2022-04-28T10:31:29Z",
+          "updatedAt": "2022-04-28T10:31:29Z"
+        },
+        {
+          "author": "paulgear",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Sure - I'll have another shot over this weekend.",
+          "createdAt": "2022-04-28T11:37:12Z",
+          "updatedAt": "2022-04-28T11:37:12Z"
+        },
+        {
+          "author": "paulgear",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Hi James, I've updated this now.  My check over the line-by-line diff and the GitHub word-by-word diff indicate no changes to BCP 14 language now.  Hope you like the rest of the updates.",
+          "createdAt": "2022-04-29T00:50:57Z",
+          "updatedAt": "2022-04-29T00:50:57Z"
+        },
+        {
+          "author": null,
+          "authorAssociation": "NONE",
+          "body": "Upon mulling on this over the weekend, that one niggle above I'll deal with later, thanks for clearing up the nits!",
+          "createdAt": "2022-05-02T16:37:28Z",
+          "updatedAt": "2022-05-02T16:37:28Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOGM-2Jc45ECss",
+          "commit": {
+            "abbreviatedOid": "c0462f7"
+          },
+          "author": null,
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2022-04-29T07:38:08Z",
+          "updatedAt": "2022-04-29T07:38:08Z",
+          "comments": [
+            {
+              "originalPosition": 126,
+              "body": "I'm not sure the inclusion of a colon here improves readability. This could be rewritten to remove the whole \"The model for backward compat...\", maybe something like:\r\n\r\n```suggestion\r\nServers that support multiple versions of NTP must respond in the same version as the request it received. This does not preclude servers using different NTP versions when acting as a client to lower stratum servers. \r\n```\r\n<sub>(and later I'll think if normalising that \"must\" is needed)</sub>",
+              "createdAt": "2022-04-29T07:38:08Z",
+              "updatedAt": "2022-04-29T07:38:08Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "id": "PR_kwDOGM-2Jc49hJVB",
+      "title": "Reworded requirements language around identifiers.",
+      "url": "https://github.com/ietf-wg-ntp/draft-ietf-ntp-ntpv5-requirements/pull/12",
+      "state": "MERGED",
+      "author": "davidv1992",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "The requirements now reflect the two use cases (loop avoidance and traffic management/monitoring) of identifiers and are formulated to be more goal-oriented around those use cases.",
+      "createdAt": "2022-08-21T18:11:46Z",
+      "updatedAt": "2022-09-29T13:13:20Z",
+      "baseRepository": "ietf-wg-ntp/draft-ietf-ntp-ntpv5-requirements",
+      "baseRefName": "main",
+      "baseRefOid": "bb803f7d8f8ad5127a33c6da7de61c810f5412d9",
+      "headRepository": "davidv1992/draft-gruessing-ntp-ntpv5-requirements",
+      "headRefName": "patch-1",
+      "headRefOid": "d63e7b2e5465bb623fe795c47f38e9eab8ea7f00",
+      "closedAt": "2022-09-25T13:57:56Z",
+      "mergedAt": "2022-09-25T13:57:56Z",
+      "mergedBy": null,
+      "mergeCommit": {
+        "oid": "8983887aa00f12f2a251efaafc8cafba2fd2d88a"
+      },
+      "comments": [
+        {
+          "author": null,
+          "authorAssociation": "NONE",
+          "body": "Thanks for this contribution, and apologies for the delay in merging. I am starting to consider that SHOULD NOT is not robust enough but for now perhaps it is sufficient.",
+          "createdAt": "2022-09-25T13:58:00Z",
+          "updatedAt": "2022-09-25T13:58:00Z"
+        },
+        {
+          "author": "davidv1992",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I think it is good to at least leave some room to change our minds should the process of making the actual spec reveal a reason to do so, however I tend to agree that that seems very unlikely here.",
+          "createdAt": "2022-09-29T13:13:20Z",
+          "updatedAt": "2022-09-29T13:13:20Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 13,
+      "id": "PR_kwDOGM-2Jc49hJsm",
+      "title": "Add requirement on document clarity",
+      "url": "https://github.com/ietf-wg-ntp/draft-ietf-ntp-ntpv5-requirements/pull/13",
+      "state": "CLOSED",
+      "author": "davidv1992",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This suggestion is in response to some (in my view) issues regarding clarity of what is required by the NTPv4 specification, and what is merely implementation suggestions and hints.",
+      "createdAt": "2022-08-21T18:19:21Z",
+      "updatedAt": "2022-10-18T09:53:52Z",
+      "baseRepository": "ietf-wg-ntp/draft-ietf-ntp-ntpv5-requirements",
+      "baseRefName": "main",
+      "baseRefOid": "bb803f7d8f8ad5127a33c6da7de61c810f5412d9",
+      "headRepository": "davidv1992/draft-gruessing-ntp-ntpv5-requirements",
+      "headRefName": "patch-2",
+      "headRefOid": "09ec70fe67c98df2d3708d6c51c22d1257d724fb",
+      "closedAt": "2022-10-18T09:53:52Z",
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": null,
+          "authorAssociation": "NONE",
+          "body": "Thanks for this contribution, however with regards to the first sentence - this is likely redundant, and I've been trying to steer away from a specification of the specification. As for the point about code being non-normative, I agree however the core specification I don't believe should have any as anything complex that would warrant it such as algorithms should be placed in separate documents.\r\n\r\nThoughts?",
+          "createdAt": "2022-09-25T14:59:28Z",
+          "updatedAt": "2022-09-25T14:59:28Z"
+        },
+        {
+          "author": "davidv1992",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Apologies for the late reply. I would like to think it is redundant, however the results of the ntpv4 standardisation effort leave a lot te be desired as an implementer on specifically that point, hence the suggestion. I can see your point though of steering away from this sort of constraints.",
+          "createdAt": "2022-09-29T13:15:47Z",
+          "updatedAt": "2022-09-29T13:15:47Z"
+        },
+        {
+          "author": null,
+          "authorAssociation": "NONE",
+          "body": "If anything I should apologise, after I fix my github notification settings...\r\n\r\nThe solution to preventing ambiguity over normative and non-normative text is not mandating it via the requirements draft, which is difficult to quantify as the measure has a degree of subjectivity, but that people like yourself review and feedback - and if they aren't addressed by the authors to make it audible on the list to get consensus calls made.",
+          "createdAt": "2022-10-14T22:10:10Z",
+          "updatedAt": "2022-10-14T22:10:10Z"
+        },
+        {
+          "author": "davidv1992",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Ok, I'll definitely do that.",
+          "createdAt": "2022-10-18T09:53:51Z",
+          "updatedAt": "2022-10-18T09:53:51Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 42,
+      "id": "PR_kwDOGM-2Jc5joh6w",
+      "title": "Tidy wording and punctuation",
+      "url": "https://github.com/ietf-wg-ntp/draft-ietf-ntp-ntpv5-requirements/pull/42",
+      "state": "MERGED",
+      "author": "paulgear",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Hi James,\r\n\r\nHere are my latest suggestions on the document.  None of them are show-stoppers - feel free to use or not use any of them as you see fit, although I think most of the changes will commend themselves as obvious.  There's one place where I've changed \"will\" to \"MUST\" because I don't think it makes sense to do otherwise, but there are several other lower-case \"should\"s and \"must\"s which I think would warrant another look as well.\r\n\r\nRegards,\r\nPaul",
+      "createdAt": "2024-01-10T00:55:10Z",
+      "updatedAt": "2024-01-10T10:06:14Z",
+      "baseRepository": "ietf-wg-ntp/draft-ietf-ntp-ntpv5-requirements",
+      "baseRefName": "main",
+      "baseRefOid": "9c186d2a71c86cc9891f435101a4aaf8b052f05e",
+      "headRepository": "paulgear/draft-gruessing-ntp-ntpv5-requirements",
+      "headRefName": "main",
+      "headRefOid": "b4f31b98d24726927f152f455616b782ea43b579",
+      "closedAt": "2024-01-10T10:06:13Z",
+      "mergedAt": "2024-01-10T10:06:13Z",
+      "mergedBy": null,
+      "mergeCommit": {
+        "oid": "e6942f519672a2387b791952cc0f003b960f71e6"
+      },
+      "comments": [
+        {
+          "author": null,
+          "authorAssociation": "NONE",
+          "body": "Thanks!",
+          "createdAt": "2024-01-10T10:06:09Z",
+          "updatedAt": "2024-01-10T10:06:09Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 43,
+      "id": "PR_kwDOGM-2Jc5p4vta",
+      "title": "Update wording to address some feedback",
+      "url": "https://github.com/ietf-wg-ntp/draft-ietf-ntp-ntpv5-requirements/pull/43",
+      "state": "MERGED",
+      "author": "paulgear",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "From: \"Windl, Ulrich\" <u.windl@ukr.de>\r\nDate: Tue, 27 Feb 2024 07:43:55 +0000\r\nSubject: Re: [Ntp] [EXT] I-D Action: draft-ietf-ntp-ntpv5-requirements-04.txt\r\nMessage-ID: <bc89de0cdeb5486da5a762cf59afd914@ukr.de>",
+      "createdAt": "2024-03-18T04:01:00Z",
+      "updatedAt": "2024-03-18T09:54:02Z",
+      "baseRepository": "ietf-wg-ntp/draft-ietf-ntp-ntpv5-requirements",
+      "baseRefName": "main",
+      "baseRefOid": "4243cd5aba3cb76b69d9e47bfbba2e20c39adc57",
+      "headRepository": "paulgear/draft-gruessing-ntp-ntpv5-requirements",
+      "headRefName": "incorporate-ulrich-windl-feedback",
+      "headRefOid": "ac422e43790ea99fa7ee8972a5618636692de74c",
+      "closedAt": "2024-03-18T09:54:02Z",
+      "mergedAt": "2024-03-18T09:54:02Z",
+      "mergedBy": null,
+      "mergeCommit": {
+        "oid": "e8be1fa04ec82d2325277f1ae782ea1ce4ae74e1"
+      },
+      "comments": [],
+      "reviews": []
+    }
+  ]
 }
